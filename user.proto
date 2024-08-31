@@ -5,21 +5,22 @@ package user;
 option go_package ="./pb";
 
 service UserService {
-    rpc CreateUser (CreateUserRequest) returns (UserResponse);
-    rpc GetUser (GetUserRequest) returns (UserResponse);
+    rpc Signup (SignupReq) returns (SignupRes);
 }
 
-message CreateUserRequest {
-    string name = 1;
-    string email = 2;
-}
-
-message GetUserRequest {
-    string user_id = 1;
-}
-
-message UserResponse {
-    string user_id = 1;
-    string name = 2;
+message SignupReq {
+    string firstname = 1;
+    string lastname = 2;
     string email = 3;
+    string password =4;
+    string country =5 ;
+    string phone = 6;
+    string role =7;
+}
+
+message SignupRes {
+    string firstname = 1;
+    string lastname = 2;
+    string email = 3;
+    string phone = 6;
 }
