@@ -19,14 +19,14 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	UserService_Signup_FullMethodName = "/user.UserService/Signup"
+	UserService_UserSignup_FullMethodName = "/user.UserService/UserSignup"
 )
 
 // UserServiceClient is the client API for UserService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type UserServiceClient interface {
-	Signup(ctx context.Context, in *SignupReq, opts ...grpc.CallOption) (*SignupRes, error)
+	UserSignup(ctx context.Context, in *SignupReq, opts ...grpc.CallOption) (*SignupRes, error)
 }
 
 type userServiceClient struct {
@@ -37,10 +37,10 @@ func NewUserServiceClient(cc grpc.ClientConnInterface) UserServiceClient {
 	return &userServiceClient{cc}
 }
 
-func (c *userServiceClient) Signup(ctx context.Context, in *SignupReq, opts ...grpc.CallOption) (*SignupRes, error) {
+func (c *userServiceClient) UserSignup(ctx context.Context, in *SignupReq, opts ...grpc.CallOption) (*SignupRes, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(SignupRes)
-	err := c.cc.Invoke(ctx, UserService_Signup_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, UserService_UserSignup_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -51,7 +51,7 @@ func (c *userServiceClient) Signup(ctx context.Context, in *SignupReq, opts ...g
 // All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility.
 type UserServiceServer interface {
-	Signup(context.Context, *SignupReq) (*SignupRes, error)
+	UserSignup(context.Context, *SignupReq) (*SignupRes, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -62,8 +62,8 @@ type UserServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedUserServiceServer struct{}
 
-func (UnimplementedUserServiceServer) Signup(context.Context, *SignupReq) (*SignupRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method Signup not implemented")
+func (UnimplementedUserServiceServer) UserSignup(context.Context, *SignupReq) (*SignupRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UserSignup not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
 func (UnimplementedUserServiceServer) testEmbeddedByValue()                     {}
@@ -86,20 +86,20 @@ func RegisterUserServiceServer(s grpc.ServiceRegistrar, srv UserServiceServer) {
 	s.RegisterService(&UserService_ServiceDesc, srv)
 }
 
-func _UserService_Signup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _UserService_UserSignup_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SignupReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UserServiceServer).Signup(ctx, in)
+		return srv.(UserServiceServer).UserSignup(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: UserService_Signup_FullMethodName,
+		FullMethod: UserService_UserSignup_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServiceServer).Signup(ctx, req.(*SignupReq))
+		return srv.(UserServiceServer).UserSignup(ctx, req.(*SignupReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -112,8 +112,8 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 	HandlerType: (*UserServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
-			MethodName: "Signup",
-			Handler:    _UserService_Signup_Handler,
+			MethodName: "UserSignup",
+			Handler:    _UserService_UserSignup_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

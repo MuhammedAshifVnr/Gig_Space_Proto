@@ -5,7 +5,7 @@ package user;
 option go_package ="./proto";
 
 service UserService {
-    rpc Signup (SignupReq) returns (SignupRes);
+    rpc UserSignup (SignupReq) returns (SignupRes);
 }
 
 message SignupReq {
