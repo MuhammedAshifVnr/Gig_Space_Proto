@@ -6,6 +6,7 @@ option go_package ="./proto";
 
 service UserService {
     rpc UserSignup (SignupReq) returns (SignupRes);
+    rpc VerifyingEmail (VerifyReq) returns (VerifyRes);
 }
 
 message SignupReq {
@@ -23,4 +24,15 @@ message SignupRes {
     int64 status =2;
     string error =3;
     int64 otp =4;
+}
+ 
+message VerifyReq {
+    string otp =1;
+    string email =2;
+}
+
+message VerifyRes{
+    string message =1;
+    int64 status =2;
+    string error =3;
 }
