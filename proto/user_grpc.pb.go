@@ -30,7 +30,7 @@ const (
 type UserServiceClient interface {
 	UserSignup(ctx context.Context, in *SignupReq, opts ...grpc.CallOption) (*SignupRes, error)
 	VerifyingEmail(ctx context.Context, in *VerifyReq, opts ...grpc.CallOption) (*VerifyRes, error)
-	Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*CommonRes, error)
+	Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginRes, error)
 }
 
 type userServiceClient struct {
@@ -61,9 +61,9 @@ func (c *userServiceClient) VerifyingEmail(ctx context.Context, in *VerifyReq, o
 	return out, nil
 }
 
-func (c *userServiceClient) Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*CommonRes, error) {
+func (c *userServiceClient) Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginRes, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(CommonRes)
+	out := new(LoginRes)
 	err := c.cc.Invoke(ctx, UserService_Login_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -77,7 +77,7 @@ func (c *userServiceClient) Login(ctx context.Context, in *LoginReq, opts ...grp
 type UserServiceServer interface {
 	UserSignup(context.Context, *SignupReq) (*SignupRes, error)
 	VerifyingEmail(context.Context, *VerifyReq) (*VerifyRes, error)
-	Login(context.Context, *LoginReq) (*CommonRes, error)
+	Login(context.Context, *LoginReq) (*LoginRes, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -94,7 +94,7 @@ func (UnimplementedUserServiceServer) UserSignup(context.Context, *SignupReq) (*
 func (UnimplementedUserServiceServer) VerifyingEmail(context.Context, *VerifyReq) (*VerifyRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method VerifyingEmail not implemented")
 }
-func (UnimplementedUserServiceServer) Login(context.Context, *LoginReq) (*CommonRes, error) {
+func (UnimplementedUserServiceServer) Login(context.Context, *LoginReq) (*LoginRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method Login not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
