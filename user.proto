@@ -8,6 +8,7 @@ service UserService {
     rpc UserSignup (SignupReq) returns (SignupRes);
     rpc VerifyingEmail (VerifyReq) returns (VerifyRes);
     rpc Login (LoginReq) returns (LoginRes);
+    rpc AdminLogin (AdLoginReq) returns (CommonRes);
 }
 
 message SignupReq {
@@ -65,4 +66,10 @@ message AnyValue {
       double double_value = 4;
       // Add more types as needed.
     }
+}
+
+
+message AdLoginReq{
+    string email=1;
+    string password =2;
 }
