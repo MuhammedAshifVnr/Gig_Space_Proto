@@ -23,6 +23,7 @@ const (
 	UserService_VerifyingEmail_FullMethodName = "/user.UserService/VerifyingEmail"
 	UserService_Login_FullMethodName          = "/user.UserService/Login"
 	UserService_AdminLogin_FullMethodName     = "/user.UserService/AdminLogin"
+	UserService_AddCategory_FullMethodName    = "/user.UserService/AddCategory"
 )
 
 // UserServiceClient is the client API for UserService service.
@@ -33,6 +34,7 @@ type UserServiceClient interface {
 	VerifyingEmail(ctx context.Context, in *VerifyReq, opts ...grpc.CallOption) (*VerifyRes, error)
 	Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginRes, error)
 	AdminLogin(ctx context.Context, in *AdLoginReq, opts ...grpc.CallOption) (*CommonRes, error)
+	AddCategory(ctx context.Context, in *CategoryReq, opts ...grpc.CallOption) (*CommonRes, error)
 }
 
 type userServiceClient struct {
@@ -83,6 +85,16 @@ func (c *userServiceClient) AdminLogin(ctx context.Context, in *AdLoginReq, opts
 	return out, nil
 }
 
+func (c *userServiceClient) AddCategory(ctx context.Context, in *CategoryReq, opts ...grpc.CallOption) (*CommonRes, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CommonRes)
+	err := c.cc.Invoke(ctx, UserService_AddCategory_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServiceServer is the server API for UserService service.
 // All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility.
@@ -91,6 +103,7 @@ type UserServiceServer interface {
 	VerifyingEmail(context.Context, *VerifyReq) (*VerifyRes, error)
 	Login(context.Context, *LoginReq) (*LoginRes, error)
 	AdminLogin(context.Context, *AdLoginReq) (*CommonRes, error)
+	AddCategory(context.Context, *CategoryReq) (*CommonRes, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -112,6 +125,9 @@ func (UnimplementedUserServiceServer) Login(context.Context, *LoginReq) (*LoginR
 }
 func (UnimplementedUserServiceServer) AdminLogin(context.Context, *AdLoginReq) (*CommonRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminLogin not implemented")
+}
+func (UnimplementedUserServiceServer) AddCategory(context.Context, *CategoryReq) (*CommonRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AddCategory not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
 func (UnimplementedUserServiceServer) testEmbeddedByValue()                     {}
@@ -206,6 +222,24 @@ func _UserService_AdminLogin_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_AddCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CategoryReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).AddCategory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_AddCategory_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).AddCategory(ctx, req.(*CategoryReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -228,6 +262,10 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "AdminLogin",
 			Handler:    _UserService_AdminLogin_Handler,
+		},
+		{
+			MethodName: "AddCategory",
+			Handler:    _UserService_AddCategory_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

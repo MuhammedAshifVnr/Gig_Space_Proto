@@ -9,6 +9,7 @@ service UserService {
     rpc VerifyingEmail (VerifyReq) returns (VerifyRes);
     rpc Login (LoginReq) returns (LoginRes);
     rpc AdminLogin (AdLoginReq) returns (CommonRes);
+    rpc AddCategory (CategoryReq) returns (CommonRes);
 }
 
 message SignupReq {
@@ -72,4 +73,8 @@ message AnyValue {
 message AdLoginReq{
     string email=1;
     string password =2;
+}
+
+message CategoryReq{
+    string name=1;
 }
