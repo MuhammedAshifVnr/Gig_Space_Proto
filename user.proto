@@ -87,13 +87,9 @@ message AddSkillReq{
 
 message EmtpyRes{
 }
-
-message SkillInput {
-    string skill_name = 1;
-    int32 proficiency_level = 2;
-}
   
 message FreeAddSkillsReq {
     uint32 user_id = 1;
-    repeated SkillInput skills = 2;
+    string skill_name = 2;
+    int32 proficiency_level = 3;
 }
