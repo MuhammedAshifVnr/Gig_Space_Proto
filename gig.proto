@@ -4,8 +4,8 @@ package gig;
 
 option go_package ="./proto";
 
-service UserService {
-    rpc CreateGig(CreateGigReq) returns (EmtpyRes);
+service GigService {
+    rpc CreateGig(CreateGigReq) returns (EmtpyGigRes);
 }
 
 message CreateGigReq{
@@ -19,4 +19,4 @@ message CreateGigReq{
     string user_id = 8;
 }
 
-message EmtpyRes{}
+message EmtpyGigRes{}
