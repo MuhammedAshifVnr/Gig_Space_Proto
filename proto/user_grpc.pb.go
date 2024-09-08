@@ -36,7 +36,7 @@ type UserServiceClient interface {
 	Login(ctx context.Context, in *LoginReq, opts ...grpc.CallOption) (*LoginRes, error)
 	AdminLogin(ctx context.Context, in *AdLoginReq, opts ...grpc.CallOption) (*CommonRes, error)
 	AddCategory(ctx context.Context, in *CategoryReq, opts ...grpc.CallOption) (*CommonRes, error)
-	AddSkill(ctx context.Context, in *AddSkillReq, opts ...grpc.CallOption) (*CategoryReq, error)
+	AddSkill(ctx context.Context, in *AddSkillReq, opts ...grpc.CallOption) (*CommonRes, error)
 }
 
 type userServiceClient struct {
@@ -97,9 +97,9 @@ func (c *userServiceClient) AddCategory(ctx context.Context, in *CategoryReq, op
 	return out, nil
 }
 
-func (c *userServiceClient) AddSkill(ctx context.Context, in *AddSkillReq, opts ...grpc.CallOption) (*CategoryReq, error) {
+func (c *userServiceClient) AddSkill(ctx context.Context, in *AddSkillReq, opts ...grpc.CallOption) (*CommonRes, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(CategoryReq)
+	out := new(CommonRes)
 	err := c.cc.Invoke(ctx, UserService_AddSkill_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -116,7 +116,7 @@ type UserServiceServer interface {
 	Login(context.Context, *LoginReq) (*LoginRes, error)
 	AdminLogin(context.Context, *AdLoginReq) (*CommonRes, error)
 	AddCategory(context.Context, *CategoryReq) (*CommonRes, error)
-	AddSkill(context.Context, *AddSkillReq) (*CategoryReq, error)
+	AddSkill(context.Context, *AddSkillReq) (*CommonRes, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -142,7 +142,7 @@ func (UnimplementedUserServiceServer) AdminLogin(context.Context, *AdLoginReq) (
 func (UnimplementedUserServiceServer) AddCategory(context.Context, *CategoryReq) (*CommonRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddCategory not implemented")
 }
-func (UnimplementedUserServiceServer) AddSkill(context.Context, *AddSkillReq) (*CategoryReq, error) {
+func (UnimplementedUserServiceServer) AddSkill(context.Context, *AddSkillReq) (*CommonRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AddSkill not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}

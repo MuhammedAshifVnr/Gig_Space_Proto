@@ -10,7 +10,7 @@ service UserService {
     rpc Login (LoginReq) returns (LoginRes);
     rpc AdminLogin (AdLoginReq) returns (CommonRes);
     rpc AddCategory (CategoryReq) returns (CommonRes);
-    rpc AddSkill (AddSkillReq) returns (CategoryReq);
+    rpc AddSkill (AddSkillReq) returns (CommonRes);
 }
 
 message SignupReq {
