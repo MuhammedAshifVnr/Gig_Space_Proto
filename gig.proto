@@ -1,0 +1,22 @@
+syntax = "proto3";
+
+package gig;
+
+option go_package ="./proto";
+
+service UserService {
+    rpc CreateGig(CreateGigReq) returns (EmtpyRes);
+}
+
+message CreateGigReq{
+    string title = 1;
+    string description = 2;
+    int32 category = 3;
+    string type = 4;
+    double price = 5;
+    int64 delivery_days = 6;
+    int64 number_of_revisions = 7;
+    string user_id = 8;
+}
+
+message EmtpyRes{}
