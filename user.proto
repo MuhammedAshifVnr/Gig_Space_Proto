@@ -14,6 +14,22 @@ service UserService {
     rpc UpdateBio (UpdateProfileReq) returns (CommonRes);
     rpc UpdateProfilePic (UpdatePP_Req) returns (CommonRes);
     rpc FreelacerAddSkill (FreeAddSkillsReq) returns (CommonRes);
+    rpc GetUserProfile (ProfileReq) returns (ProfileRes);
+}
+
+message ProfileReq{
+    uint32 user_id=1;
+}
+
+message ProfileRes{
+    string firstname = 1;
+    string lastname = 2;
+    string email = 3;
+    string country =5 ;
+    string phone = 6;
+    repeated AddSkillReq skill=4;
+    string title =7;
+    string Description =8;
 }
 
 message SignupReq {
