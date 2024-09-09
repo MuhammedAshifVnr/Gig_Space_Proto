@@ -16,7 +16,7 @@ message CreateGigReq{
     double price = 5;
     int64 delivery_days = 6;
     int64 number_of_revisions = 7;
-    string user_id = 8;
+    uint32 user_id = 8;
     repeated bytes images = 9; 
 }
 
