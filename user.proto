@@ -16,6 +16,18 @@ service UserService {
     rpc FreelacerAddSkill (FreeAddSkillsReq) returns (CommonRes);
     rpc GetUserProfile (ProfileReq) returns (ProfileRes);
     rpc DeleteSkill (DeleteSkillRes) returns (CommonRes);
+    rpc GetCategory (EmtpyReq) returns (GetCategoryRes);
+}
+
+message EmtpyReq{}
+
+message GetCategoryRes{
+    repeated Category category=1;
+}
+
+message Category{
+    uint32 Id =1;
+    string CategoryName=2;
 }
 
 message DeleteSkillRes{
