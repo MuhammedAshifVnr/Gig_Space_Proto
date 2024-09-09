@@ -98,6 +98,7 @@ message FreeAddSkillsReq {
 
 message UpdateProfileReq{
     uint32 user_id=1;
+    string title =3;
     string Description =2;
 }
 
