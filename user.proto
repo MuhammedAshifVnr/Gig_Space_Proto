@@ -15,6 +15,12 @@ service UserService {
     rpc UpdateProfilePic (UpdatePP_Req) returns (CommonRes);
     rpc FreelacerAddSkill (FreeAddSkillsReq) returns (CommonRes);
     rpc GetUserProfile (ProfileReq) returns (ProfileRes);
+    rpc DeleteSkill (DeleteSkillRes) returns (CommonRes);
+}
+
+message DeleteSkillRes{
+uint32 user_id =1;
+uint32 skill_id=2;
 }
 
 message ProfileReq{
