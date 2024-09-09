@@ -27,7 +27,7 @@ message GetCategoryRes{
 
 message Category{
     uint32 Id =1;
-    string CategoryName=2;
+    string name=2;
 }
 
 message DeleteSkillRes{
