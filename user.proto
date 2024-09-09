@@ -17,6 +17,16 @@ service UserService {
     rpc GetUserProfile (ProfileReq) returns (ProfileRes);
     rpc DeleteSkill (DeleteSkillRes) returns (CommonRes);
     rpc GetCategory (EmtpyReq) returns (GetCategoryRes);
+    rpc GetSkill(EmtpyReq) returns (GetSkillsRes);
+}
+
+message GetSkillsRes{
+    repeated Skill skill= 1;
+}
+
+message Skill{
+    int32 id =1;
+    string name=2;
 }
 
 message EmtpyReq{}
