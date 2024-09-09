@@ -27,7 +27,7 @@ message ProfileRes{
     string email = 3;
     string country =5 ;
     string phone = 6;
-    repeated AddSkillReq skill=4;
+    repeated UserSkill skill=4;
     string title =7;
     string Description =8;
 }
@@ -121,4 +121,8 @@ message UpdateProfileReq{
 message UpdatePP_Req{
     uint32 user_id=1;
     string Photo =2;
+}
+message UserSkill{
+	string SkillName =1; 
+	int64 ProficiencyLevel =2;
 }
