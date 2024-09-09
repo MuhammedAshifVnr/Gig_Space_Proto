@@ -5,7 +5,7 @@ package gig;
 option go_package ="./proto";
 
 service GigService {
-    rpc CreateGig(CreateGigReq) returns (EmtpyGigRes);
+    rpc CreateGig(CreateGigReq) returns (EmptyResponse);
 }
 
 message CreateGigReq{
@@ -17,6 +17,9 @@ message CreateGigReq{
     int64 delivery_days = 6;
     int64 number_of_revisions = 7;
     string user_id = 8;
+    repeated bytes images = 9; 
 }
 
-message EmtpyGigRes{}
+message EmptyResponse {
+
+}

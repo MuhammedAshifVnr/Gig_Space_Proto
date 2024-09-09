@@ -26,7 +26,7 @@ const (
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type GigServiceClient interface {
-	CreateGig(ctx context.Context, in *CreateGigReq, opts ...grpc.CallOption) (*EmtpyGigRes, error)
+	CreateGig(ctx context.Context, in *CreateGigReq, opts ...grpc.CallOption) (*EmptyResponse, error)
 }
 
 type gigServiceClient struct {
@@ -37,9 +37,9 @@ func NewGigServiceClient(cc grpc.ClientConnInterface) GigServiceClient {
 	return &gigServiceClient{cc}
 }
 
-func (c *gigServiceClient) CreateGig(ctx context.Context, in *CreateGigReq, opts ...grpc.CallOption) (*EmtpyGigRes, error) {
+func (c *gigServiceClient) CreateGig(ctx context.Context, in *CreateGigReq, opts ...grpc.CallOption) (*EmptyResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(EmtpyGigRes)
+	out := new(EmptyResponse)
 	err := c.cc.Invoke(ctx, GigService_CreateGig_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -51,7 +51,7 @@ func (c *gigServiceClient) CreateGig(ctx context.Context, in *CreateGigReq, opts
 // All implementations must embed UnimplementedGigServiceServer
 // for forward compatibility.
 type GigServiceServer interface {
-	CreateGig(context.Context, *CreateGigReq) (*EmtpyGigRes, error)
+	CreateGig(context.Context, *CreateGigReq) (*EmptyResponse, error)
 	mustEmbedUnimplementedGigServiceServer()
 }
 
@@ -62,7 +62,7 @@ type GigServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedGigServiceServer struct{}
 
-func (UnimplementedGigServiceServer) CreateGig(context.Context, *CreateGigReq) (*EmtpyGigRes, error) {
+func (UnimplementedGigServiceServer) CreateGig(context.Context, *CreateGigReq) (*EmptyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateGig not implemented")
 }
 func (UnimplementedGigServiceServer) mustEmbedUnimplementedGigServiceServer() {}
