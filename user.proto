@@ -123,6 +123,7 @@ message UpdatePP_Req{
     string Photo =2;
 }
 message UserSkill{
+    uint32 id =3;
 	string SkillName =1; 
 	int64 ProficiencyLevel =2;
 }
