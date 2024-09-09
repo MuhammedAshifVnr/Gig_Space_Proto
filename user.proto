@@ -11,6 +11,8 @@ service UserService {
     rpc AdminLogin (AdLoginReq) returns (CommonRes);
     rpc AddCategory (CategoryReq) returns (CommonRes);
     rpc AddSkill (AddSkillReq) returns (CommonRes);
+    rpc UpdateBio (UpdateProfileReq) returns (CommonRes);
+    rpc UpdateProfilePic (UpdatePP_Req) returns (CommonRes);
     rpc FreelacerAddSkill (FreeAddSkillsReq) returns (CommonRes);
 }
 
@@ -92,4 +94,14 @@ message FreeAddSkillsReq {
     uint32 user_id = 1;
     string skill_name = 2;
     int32 proficiency_level = 3;
+}
+
+message UpdateProfileReq{
+    uint32 user_id=1;
+    string Description =2;
+}
+
+message UpdatePP_Req{
+    uint32 user_id=1;
+    string Photo =2;
 }
