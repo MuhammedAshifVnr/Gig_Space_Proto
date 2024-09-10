@@ -21,6 +21,23 @@ service UserService {
     rpc AdDeleteSkill(ADeleteSkillReq) returns (EmtpyRes);
     rpc DeleteCategory (DeleteCatReq) returns (EmtpyRes);
     rpc GetCategoryByName (CategoryName) returns (CategoryIdRes);
+    rpc GetAllUsers (EmtpyReq) returns (GetAllUserRes);
+}
+
+message GetAllUserRes{
+    repeated Profile users=1;
+}
+
+message Profile{
+    uint32 id=9;
+    string firstname = 1;
+    string lastname = 2;
+    string email = 3;
+    string country =5 ;
+    string phone = 6;
+    repeated UserSkill skill=4;
+    string title =7;
+    string Description =8;
 }
 
 message CategoryName{
