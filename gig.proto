@@ -11,7 +11,7 @@ service GigService {
 message CreateGigReq{
     string title = 1;
     string description = 2;
-    int32 category = 3;
+    string category = 3;
     string type = 4;
     double price = 5;
     int64 delivery_days = 6;
