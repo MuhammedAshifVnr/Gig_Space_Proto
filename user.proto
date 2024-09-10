@@ -35,9 +35,6 @@ message Profile{
     string email = 3;
     string country =5 ;
     string phone = 6;
-    repeated UserSkill skill=4;
-    string title =7;
-    string Description =8;
 }
 
 message CategoryName{
