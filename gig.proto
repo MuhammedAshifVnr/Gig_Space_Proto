@@ -19,14 +19,14 @@ message GetAllGigsResp{
 
 message Gig {
     uint64 id = 1;
-    string title = 2;
-    string description = 3;
-    uint32 userId = 4;
-    float price = 5;
-    string category = 6;
-    int64 deliveryDays = 7;
-    int64 numberOfRevisions = 8;
-    repeated bytes images = 9; 
+    string Titel = 2;
+    string Description = 3;
+    uint32 FrelancerID = 4;
+    float Price = 5;
+    string Category = 6;
+    int64 DeliveryDays = 7;
+    int64 Revisions = 8;
+    repeated string Image_Urls = 9; 
 }
 
 message CreateGigReq{
