@@ -20,6 +20,15 @@ service UserService {
     rpc GetSkill(EmtpyReq) returns (GetSkillsRes);
     rpc AdDeleteSkill(ADeleteSkillReq) returns (EmtpyRes);
     rpc DeleteCategory (DeleteCatReq) returns (EmtpyRes);
+    rpc GetCategoryByName (CategoryName) returns (CategoryIdRes);
+}
+
+message CategoryName{
+    string name=1;
+}
+
+message CategoryIdRes{
+    uint32 id=1;
 }
 
 message DeleteCatReq{

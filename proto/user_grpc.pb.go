@@ -34,6 +34,7 @@ const (
 	UserService_GetSkill_FullMethodName          = "/user.UserService/GetSkill"
 	UserService_AdDeleteSkill_FullMethodName     = "/user.UserService/AdDeleteSkill"
 	UserService_DeleteCategory_FullMethodName    = "/user.UserService/DeleteCategory"
+	UserService_GetCategoryByName_FullMethodName = "/user.UserService/GetCategoryByName"
 )
 
 // UserServiceClient is the client API for UserService service.
@@ -55,6 +56,7 @@ type UserServiceClient interface {
 	GetSkill(ctx context.Context, in *EmtpyReq, opts ...grpc.CallOption) (*GetSkillsRes, error)
 	AdDeleteSkill(ctx context.Context, in *ADeleteSkillReq, opts ...grpc.CallOption) (*EmtpyRes, error)
 	DeleteCategory(ctx context.Context, in *DeleteCatReq, opts ...grpc.CallOption) (*EmtpyRes, error)
+	GetCategoryByName(ctx context.Context, in *CategoryName, opts ...grpc.CallOption) (*CategoryIdRes, error)
 }
 
 type userServiceClient struct {
@@ -215,6 +217,16 @@ func (c *userServiceClient) DeleteCategory(ctx context.Context, in *DeleteCatReq
 	return out, nil
 }
 
+func (c *userServiceClient) GetCategoryByName(ctx context.Context, in *CategoryName, opts ...grpc.CallOption) (*CategoryIdRes, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CategoryIdRes)
+	err := c.cc.Invoke(ctx, UserService_GetCategoryByName_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServiceServer is the server API for UserService service.
 // All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility.
@@ -234,6 +246,7 @@ type UserServiceServer interface {
 	GetSkill(context.Context, *EmtpyReq) (*GetSkillsRes, error)
 	AdDeleteSkill(context.Context, *ADeleteSkillReq) (*EmtpyRes, error)
 	DeleteCategory(context.Context, *DeleteCatReq) (*EmtpyRes, error)
+	GetCategoryByName(context.Context, *CategoryName) (*CategoryIdRes, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -288,6 +301,9 @@ func (UnimplementedUserServiceServer) AdDeleteSkill(context.Context, *ADeleteSki
 }
 func (UnimplementedUserServiceServer) DeleteCategory(context.Context, *DeleteCatReq) (*EmtpyRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeleteCategory not implemented")
+}
+func (UnimplementedUserServiceServer) GetCategoryByName(context.Context, *CategoryName) (*CategoryIdRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetCategoryByName not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
 func (UnimplementedUserServiceServer) testEmbeddedByValue()                     {}
@@ -580,6 +596,24 @@ func _UserService_DeleteCategory_Handler(srv interface{}, ctx context.Context, d
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_GetCategoryByName_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CategoryName)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).GetCategoryByName(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_GetCategoryByName_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).GetCategoryByName(ctx, req.(*CategoryName))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -646,6 +680,10 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeleteCategory",
 			Handler:    _UserService_DeleteCategory_Handler,
+		},
+		{
+			MethodName: "GetCategoryByName",
+			Handler:    _UserService_GetCategoryByName_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
