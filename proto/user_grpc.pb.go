@@ -32,7 +32,8 @@ const (
 	UserService_DeleteSkill_FullMethodName       = "/user.UserService/DeleteSkill"
 	UserService_GetCategory_FullMethodName       = "/user.UserService/GetCategory"
 	UserService_GetSkill_FullMethodName          = "/user.UserService/GetSkill"
-	UserService_DeteleSkill_FullMethodName       = "/user.UserService/DeteleSkill"
+	UserService_AdDeleteSkill_FullMethodName     = "/user.UserService/AdDeleteSkill"
+	UserService_DeleteCategory_FullMethodName    = "/user.UserService/DeleteCategory"
 )
 
 // UserServiceClient is the client API for UserService service.
@@ -52,7 +53,8 @@ type UserServiceClient interface {
 	DeleteSkill(ctx context.Context, in *DeleteSkillRes, opts ...grpc.CallOption) (*CommonRes, error)
 	GetCategory(ctx context.Context, in *EmtpyReq, opts ...grpc.CallOption) (*GetCategoryRes, error)
 	GetSkill(ctx context.Context, in *EmtpyReq, opts ...grpc.CallOption) (*GetSkillsRes, error)
-	DeteleSkill(ctx context.Context, in *ADeleteSkillReq, opts ...grpc.CallOption) (*EmtpyRes, error)
+	AdDeleteSkill(ctx context.Context, in *ADeleteSkillReq, opts ...grpc.CallOption) (*EmtpyRes, error)
+	DeleteCategory(ctx context.Context, in *DeleteCatReq, opts ...grpc.CallOption) (*EmtpyRes, error)
 }
 
 type userServiceClient struct {
@@ -193,10 +195,20 @@ func (c *userServiceClient) GetSkill(ctx context.Context, in *EmtpyReq, opts ...
 	return out, nil
 }
 
-func (c *userServiceClient) DeteleSkill(ctx context.Context, in *ADeleteSkillReq, opts ...grpc.CallOption) (*EmtpyRes, error) {
+func (c *userServiceClient) AdDeleteSkill(ctx context.Context, in *ADeleteSkillReq, opts ...grpc.CallOption) (*EmtpyRes, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(EmtpyRes)
-	err := c.cc.Invoke(ctx, UserService_DeteleSkill_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, UserService_AdDeleteSkill_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *userServiceClient) DeleteCategory(ctx context.Context, in *DeleteCatReq, opts ...grpc.CallOption) (*EmtpyRes, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(EmtpyRes)
+	err := c.cc.Invoke(ctx, UserService_DeleteCategory_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -220,7 +232,8 @@ type UserServiceServer interface {
 	DeleteSkill(context.Context, *DeleteSkillRes) (*CommonRes, error)
 	GetCategory(context.Context, *EmtpyReq) (*GetCategoryRes, error)
 	GetSkill(context.Context, *EmtpyReq) (*GetSkillsRes, error)
-	DeteleSkill(context.Context, *ADeleteSkillReq) (*EmtpyRes, error)
+	AdDeleteSkill(context.Context, *ADeleteSkillReq) (*EmtpyRes, error)
+	DeleteCategory(context.Context, *DeleteCatReq) (*EmtpyRes, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -270,8 +283,11 @@ func (UnimplementedUserServiceServer) GetCategory(context.Context, *EmtpyReq) (*
 func (UnimplementedUserServiceServer) GetSkill(context.Context, *EmtpyReq) (*GetSkillsRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSkill not implemented")
 }
-func (UnimplementedUserServiceServer) DeteleSkill(context.Context, *ADeleteSkillReq) (*EmtpyRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method DeteleSkill not implemented")
+func (UnimplementedUserServiceServer) AdDeleteSkill(context.Context, *ADeleteSkillReq) (*EmtpyRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AdDeleteSkill not implemented")
+}
+func (UnimplementedUserServiceServer) DeleteCategory(context.Context, *DeleteCatReq) (*EmtpyRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteCategory not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
 func (UnimplementedUserServiceServer) testEmbeddedByValue()                     {}
@@ -528,20 +544,38 @@ func _UserService_GetSkill_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
-func _UserService_DeteleSkill_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _UserService_AdDeleteSkill_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(ADeleteSkillReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(UserServiceServer).DeteleSkill(ctx, in)
+		return srv.(UserServiceServer).AdDeleteSkill(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: UserService_DeteleSkill_FullMethodName,
+		FullMethod: UserService_AdDeleteSkill_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServiceServer).DeteleSkill(ctx, req.(*ADeleteSkillReq))
+		return srv.(UserServiceServer).AdDeleteSkill(ctx, req.(*ADeleteSkillReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _UserService_DeleteCategory_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteCatReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).DeleteCategory(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_DeleteCategory_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).DeleteCategory(ctx, req.(*DeleteCatReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -606,8 +640,12 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _UserService_GetSkill_Handler,
 		},
 		{
-			MethodName: "DeteleSkill",
-			Handler:    _UserService_DeteleSkill_Handler,
+			MethodName: "AdDeleteSkill",
+			Handler:    _UserService_AdDeleteSkill_Handler,
+		},
+		{
+			MethodName: "DeleteCategory",
+			Handler:    _UserService_DeleteCategory_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
