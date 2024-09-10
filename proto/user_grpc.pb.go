@@ -32,6 +32,7 @@ const (
 	UserService_DeleteSkill_FullMethodName       = "/user.UserService/DeleteSkill"
 	UserService_GetCategory_FullMethodName       = "/user.UserService/GetCategory"
 	UserService_GetSkill_FullMethodName          = "/user.UserService/GetSkill"
+	UserService_DeteleSkill_FullMethodName       = "/user.UserService/DeteleSkill"
 )
 
 // UserServiceClient is the client API for UserService service.
@@ -51,6 +52,7 @@ type UserServiceClient interface {
 	DeleteSkill(ctx context.Context, in *DeleteSkillRes, opts ...grpc.CallOption) (*CommonRes, error)
 	GetCategory(ctx context.Context, in *EmtpyReq, opts ...grpc.CallOption) (*GetCategoryRes, error)
 	GetSkill(ctx context.Context, in *EmtpyReq, opts ...grpc.CallOption) (*GetSkillsRes, error)
+	DeteleSkill(ctx context.Context, in *ADeleteSkillReq, opts ...grpc.CallOption) (*EmtpyRes, error)
 }
 
 type userServiceClient struct {
@@ -191,6 +193,16 @@ func (c *userServiceClient) GetSkill(ctx context.Context, in *EmtpyReq, opts ...
 	return out, nil
 }
 
+func (c *userServiceClient) DeteleSkill(ctx context.Context, in *ADeleteSkillReq, opts ...grpc.CallOption) (*EmtpyRes, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(EmtpyRes)
+	err := c.cc.Invoke(ctx, UserService_DeteleSkill_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServiceServer is the server API for UserService service.
 // All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility.
@@ -208,6 +220,7 @@ type UserServiceServer interface {
 	DeleteSkill(context.Context, *DeleteSkillRes) (*CommonRes, error)
 	GetCategory(context.Context, *EmtpyReq) (*GetCategoryRes, error)
 	GetSkill(context.Context, *EmtpyReq) (*GetSkillsRes, error)
+	DeteleSkill(context.Context, *ADeleteSkillReq) (*EmtpyRes, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -256,6 +269,9 @@ func (UnimplementedUserServiceServer) GetCategory(context.Context, *EmtpyReq) (*
 }
 func (UnimplementedUserServiceServer) GetSkill(context.Context, *EmtpyReq) (*GetSkillsRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetSkill not implemented")
+}
+func (UnimplementedUserServiceServer) DeteleSkill(context.Context, *ADeleteSkillReq) (*EmtpyRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeteleSkill not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
 func (UnimplementedUserServiceServer) testEmbeddedByValue()                     {}
@@ -512,6 +528,24 @@ func _UserService_GetSkill_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_DeteleSkill_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ADeleteSkillReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).DeteleSkill(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_DeteleSkill_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).DeteleSkill(ctx, req.(*ADeleteSkillReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -570,6 +604,10 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetSkill",
 			Handler:    _UserService_GetSkill_Handler,
+		},
+		{
+			MethodName: "DeteleSkill",
+			Handler:    _UserService_DeteleSkill_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

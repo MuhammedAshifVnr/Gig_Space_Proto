@@ -18,6 +18,11 @@ service UserService {
     rpc DeleteSkill (DeleteSkillRes) returns (CommonRes);
     rpc GetCategory (EmtpyReq) returns (GetCategoryRes);
     rpc GetSkill(EmtpyReq) returns (GetSkillsRes);
+    rpc DeteleSkill(ADeleteSkillReq) returns (EmtpyRes);
+}
+
+message ADeleteSkillReq{
+    uint32 id=1;
 }
 
 message GetSkillsRes{
