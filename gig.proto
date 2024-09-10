@@ -6,6 +6,27 @@ option go_package ="./proto";
 
 service GigService {
     rpc CreateGig(CreateGigReq) returns (EmptyResponse);
+    rpc GetAllGigByID(GetAllGigsByIDReq) returns (GetAllGigsResp);
+}
+
+message GetAllGigsByIDReq{
+    uint32 id =1;
+}
+
+message GetAllGigsResp{
+    repeated Gig gig=1;
+}
+
+message Gig {
+    uint64 id = 1;
+    string title = 2;
+    string description = 3;
+    uint32 userId = 4;
+    float price = 5;
+    string category = 6;
+    int64 deliveryDays = 7;
+    int64 numberOfRevisions = 8;
+    repeated bytes images = 9; 
 }
 
 message CreateGigReq{

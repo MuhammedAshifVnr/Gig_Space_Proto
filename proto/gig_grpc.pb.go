@@ -19,7 +19,8 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	GigService_CreateGig_FullMethodName = "/gig.GigService/CreateGig"
+	GigService_CreateGig_FullMethodName     = "/gig.GigService/CreateGig"
+	GigService_GetAllGigByID_FullMethodName = "/gig.GigService/GetAllGigByID"
 )
 
 // GigServiceClient is the client API for GigService service.
@@ -27,6 +28,7 @@ const (
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type GigServiceClient interface {
 	CreateGig(ctx context.Context, in *CreateGigReq, opts ...grpc.CallOption) (*EmptyResponse, error)
+	GetAllGigByID(ctx context.Context, in *GetAllGigsByIDReq, opts ...grpc.CallOption) (*GetAllGigsResp, error)
 }
 
 type gigServiceClient struct {
@@ -47,11 +49,22 @@ func (c *gigServiceClient) CreateGig(ctx context.Context, in *CreateGigReq, opts
 	return out, nil
 }
 
+func (c *gigServiceClient) GetAllGigByID(ctx context.Context, in *GetAllGigsByIDReq, opts ...grpc.CallOption) (*GetAllGigsResp, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAllGigsResp)
+	err := c.cc.Invoke(ctx, GigService_GetAllGigByID_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // GigServiceServer is the server API for GigService service.
 // All implementations must embed UnimplementedGigServiceServer
 // for forward compatibility.
 type GigServiceServer interface {
 	CreateGig(context.Context, *CreateGigReq) (*EmptyResponse, error)
+	GetAllGigByID(context.Context, *GetAllGigsByIDReq) (*GetAllGigsResp, error)
 	mustEmbedUnimplementedGigServiceServer()
 }
 
@@ -64,6 +77,9 @@ type UnimplementedGigServiceServer struct{}
 
 func (UnimplementedGigServiceServer) CreateGig(context.Context, *CreateGigReq) (*EmptyResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateGig not implemented")
+}
+func (UnimplementedGigServiceServer) GetAllGigByID(context.Context, *GetAllGigsByIDReq) (*GetAllGigsResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAllGigByID not implemented")
 }
 func (UnimplementedGigServiceServer) mustEmbedUnimplementedGigServiceServer() {}
 func (UnimplementedGigServiceServer) testEmbeddedByValue()                    {}
@@ -104,6 +120,24 @@ func _GigService_CreateGig_Handler(srv interface{}, ctx context.Context, dec fun
 	return interceptor(ctx, in, info, handler)
 }
 
+func _GigService_GetAllGigByID_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAllGigsByIDReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GigServiceServer).GetAllGigByID(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: GigService_GetAllGigByID_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GigServiceServer).GetAllGigByID(ctx, req.(*GetAllGigsByIDReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // GigService_ServiceDesc is the grpc.ServiceDesc for GigService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -114,6 +148,10 @@ var GigService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateGig",
 			Handler:    _GigService_CreateGig_Handler,
+		},
+		{
+			MethodName: "GetAllGigByID",
+			Handler:    _GigService_GetAllGigByID_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
