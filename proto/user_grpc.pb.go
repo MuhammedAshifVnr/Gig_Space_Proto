@@ -26,7 +26,6 @@ const (
 	UserService_AddCategory_FullMethodName        = "/user.UserService/AddCategory"
 	UserService_AddSkill_FullMethodName           = "/user.UserService/AddSkill"
 	UserService_UpdateBio_FullMethodName          = "/user.UserService/UpdateBio"
-	UserService_UpdateProfilePic_FullMethodName   = "/user.UserService/UpdateProfilePic"
 	UserService_FreelacerAddSkill_FullMethodName  = "/user.UserService/FreelacerAddSkill"
 	UserService_GetUserProfile_FullMethodName     = "/user.UserService/GetUserProfile"
 	UserService_DeleteSkill_FullMethodName        = "/user.UserService/DeleteSkill"
@@ -50,7 +49,6 @@ type UserServiceClient interface {
 	AddCategory(ctx context.Context, in *CategoryReq, opts ...grpc.CallOption) (*CommonRes, error)
 	AddSkill(ctx context.Context, in *AddSkillReq, opts ...grpc.CallOption) (*CommonRes, error)
 	UpdateBio(ctx context.Context, in *UpdateProfileReq, opts ...grpc.CallOption) (*CommonRes, error)
-	UpdateProfilePic(ctx context.Context, in *UpdatePP_Req, opts ...grpc.CallOption) (*CommonRes, error)
 	FreelacerAddSkill(ctx context.Context, in *FreeAddSkillsReq, opts ...grpc.CallOption) (*CommonRes, error)
 	GetUserProfile(ctx context.Context, in *ProfileReq, opts ...grpc.CallOption) (*ProfileRes, error)
 	DeleteSkill(ctx context.Context, in *DeleteSkillRes, opts ...grpc.CallOption) (*CommonRes, error)
@@ -135,16 +133,6 @@ func (c *userServiceClient) UpdateBio(ctx context.Context, in *UpdateProfileReq,
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(CommonRes)
 	err := c.cc.Invoke(ctx, UserService_UpdateBio_FullMethodName, in, out, cOpts...)
-	if err != nil {
-		return nil, err
-	}
-	return out, nil
-}
-
-func (c *userServiceClient) UpdateProfilePic(ctx context.Context, in *UpdatePP_Req, opts ...grpc.CallOption) (*CommonRes, error) {
-	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(CommonRes)
-	err := c.cc.Invoke(ctx, UserService_UpdateProfilePic_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -262,7 +250,6 @@ type UserServiceServer interface {
 	AddCategory(context.Context, *CategoryReq) (*CommonRes, error)
 	AddSkill(context.Context, *AddSkillReq) (*CommonRes, error)
 	UpdateBio(context.Context, *UpdateProfileReq) (*CommonRes, error)
-	UpdateProfilePic(context.Context, *UpdatePP_Req) (*CommonRes, error)
 	FreelacerAddSkill(context.Context, *FreeAddSkillsReq) (*CommonRes, error)
 	GetUserProfile(context.Context, *ProfileReq) (*ProfileRes, error)
 	DeleteSkill(context.Context, *DeleteSkillRes) (*CommonRes, error)
@@ -303,9 +290,6 @@ func (UnimplementedUserServiceServer) AddSkill(context.Context, *AddSkillReq) (*
 }
 func (UnimplementedUserServiceServer) UpdateBio(context.Context, *UpdateProfileReq) (*CommonRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateBio not implemented")
-}
-func (UnimplementedUserServiceServer) UpdateProfilePic(context.Context, *UpdatePP_Req) (*CommonRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method UpdateProfilePic not implemented")
 }
 func (UnimplementedUserServiceServer) FreelacerAddSkill(context.Context, *FreeAddSkillsReq) (*CommonRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method FreelacerAddSkill not implemented")
@@ -480,24 +464,6 @@ func _UserService_UpdateBio_Handler(srv interface{}, ctx context.Context, dec fu
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
 		return srv.(UserServiceServer).UpdateBio(ctx, req.(*UpdateProfileReq))
-	}
-	return interceptor(ctx, in, info, handler)
-}
-
-func _UserService_UpdateProfilePic_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(UpdatePP_Req)
-	if err := dec(in); err != nil {
-		return nil, err
-	}
-	if interceptor == nil {
-		return srv.(UserServiceServer).UpdateProfilePic(ctx, in)
-	}
-	info := &grpc.UnaryServerInfo{
-		Server:     srv,
-		FullMethod: UserService_UpdateProfilePic_FullMethodName,
-	}
-	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(UserServiceServer).UpdateProfilePic(ctx, req.(*UpdatePP_Req))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -716,10 +682,6 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateBio",
 			Handler:    _UserService_UpdateBio_Handler,
-		},
-		{
-			MethodName: "UpdateProfilePic",
-			Handler:    _UserService_UpdateProfilePic_Handler,
 		},
 		{
 			MethodName: "FreelacerAddSkill",

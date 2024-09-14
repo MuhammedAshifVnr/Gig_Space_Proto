@@ -12,7 +12,6 @@ service UserService {
     rpc AddCategory (CategoryReq) returns (CommonRes);
     rpc AddSkill (AddSkillReq) returns (CommonRes);
     rpc UpdateBio (UpdateProfileReq) returns (CommonRes);
-    rpc UpdateProfilePic (UpdatePP_Req) returns (CommonRes);
     rpc FreelacerAddSkill (FreeAddSkillsReq) returns (CommonRes);
     rpc GetUserProfile (ProfileReq) returns (ProfileRes);
     rpc DeleteSkill (DeleteSkillRes) returns (CommonRes);
@@ -28,7 +27,7 @@ service UserService {
 
 message UpProilePicReq{
     uint32 userId =1;
-    repeated bytes pic =2;
+    bytes pic =2;
 }
 
 message GetAllUserRes{
@@ -83,6 +82,9 @@ message Category{
 message DeleteSkillRes{
 uint32 user_id =1;
 uint32 skill_id=2;
+}message UpdatePP_Req{
+    uint32 user_id=1;
+    string Photo =2;
 }
 
 message ProfileReq{
@@ -186,10 +188,6 @@ message UpdateProfileReq{
     string Description =2;
 }
 
-message UpdatePP_Req{
-    uint32 user_id=1;
-    string Photo =2;
-}
 message UserSkill{
     uint32 id =3;
 	string SkillName =1; 
