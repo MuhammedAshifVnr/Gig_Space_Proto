@@ -22,7 +22,11 @@ service UserService {
     rpc GetCategoryByName (CategoryName) returns (CategoryIdRes);
     rpc GetAllUsers (EmtpyReq) returns (GetAllUserRes);
     rpc UploadProfilePhoto (UpProilePicReq) returns (CommonRes);
-    
+    rpc AdminUserBlock (BlockReq) returns (CommonRes);
+}
+
+message BlockReq{
+    uint32 id =1;
 }
 
 message UpProilePicReq{

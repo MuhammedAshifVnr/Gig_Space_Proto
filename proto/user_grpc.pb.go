@@ -36,6 +36,7 @@ const (
 	UserService_GetCategoryByName_FullMethodName  = "/user.UserService/GetCategoryByName"
 	UserService_GetAllUsers_FullMethodName        = "/user.UserService/GetAllUsers"
 	UserService_UploadProfilePhoto_FullMethodName = "/user.UserService/UploadProfilePhoto"
+	UserService_AdminUserBlock_FullMethodName     = "/user.UserService/AdminUserBlock"
 )
 
 // UserServiceClient is the client API for UserService service.
@@ -59,6 +60,7 @@ type UserServiceClient interface {
 	GetCategoryByName(ctx context.Context, in *CategoryName, opts ...grpc.CallOption) (*CategoryIdRes, error)
 	GetAllUsers(ctx context.Context, in *EmtpyReq, opts ...grpc.CallOption) (*GetAllUserRes, error)
 	UploadProfilePhoto(ctx context.Context, in *UpProilePicReq, opts ...grpc.CallOption) (*CommonRes, error)
+	AdminUserBlock(ctx context.Context, in *BlockReq, opts ...grpc.CallOption) (*CommonRes, error)
 }
 
 type userServiceClient struct {
@@ -239,6 +241,16 @@ func (c *userServiceClient) UploadProfilePhoto(ctx context.Context, in *UpProile
 	return out, nil
 }
 
+func (c *userServiceClient) AdminUserBlock(ctx context.Context, in *BlockReq, opts ...grpc.CallOption) (*CommonRes, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CommonRes)
+	err := c.cc.Invoke(ctx, UserService_AdminUserBlock_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServiceServer is the server API for UserService service.
 // All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility.
@@ -260,6 +272,7 @@ type UserServiceServer interface {
 	GetCategoryByName(context.Context, *CategoryName) (*CategoryIdRes, error)
 	GetAllUsers(context.Context, *EmtpyReq) (*GetAllUserRes, error)
 	UploadProfilePhoto(context.Context, *UpProilePicReq) (*CommonRes, error)
+	AdminUserBlock(context.Context, *BlockReq) (*CommonRes, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -320,6 +333,9 @@ func (UnimplementedUserServiceServer) GetAllUsers(context.Context, *EmtpyReq) (*
 }
 func (UnimplementedUserServiceServer) UploadProfilePhoto(context.Context, *UpProilePicReq) (*CommonRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UploadProfilePhoto not implemented")
+}
+func (UnimplementedUserServiceServer) AdminUserBlock(context.Context, *BlockReq) (*CommonRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AdminUserBlock not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
 func (UnimplementedUserServiceServer) testEmbeddedByValue()                     {}
@@ -648,6 +664,24 @@ func _UserService_UploadProfilePhoto_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_AdminUserBlock_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(BlockReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).AdminUserBlock(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_AdminUserBlock_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).AdminUserBlock(ctx, req.(*BlockReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -722,6 +756,10 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UploadProfilePhoto",
 			Handler:    _UserService_UploadProfilePhoto_Handler,
+		},
+		{
+			MethodName: "AdminUserBlock",
+			Handler:    _UserService_AdminUserBlock_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
