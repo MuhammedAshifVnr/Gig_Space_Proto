@@ -45,6 +45,7 @@ message Profile{
     string email = 3;
     string country =5 ;
     string phone = 6;
+    bool is_active=7;
 }
 
 message CategoryName{
