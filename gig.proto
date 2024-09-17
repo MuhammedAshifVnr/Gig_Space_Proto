@@ -26,7 +26,7 @@ message Gig {
     string Category = 6;
     int64 DeliveryDays = 7;
     int64 Revisions = 8;
-    repeated string Image_Urls = 9; 
+    repeated Urls images=9;
 }
 
 message CreateGigReq{
@@ -38,7 +38,11 @@ message CreateGigReq{
     int64 delivery_days = 6;
     int64 number_of_revisions = 7;
     uint32 user_id = 8;
-    repeated string images = 9; 
+    repeated bytes images = 9; 
+}
+
+message Urls{
+    string url =1;
 }
 
 message EmptyResponse {
