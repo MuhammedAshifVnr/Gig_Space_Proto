@@ -28,7 +28,7 @@ service UserService {
 }
 
 message ResetPwdReq{
-    int32 otp =1;
+    string otp =1;
     string password =2;
 }
 
