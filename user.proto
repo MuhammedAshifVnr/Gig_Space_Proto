@@ -23,6 +23,17 @@ service UserService {
     rpc GetAllUsers (EmtpyReq) returns (GetAllUserRes);
     rpc UploadProfilePhoto (UpProilePicReq) returns (CommonRes);
     rpc AdminUserBlock (BlockReq) returns (CommonRes);
+    rpc ForgotPassword(FP_Req) returns (CommonRes);
+    rpc ResetPassword (ResetPwdReq)returns (CommonRes);
+}
+
+message ResetPwdReq{
+    int32 otp =1;
+    string password =2;
+}
+
+message FP_Req{
+    string email =1;
 }
 
 message BlockReq{
