@@ -7,7 +7,7 @@ option go_package ="./proto";
 service GigService {
     rpc CreateGig(CreateGigReq) returns (EmptyResponse);
     rpc GetGigsByFreelancerID(GetGigsByFreelancerIDRequest) returns (GetGigsByFreelancerIDResponse);
-    rpc UpdateGigByID(CreateGigReq)returns (CommonRes);
+    rpc UpdateGigByID(UpdateGigRequest) returns (CommonRes);
 }
 
 message CommonRes{
@@ -24,6 +24,19 @@ message AnyValue {
       bool bool_value = 3;
       double double_value = 4;
     }
+}
+
+message UpdateGigRequest{
+    uint64 id = 10;
+    string title = 1;
+    string description = 2;
+    string category = 3;
+    string type = 4;
+    double price = 5;
+    int64 delivery_days = 6;
+    int64 number_of_revisions = 7;
+    uint32 user_id = 8;
+    repeated bytes images = 9; 
 }
 
 message GetGigsByFreelancerIDRequest {
