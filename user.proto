@@ -106,7 +106,9 @@ message Category{
 message DeleteSkillRes{
 uint32 user_id =1;
 uint32 skill_id=2;
-}message UpdatePP_Req{
+}
+
+message UpdatePP_Req{
     uint32 user_id=1;
     string Photo =2;
 }
@@ -125,6 +127,13 @@ message ProfileRes{
     string title =7;
     string Description =8;
     string Photo =9;
+    Address address=10;
+}
+
+message Address{
+    string city =2;
+    string state =3;
+    string district=4; 
 }
 
 message SignupReq {
