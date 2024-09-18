@@ -8,6 +8,12 @@ service GigService {
     rpc CreateGig(CreateGigReq) returns (EmptyResponse);
     rpc GetGigsByFreelancerID(GetGigsByFreelancerIDRequest) returns (GetGigsByFreelancerIDResponse);
     rpc UpdateGigByID(UpdateGigRequest) returns (CommonGigRes);
+    rpc DeleteGigByID (DeleteReq) returns (CommonGigRes);
+}
+
+message DeleteReq{
+    uint32 gig_id=1;
+    uint32 user_id=2;
 }
 
 message CommonGigRes{
