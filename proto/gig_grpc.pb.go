@@ -30,7 +30,7 @@ const (
 type GigServiceClient interface {
 	CreateGig(ctx context.Context, in *CreateGigReq, opts ...grpc.CallOption) (*EmptyResponse, error)
 	GetGigsByFreelancerID(ctx context.Context, in *GetGigsByFreelancerIDRequest, opts ...grpc.CallOption) (*GetGigsByFreelancerIDResponse, error)
-	UpdateGigByID(ctx context.Context, in *UpdateGigRequest, opts ...grpc.CallOption) (*CommonRes, error)
+	UpdateGigByID(ctx context.Context, in *UpdateGigRequest, opts ...grpc.CallOption) (*CommonGigRes, error)
 }
 
 type gigServiceClient struct {
@@ -61,9 +61,9 @@ func (c *gigServiceClient) GetGigsByFreelancerID(ctx context.Context, in *GetGig
 	return out, nil
 }
 
-func (c *gigServiceClient) UpdateGigByID(ctx context.Context, in *UpdateGigRequest, opts ...grpc.CallOption) (*CommonRes, error) {
+func (c *gigServiceClient) UpdateGigByID(ctx context.Context, in *UpdateGigRequest, opts ...grpc.CallOption) (*CommonGigRes, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(CommonRes)
+	out := new(CommonGigRes)
 	err := c.cc.Invoke(ctx, GigService_UpdateGigByID_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -77,7 +77,7 @@ func (c *gigServiceClient) UpdateGigByID(ctx context.Context, in *UpdateGigReque
 type GigServiceServer interface {
 	CreateGig(context.Context, *CreateGigReq) (*EmptyResponse, error)
 	GetGigsByFreelancerID(context.Context, *GetGigsByFreelancerIDRequest) (*GetGigsByFreelancerIDResponse, error)
-	UpdateGigByID(context.Context, *UpdateGigRequest) (*CommonRes, error)
+	UpdateGigByID(context.Context, *UpdateGigRequest) (*CommonGigRes, error)
 	mustEmbedUnimplementedGigServiceServer()
 }
 
@@ -94,7 +94,7 @@ func (UnimplementedGigServiceServer) CreateGig(context.Context, *CreateGigReq) (
 func (UnimplementedGigServiceServer) GetGigsByFreelancerID(context.Context, *GetGigsByFreelancerIDRequest) (*GetGigsByFreelancerIDResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetGigsByFreelancerID not implemented")
 }
-func (UnimplementedGigServiceServer) UpdateGigByID(context.Context, *UpdateGigRequest) (*CommonRes, error) {
+func (UnimplementedGigServiceServer) UpdateGigByID(context.Context, *UpdateGigRequest) (*CommonGigRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateGigByID not implemented")
 }
 func (UnimplementedGigServiceServer) mustEmbedUnimplementedGigServiceServer() {}
