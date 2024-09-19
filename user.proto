@@ -26,6 +26,11 @@ service UserService {
     rpc ForgotPassword(FP_Req) returns (CommonRes);
     rpc ResetPassword (ResetPwdReq)returns (CommonRes);
     rpc UpdateAddress(AddressReq) returns (CommonRes);
+    rpc UpdatRole (RoleReq) returns (CommonRes);
+}
+
+message RoleReq {
+    string role=1;
 }
 
 message AddressReq{

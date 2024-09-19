@@ -40,6 +40,7 @@ const (
 	UserService_ForgotPassword_FullMethodName     = "/user.UserService/ForgotPassword"
 	UserService_ResetPassword_FullMethodName      = "/user.UserService/ResetPassword"
 	UserService_UpdateAddress_FullMethodName      = "/user.UserService/UpdateAddress"
+	UserService_UpdatRole_FullMethodName          = "/user.UserService/UpdatRole"
 )
 
 // UserServiceClient is the client API for UserService service.
@@ -67,6 +68,7 @@ type UserServiceClient interface {
 	ForgotPassword(ctx context.Context, in *FP_Req, opts ...grpc.CallOption) (*CommonRes, error)
 	ResetPassword(ctx context.Context, in *ResetPwdReq, opts ...grpc.CallOption) (*CommonRes, error)
 	UpdateAddress(ctx context.Context, in *AddressReq, opts ...grpc.CallOption) (*CommonRes, error)
+	UpdatRole(ctx context.Context, in *RoleReq, opts ...grpc.CallOption) (*CommonRes, error)
 }
 
 type userServiceClient struct {
@@ -287,6 +289,16 @@ func (c *userServiceClient) UpdateAddress(ctx context.Context, in *AddressReq, o
 	return out, nil
 }
 
+func (c *userServiceClient) UpdatRole(ctx context.Context, in *RoleReq, opts ...grpc.CallOption) (*CommonRes, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CommonRes)
+	err := c.cc.Invoke(ctx, UserService_UpdatRole_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // UserServiceServer is the server API for UserService service.
 // All implementations must embed UnimplementedUserServiceServer
 // for forward compatibility.
@@ -312,6 +324,7 @@ type UserServiceServer interface {
 	ForgotPassword(context.Context, *FP_Req) (*CommonRes, error)
 	ResetPassword(context.Context, *ResetPwdReq) (*CommonRes, error)
 	UpdateAddress(context.Context, *AddressReq) (*CommonRes, error)
+	UpdatRole(context.Context, *RoleReq) (*CommonRes, error)
 	mustEmbedUnimplementedUserServiceServer()
 }
 
@@ -384,6 +397,9 @@ func (UnimplementedUserServiceServer) ResetPassword(context.Context, *ResetPwdRe
 }
 func (UnimplementedUserServiceServer) UpdateAddress(context.Context, *AddressReq) (*CommonRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateAddress not implemented")
+}
+func (UnimplementedUserServiceServer) UpdatRole(context.Context, *RoleReq) (*CommonRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method UpdatRole not implemented")
 }
 func (UnimplementedUserServiceServer) mustEmbedUnimplementedUserServiceServer() {}
 func (UnimplementedUserServiceServer) testEmbeddedByValue()                     {}
@@ -784,6 +800,24 @@ func _UserService_UpdateAddress_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _UserService_UpdatRole_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(RoleReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(UserServiceServer).UpdatRole(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: UserService_UpdatRole_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(UserServiceServer).UpdatRole(ctx, req.(*RoleReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // UserService_ServiceDesc is the grpc.ServiceDesc for UserService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -874,6 +908,10 @@ var UserService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateAddress",
 			Handler:    _UserService_UpdateAddress_Handler,
+		},
+		{
+			MethodName: "UpdatRole",
+			Handler:    _UserService_UpdatRole_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
