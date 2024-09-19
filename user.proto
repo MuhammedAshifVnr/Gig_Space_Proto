@@ -30,6 +30,7 @@ service UserService {
 }
 
 message RoleReq {
+    uint32 id=2;
     string role=1;
 }
 
