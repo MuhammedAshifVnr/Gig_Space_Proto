@@ -10,6 +10,7 @@ import (
 	protoreflect "google.golang.org/protobuf/reflect/protoreflect"
 	protoimpl "google.golang.org/protobuf/runtime/protoimpl"
 	reflect "reflect"
+	sync "sync"
 )
 
 const (
@@ -19,19 +20,208 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type IndexGigRequest struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	Id           uint64  `protobuf:"varint,1,opt,name=id,proto3" json:"id,omitempty"`
+	Title        string  `protobuf:"bytes,2,opt,name=title,proto3" json:"title,omitempty"`
+	Description  string  `protobuf:"bytes,3,opt,name=description,proto3" json:"description,omitempty"`
+	Category     string  `protobuf:"bytes,4,opt,name=category,proto3" json:"category,omitempty"`
+	Price        float32 `protobuf:"fixed32,5,opt,name=price,proto3" json:"price,omitempty"`
+	DeliveryDays int32   `protobuf:"varint,6,opt,name=deliveryDays,proto3" json:"deliveryDays,omitempty"`
+	Revisions    int32   `protobuf:"varint,7,opt,name=revisions,proto3" json:"revisions,omitempty"`
+	FreelancerId uint64  `protobuf:"varint,8,opt,name=freelancerId,proto3" json:"freelancerId,omitempty"`
+	Image        string  `protobuf:"bytes,9,opt,name=image,proto3" json:"image,omitempty"`
+}
+
+func (x *IndexGigRequest) Reset() {
+	*x = IndexGigRequest{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_search_proto_msgTypes[0]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *IndexGigRequest) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*IndexGigRequest) ProtoMessage() {}
+
+func (x *IndexGigRequest) ProtoReflect() protoreflect.Message {
+	mi := &file_search_proto_msgTypes[0]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use IndexGigRequest.ProtoReflect.Descriptor instead.
+func (*IndexGigRequest) Descriptor() ([]byte, []int) {
+	return file_search_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *IndexGigRequest) GetId() uint64 {
+	if x != nil {
+		return x.Id
+	}
+	return 0
+}
+
+func (x *IndexGigRequest) GetTitle() string {
+	if x != nil {
+		return x.Title
+	}
+	return ""
+}
+
+func (x *IndexGigRequest) GetDescription() string {
+	if x != nil {
+		return x.Description
+	}
+	return ""
+}
+
+func (x *IndexGigRequest) GetCategory() string {
+	if x != nil {
+		return x.Category
+	}
+	return ""
+}
+
+func (x *IndexGigRequest) GetPrice() float32 {
+	if x != nil {
+		return x.Price
+	}
+	return 0
+}
+
+func (x *IndexGigRequest) GetDeliveryDays() int32 {
+	if x != nil {
+		return x.DeliveryDays
+	}
+	return 0
+}
+
+func (x *IndexGigRequest) GetRevisions() int32 {
+	if x != nil {
+		return x.Revisions
+	}
+	return 0
+}
+
+func (x *IndexGigRequest) GetFreelancerId() uint64 {
+	if x != nil {
+		return x.FreelancerId
+	}
+	return 0
+}
+
+func (x *IndexGigRequest) GetImage() string {
+	if x != nil {
+		return x.Image
+	}
+	return ""
+}
+
+type SearchEmptyRes struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+}
+
+func (x *SearchEmptyRes) Reset() {
+	*x = SearchEmptyRes{}
+	if protoimpl.UnsafeEnabled {
+		mi := &file_search_proto_msgTypes[1]
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		ms.StoreMessageInfo(mi)
+	}
+}
+
+func (x *SearchEmptyRes) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*SearchEmptyRes) ProtoMessage() {}
+
+func (x *SearchEmptyRes) ProtoReflect() protoreflect.Message {
+	mi := &file_search_proto_msgTypes[1]
+	if protoimpl.UnsafeEnabled && x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use SearchEmptyRes.ProtoReflect.Descriptor instead.
+func (*SearchEmptyRes) Descriptor() ([]byte, []int) {
+	return file_search_proto_rawDescGZIP(), []int{1}
+}
+
 var File_search_proto protoreflect.FileDescriptor
 
 var file_search_proto_rawDesc = []byte{
 	0x0a, 0x0c, 0x73, 0x65, 0x61, 0x72, 0x63, 0x68, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x06,
-	0x73, 0x65, 0x61, 0x72, 0x63, 0x68, 0x32, 0x0f, 0x0a, 0x0d, 0x53, 0x65, 0x61, 0x72, 0x63, 0x68,
-	0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x42, 0x09, 0x5a, 0x07, 0x2e, 0x2f, 0x70, 0x72, 0x6f,
-	0x74, 0x6f, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x73, 0x65, 0x61, 0x72, 0x63, 0x68, 0x22, 0x87, 0x02, 0x0a, 0x0f, 0x49, 0x6e, 0x64, 0x65, 0x78,
+	0x47, 0x69, 0x67, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x0a, 0x02, 0x69, 0x64,
+	0x18, 0x01, 0x20, 0x01, 0x28, 0x04, 0x52, 0x02, 0x69, 0x64, 0x12, 0x14, 0x0a, 0x05, 0x74, 0x69,
+	0x74, 0x6c, 0x65, 0x18, 0x02, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x74, 0x69, 0x74, 0x6c, 0x65,
+	0x12, 0x20, 0x0a, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69, 0x6f, 0x6e, 0x18,
+	0x03, 0x20, 0x01, 0x28, 0x09, 0x52, 0x0b, 0x64, 0x65, 0x73, 0x63, 0x72, 0x69, 0x70, 0x74, 0x69,
+	0x6f, 0x6e, 0x12, 0x1a, 0x0a, 0x08, 0x63, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72, 0x79, 0x18, 0x04,
+	0x20, 0x01, 0x28, 0x09, 0x52, 0x08, 0x63, 0x61, 0x74, 0x65, 0x67, 0x6f, 0x72, 0x79, 0x12, 0x14,
+	0x0a, 0x05, 0x70, 0x72, 0x69, 0x63, 0x65, 0x18, 0x05, 0x20, 0x01, 0x28, 0x02, 0x52, 0x05, 0x70,
+	0x72, 0x69, 0x63, 0x65, 0x12, 0x22, 0x0a, 0x0c, 0x64, 0x65, 0x6c, 0x69, 0x76, 0x65, 0x72, 0x79,
+	0x44, 0x61, 0x79, 0x73, 0x18, 0x06, 0x20, 0x01, 0x28, 0x05, 0x52, 0x0c, 0x64, 0x65, 0x6c, 0x69,
+	0x76, 0x65, 0x72, 0x79, 0x44, 0x61, 0x79, 0x73, 0x12, 0x1c, 0x0a, 0x09, 0x72, 0x65, 0x76, 0x69,
+	0x73, 0x69, 0x6f, 0x6e, 0x73, 0x18, 0x07, 0x20, 0x01, 0x28, 0x05, 0x52, 0x09, 0x72, 0x65, 0x76,
+	0x69, 0x73, 0x69, 0x6f, 0x6e, 0x73, 0x12, 0x22, 0x0a, 0x0c, 0x66, 0x72, 0x65, 0x65, 0x6c, 0x61,
+	0x6e, 0x63, 0x65, 0x72, 0x49, 0x64, 0x18, 0x08, 0x20, 0x01, 0x28, 0x04, 0x52, 0x0c, 0x66, 0x72,
+	0x65, 0x65, 0x6c, 0x61, 0x6e, 0x63, 0x65, 0x72, 0x49, 0x64, 0x12, 0x14, 0x0a, 0x05, 0x69, 0x6d,
+	0x61, 0x67, 0x65, 0x18, 0x09, 0x20, 0x01, 0x28, 0x09, 0x52, 0x05, 0x69, 0x6d, 0x61, 0x67, 0x65,
+	0x22, 0x10, 0x0a, 0x0e, 0x53, 0x65, 0x61, 0x72, 0x63, 0x68, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x52,
+	0x65, 0x73, 0x32, 0x4c, 0x0a, 0x0d, 0x53, 0x65, 0x61, 0x72, 0x63, 0x68, 0x53, 0x65, 0x72, 0x76,
+	0x69, 0x63, 0x65, 0x12, 0x3b, 0x0a, 0x08, 0x49, 0x6e, 0x64, 0x65, 0x78, 0x47, 0x69, 0x67, 0x12,
+	0x17, 0x2e, 0x73, 0x65, 0x61, 0x72, 0x63, 0x68, 0x2e, 0x49, 0x6e, 0x64, 0x65, 0x78, 0x47, 0x69,
+	0x67, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x1a, 0x16, 0x2e, 0x73, 0x65, 0x61, 0x72, 0x63,
+	0x68, 0x2e, 0x53, 0x65, 0x61, 0x72, 0x63, 0x68, 0x45, 0x6d, 0x70, 0x74, 0x79, 0x52, 0x65, 0x73,
+	0x42, 0x09, 0x5a, 0x07, 0x2e, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x06, 0x70, 0x72, 0x6f,
+	0x74, 0x6f, 0x33,
 }
 
-var file_search_proto_goTypes = []any{}
+var (
+	file_search_proto_rawDescOnce sync.Once
+	file_search_proto_rawDescData = file_search_proto_rawDesc
+)
+
+func file_search_proto_rawDescGZIP() []byte {
+	file_search_proto_rawDescOnce.Do(func() {
+		file_search_proto_rawDescData = protoimpl.X.CompressGZIP(file_search_proto_rawDescData)
+	})
+	return file_search_proto_rawDescData
+}
+
+var file_search_proto_msgTypes = make([]protoimpl.MessageInfo, 2)
+var file_search_proto_goTypes = []any{
+	(*IndexGigRequest)(nil), // 0: search.IndexGigRequest
+	(*SearchEmptyRes)(nil),  // 1: search.SearchEmptyRes
+}
 var file_search_proto_depIdxs = []int32{
-	0, // [0:0] is the sub-list for method output_type
-	0, // [0:0] is the sub-list for method input_type
+	0, // 0: search.SearchService.IndexGig:input_type -> search.IndexGigRequest
+	1, // 1: search.SearchService.IndexGig:output_type -> search.SearchEmptyRes
+	1, // [1:2] is the sub-list for method output_type
+	0, // [0:1] is the sub-list for method input_type
 	0, // [0:0] is the sub-list for extension type_name
 	0, // [0:0] is the sub-list for extension extendee
 	0, // [0:0] is the sub-list for field type_name
@@ -42,18 +232,45 @@ func file_search_proto_init() {
 	if File_search_proto != nil {
 		return
 	}
+	if !protoimpl.UnsafeEnabled {
+		file_search_proto_msgTypes[0].Exporter = func(v any, i int) any {
+			switch v := v.(*IndexGigRequest); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+		file_search_proto_msgTypes[1].Exporter = func(v any, i int) any {
+			switch v := v.(*SearchEmptyRes); i {
+			case 0:
+				return &v.state
+			case 1:
+				return &v.sizeCache
+			case 2:
+				return &v.unknownFields
+			default:
+				return nil
+			}
+		}
+	}
 	type x struct{}
 	out := protoimpl.TypeBuilder{
 		File: protoimpl.DescBuilder{
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_search_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   0,
+			NumMessages:   2,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
 		GoTypes:           file_search_proto_goTypes,
 		DependencyIndexes: file_search_proto_depIdxs,
+		MessageInfos:      file_search_proto_msgTypes,
 	}.Build()
 	File_search_proto = out.File
 	file_search_proto_rawDesc = nil

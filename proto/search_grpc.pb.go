@@ -7,7 +7,10 @@
 package proto
 
 import (
+	context "context"
 	grpc "google.golang.org/grpc"
+	codes "google.golang.org/grpc/codes"
+	status "google.golang.org/grpc/status"
 )
 
 // This is a compile-time assertion to ensure that this generated file
@@ -15,10 +18,15 @@ import (
 // Requires gRPC-Go v1.64.0 or later.
 const _ = grpc.SupportPackageIsVersion9
 
+const (
+	SearchService_IndexGig_FullMethodName = "/search.SearchService/IndexGig"
+)
+
 // SearchServiceClient is the client API for SearchService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
 type SearchServiceClient interface {
+	IndexGig(ctx context.Context, in *IndexGigRequest, opts ...grpc.CallOption) (*SearchEmptyRes, error)
 }
 
 type searchServiceClient struct {
@@ -29,10 +37,21 @@ func NewSearchServiceClient(cc grpc.ClientConnInterface) SearchServiceClient {
 	return &searchServiceClient{cc}
 }
 
+func (c *searchServiceClient) IndexGig(ctx context.Context, in *IndexGigRequest, opts ...grpc.CallOption) (*SearchEmptyRes, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(SearchEmptyRes)
+	err := c.cc.Invoke(ctx, SearchService_IndexGig_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // SearchServiceServer is the server API for SearchService service.
 // All implementations must embed UnimplementedSearchServiceServer
 // for forward compatibility.
 type SearchServiceServer interface {
+	IndexGig(context.Context, *IndexGigRequest) (*SearchEmptyRes, error)
 	mustEmbedUnimplementedSearchServiceServer()
 }
 
@@ -43,6 +62,9 @@ type SearchServiceServer interface {
 // pointer dereference when methods are called.
 type UnimplementedSearchServiceServer struct{}
 
+func (UnimplementedSearchServiceServer) IndexGig(context.Context, *IndexGigRequest) (*SearchEmptyRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method IndexGig not implemented")
+}
 func (UnimplementedSearchServiceServer) mustEmbedUnimplementedSearchServiceServer() {}
 func (UnimplementedSearchServiceServer) testEmbeddedByValue()                       {}
 
@@ -64,13 +86,36 @@ func RegisterSearchServiceServer(s grpc.ServiceRegistrar, srv SearchServiceServe
 	s.RegisterService(&SearchService_ServiceDesc, srv)
 }
 
+func _SearchService_IndexGig_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(IndexGigRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SearchServiceServer).IndexGig(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: SearchService_IndexGig_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SearchServiceServer).IndexGig(ctx, req.(*IndexGigRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // SearchService_ServiceDesc is the grpc.ServiceDesc for SearchService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
 var SearchService_ServiceDesc = grpc.ServiceDesc{
 	ServiceName: "search.SearchService",
 	HandlerType: (*SearchServiceServer)(nil),
-	Methods:     []grpc.MethodDesc{},
-	Streams:     []grpc.StreamDesc{},
-	Metadata:    "search.proto",
+	Methods: []grpc.MethodDesc{
+		{
+			MethodName: "IndexGig",
+			Handler:    _SearchService_IndexGig_Handler,
+		},
+	},
+	Streams:  []grpc.StreamDesc{},
+	Metadata: "search.proto",
 }
