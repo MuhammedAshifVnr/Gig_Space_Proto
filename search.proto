@@ -6,6 +6,29 @@ option go_package ="./proto";
 
 service SearchService{
     rpc IndexGig (IndexGigRequest) returns (SearchEmptyRes);
+    rpc SearchGig (SearchGigReq) returns (SearchGigRes);
+}
+
+message SearchGigReq{
+    string quey =1;
+    float price_upto=2;
+    int32 revisions_min =3;
+    int32 delivery_days_max = 4;
+}
+
+message SearchGigRes{
+    repeated Gig gigs =1;
+}
+
+message Gig{
+    uint32 id = 1;               
+    string title = 2;            
+    string description = 3;      
+    string image = 4;            
+    float price = 5;             
+    int32 revisions = 6;         
+    int32 delivery_days = 7;     
+    string images = 8;   
 }
 
 message IndexGigRequest{
