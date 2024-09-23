@@ -17,10 +17,10 @@ message SearchGigReq{
 }
 
 message SearchGigRes{
-    repeated Gig gigs =1;
+    repeated ResultGig gigs =1;
 }
 
-message Gig{
+message ResultGig{
     uint32 id = 1;               
     string title = 2;            
     string description = 3;      
