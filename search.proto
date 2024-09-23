@@ -10,7 +10,7 @@ service SearchService{
 }
 
 message SearchGigReq{
-    string quey =1;
+    string query =1;
     float price_upto=2;
     int32 revisions_min =3;
     int32 delivery_days_max = 4;
