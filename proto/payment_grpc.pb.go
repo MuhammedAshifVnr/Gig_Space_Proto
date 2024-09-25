@@ -19,101 +19,101 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	GigService_CreateSubscription_FullMethodName = "/payment.GigService/CreateSubscription"
+	PaymentService_CreateSubscription_FullMethodName = "/payment.PaymentService/CreateSubscription"
 )
 
-// GigServiceClient is the client API for GigService service.
+// PaymentServiceClient is the client API for PaymentService service.
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://pkg.go.dev/google.golang.org/grpc/?tab=doc#ClientConn.NewStream.
-type GigServiceClient interface {
+type PaymentServiceClient interface {
 	CreateSubscription(ctx context.Context, in *CreateSubscriptionRequest, opts ...grpc.CallOption) (*CreateSubscriptionResponse, error)
 }
 
-type gigServiceClient struct {
+type paymentServiceClient struct {
 	cc grpc.ClientConnInterface
 }
 
-func NewGigServiceClient(cc grpc.ClientConnInterface) GigServiceClient {
-	return &gigServiceClient{cc}
+func NewPaymentServiceClient(cc grpc.ClientConnInterface) PaymentServiceClient {
+	return &paymentServiceClient{cc}
 }
 
-func (c *gigServiceClient) CreateSubscription(ctx context.Context, in *CreateSubscriptionRequest, opts ...grpc.CallOption) (*CreateSubscriptionResponse, error) {
+func (c *paymentServiceClient) CreateSubscription(ctx context.Context, in *CreateSubscriptionRequest, opts ...grpc.CallOption) (*CreateSubscriptionResponse, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(CreateSubscriptionResponse)
-	err := c.cc.Invoke(ctx, GigService_CreateSubscription_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, PaymentService_CreateSubscription_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
 	return out, nil
 }
 
-// GigServiceServer is the server API for GigService service.
-// All implementations must embed UnimplementedGigServiceServer
+// PaymentServiceServer is the server API for PaymentService service.
+// All implementations must embed UnimplementedPaymentServiceServer
 // for forward compatibility.
-type GigServiceServer interface {
+type PaymentServiceServer interface {
 	CreateSubscription(context.Context, *CreateSubscriptionRequest) (*CreateSubscriptionResponse, error)
-	mustEmbedUnimplementedGigServiceServer()
+	mustEmbedUnimplementedPaymentServiceServer()
 }
 
-// UnimplementedGigServiceServer must be embedded to have
+// UnimplementedPaymentServiceServer must be embedded to have
 // forward compatible implementations.
 //
 // NOTE: this should be embedded by value instead of pointer to avoid a nil
 // pointer dereference when methods are called.
-type UnimplementedGigServiceServer struct{}
+type UnimplementedPaymentServiceServer struct{}
 
-func (UnimplementedGigServiceServer) CreateSubscription(context.Context, *CreateSubscriptionRequest) (*CreateSubscriptionResponse, error) {
+func (UnimplementedPaymentServiceServer) CreateSubscription(context.Context, *CreateSubscriptionRequest) (*CreateSubscriptionResponse, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateSubscription not implemented")
 }
-func (UnimplementedGigServiceServer) mustEmbedUnimplementedGigServiceServer() {}
-func (UnimplementedGigServiceServer) testEmbeddedByValue()                    {}
+func (UnimplementedPaymentServiceServer) mustEmbedUnimplementedPaymentServiceServer() {}
+func (UnimplementedPaymentServiceServer) testEmbeddedByValue()                        {}
 
-// UnsafeGigServiceServer may be embedded to opt out of forward compatibility for this service.
-// Use of this interface is not recommended, as added methods to GigServiceServer will
+// UnsafePaymentServiceServer may be embedded to opt out of forward compatibility for this service.
+// Use of this interface is not recommended, as added methods to PaymentServiceServer will
 // result in compilation errors.
-type UnsafeGigServiceServer interface {
-	mustEmbedUnimplementedGigServiceServer()
+type UnsafePaymentServiceServer interface {
+	mustEmbedUnimplementedPaymentServiceServer()
 }
 
-func RegisterGigServiceServer(s grpc.ServiceRegistrar, srv GigServiceServer) {
-	// If the following call pancis, it indicates UnimplementedGigServiceServer was
+func RegisterPaymentServiceServer(s grpc.ServiceRegistrar, srv PaymentServiceServer) {
+	// If the following call pancis, it indicates UnimplementedPaymentServiceServer was
 	// embedded by pointer and is nil.  This will cause panics if an
 	// unimplemented method is ever invoked, so we test this at initialization
 	// time to prevent it from happening at runtime later due to I/O.
 	if t, ok := srv.(interface{ testEmbeddedByValue() }); ok {
 		t.testEmbeddedByValue()
 	}
-	s.RegisterService(&GigService_ServiceDesc, srv)
+	s.RegisterService(&PaymentService_ServiceDesc, srv)
 }
 
-func _GigService_CreateSubscription_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _PaymentService_CreateSubscription_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(CreateSubscriptionRequest)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(GigServiceServer).CreateSubscription(ctx, in)
+		return srv.(PaymentServiceServer).CreateSubscription(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: GigService_CreateSubscription_FullMethodName,
+		FullMethod: PaymentService_CreateSubscription_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GigServiceServer).CreateSubscription(ctx, req.(*CreateSubscriptionRequest))
+		return srv.(PaymentServiceServer).CreateSubscription(ctx, req.(*CreateSubscriptionRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
 
-// GigService_ServiceDesc is the grpc.ServiceDesc for GigService service.
+// PaymentService_ServiceDesc is the grpc.ServiceDesc for PaymentService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
-var GigService_ServiceDesc = grpc.ServiceDesc{
-	ServiceName: "payment.GigService",
-	HandlerType: (*GigServiceServer)(nil),
+var PaymentService_ServiceDesc = grpc.ServiceDesc{
+	ServiceName: "payment.PaymentService",
+	HandlerType: (*PaymentServiceServer)(nil),
 	Methods: []grpc.MethodDesc{
 		{
 			MethodName: "CreateSubscription",
-			Handler:    _GigService_CreateSubscription_Handler,
+			Handler:    _PaymentService_CreateSubscription_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

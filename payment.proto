@@ -4,7 +4,7 @@ package payment;
 
 option go_package ="./proto";
 
-service GigService {
+service PaymentService {
     rpc CreateSubscription(CreateSubscriptionRequest) returns (CreateSubscriptionResponse);
 }
 
