@@ -1,0 +1,18 @@
+syntax = "proto3";
+
+package payment;
+
+option go_package ="./proto";
+
+service GigService {
+    rpc CreateSubscription(CreateSubscriptionRequest) returns (CreateSubscriptionResponse);
+}
+
+message CreateSubscriptionRequest {
+    string user_id = 1;
+}
+
+message CreateSubscriptionResponse {
+    string message = 1;
+    bool success = 2;
+}
