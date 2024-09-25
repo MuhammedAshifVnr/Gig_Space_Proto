@@ -9,7 +9,8 @@ service PaymentService {
 }
 
 message CreateSubscriptionRequest {
-    string user_id = 1;
+    uint32 user_id = 1;
+    uint32 plan_id = 2;
 }
 
 message CreateSubscriptionResponse {
