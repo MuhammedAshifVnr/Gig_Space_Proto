@@ -9,6 +9,16 @@ service PaymentService {
     rpc UpdatePaymentStatus(UpdatePaymentReq) returns (PaymentCommonRes);
     rpc RenewSubscription(RenewSubReq) returns (PaymentCommonRes);
     rpc GetSubDetails(GetSubReq) returns (GetSubRes);
+    rpc CreatePlan(CreatePlanReq) returns (PaymentCommonRes);
+
+}
+
+message CreatePlanReq{
+    string name = 1;
+    double amount = 2;
+    string currency = 3;
+    string period = 4;
+    string description = 6;
 }
 
 message GetSubReq{
