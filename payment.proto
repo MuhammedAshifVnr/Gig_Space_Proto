@@ -8,6 +8,15 @@ service PaymentService {
     rpc CreateSubscription(CreateSubscriptionRequest) returns (CreateSubscriptionResponse);
     rpc UpdatePaymentStatus(UpdatePaymentReq) returns (PaymentCommonRes);
     rpc RenewSubscription(RenewSubReq) returns (PaymentCommonRes);
+    rpc GetSubDetails(GetSubReq) returns (GetSubRes);
+}
+
+message GetSubReq{
+    uint32 user_id =1;
+}
+
+message GetSubRes{
+    int64 expiry_time =1;
 }
 
 message RenewSubReq{

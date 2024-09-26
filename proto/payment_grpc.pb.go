@@ -22,6 +22,7 @@ const (
 	PaymentService_CreateSubscription_FullMethodName  = "/payment.PaymentService/CreateSubscription"
 	PaymentService_UpdatePaymentStatus_FullMethodName = "/payment.PaymentService/UpdatePaymentStatus"
 	PaymentService_RenewSubscription_FullMethodName   = "/payment.PaymentService/RenewSubscription"
+	PaymentService_GetSubDetails_FullMethodName       = "/payment.PaymentService/GetSubDetails"
 )
 
 // PaymentServiceClient is the client API for PaymentService service.
@@ -31,6 +32,7 @@ type PaymentServiceClient interface {
 	CreateSubscription(ctx context.Context, in *CreateSubscriptionRequest, opts ...grpc.CallOption) (*CreateSubscriptionResponse, error)
 	UpdatePaymentStatus(ctx context.Context, in *UpdatePaymentReq, opts ...grpc.CallOption) (*PaymentCommonRes, error)
 	RenewSubscription(ctx context.Context, in *RenewSubReq, opts ...grpc.CallOption) (*PaymentCommonRes, error)
+	GetSubDetails(ctx context.Context, in *GetSubReq, opts ...grpc.CallOption) (*GetSubRes, error)
 }
 
 type paymentServiceClient struct {
@@ -71,6 +73,16 @@ func (c *paymentServiceClient) RenewSubscription(ctx context.Context, in *RenewS
 	return out, nil
 }
 
+func (c *paymentServiceClient) GetSubDetails(ctx context.Context, in *GetSubReq, opts ...grpc.CallOption) (*GetSubRes, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetSubRes)
+	err := c.cc.Invoke(ctx, PaymentService_GetSubDetails_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // PaymentServiceServer is the server API for PaymentService service.
 // All implementations must embed UnimplementedPaymentServiceServer
 // for forward compatibility.
@@ -78,6 +90,7 @@ type PaymentServiceServer interface {
 	CreateSubscription(context.Context, *CreateSubscriptionRequest) (*CreateSubscriptionResponse, error)
 	UpdatePaymentStatus(context.Context, *UpdatePaymentReq) (*PaymentCommonRes, error)
 	RenewSubscription(context.Context, *RenewSubReq) (*PaymentCommonRes, error)
+	GetSubDetails(context.Context, *GetSubReq) (*GetSubRes, error)
 	mustEmbedUnimplementedPaymentServiceServer()
 }
 
@@ -96,6 +109,9 @@ func (UnimplementedPaymentServiceServer) UpdatePaymentStatus(context.Context, *U
 }
 func (UnimplementedPaymentServiceServer) RenewSubscription(context.Context, *RenewSubReq) (*PaymentCommonRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RenewSubscription not implemented")
+}
+func (UnimplementedPaymentServiceServer) GetSubDetails(context.Context, *GetSubReq) (*GetSubRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetSubDetails not implemented")
 }
 func (UnimplementedPaymentServiceServer) mustEmbedUnimplementedPaymentServiceServer() {}
 func (UnimplementedPaymentServiceServer) testEmbeddedByValue()                        {}
@@ -172,6 +188,24 @@ func _PaymentService_RenewSubscription_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PaymentService_GetSubDetails_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetSubReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PaymentServiceServer).GetSubDetails(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PaymentService_GetSubDetails_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PaymentServiceServer).GetSubDetails(ctx, req.(*GetSubReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // PaymentService_ServiceDesc is the grpc.ServiceDesc for PaymentService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -190,6 +224,10 @@ var PaymentService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "RenewSubscription",
 			Handler:    _PaymentService_RenewSubscription_Handler,
+		},
+		{
+			MethodName: "GetSubDetails",
+			Handler:    _PaymentService_GetSubDetails_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
