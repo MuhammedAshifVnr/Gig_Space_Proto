@@ -18,6 +18,7 @@ message CreatePlanReq{
     double amount = 2;
     string currency = 3;
     string period = 4;
+    int32 interval = 5;
     string description = 6;
 }
 
