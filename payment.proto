@@ -7,6 +7,12 @@ option go_package ="./proto";
 service PaymentService {
     rpc CreateSubscription(CreateSubscriptionRequest) returns (CreateSubscriptionResponse);
     rpc UpdatePaymentStatus(UpdatePaymentReq) returns (PaymentCommonRes);
+    rpc RenewSubscription(RenewSubReq) returns (PaymentCommonRes);
+}
+
+message RenewSubReq{
+    uint32 user_id =1;
+    uint32 plan_id =2;
 }
 
 message UpdatePaymentReq{
