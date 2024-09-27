@@ -24,6 +24,8 @@ const (
 	PaymentService_RenewSubscription_FullMethodName   = "/payment.PaymentService/RenewSubscription"
 	PaymentService_GetSubDetails_FullMethodName       = "/payment.PaymentService/GetSubDetails"
 	PaymentService_CreatePlan_FullMethodName          = "/payment.PaymentService/CreatePlan"
+	PaymentService_GetPlan_FullMethodName             = "/payment.PaymentService/GetPlan"
+	PaymentService_DeletePlan_FullMethodName          = "/payment.PaymentService/DeletePlan"
 )
 
 // PaymentServiceClient is the client API for PaymentService service.
@@ -35,6 +37,8 @@ type PaymentServiceClient interface {
 	RenewSubscription(ctx context.Context, in *RenewSubReq, opts ...grpc.CallOption) (*PaymentCommonRes, error)
 	GetSubDetails(ctx context.Context, in *GetSubReq, opts ...grpc.CallOption) (*GetSubRes, error)
 	CreatePlan(ctx context.Context, in *CreatePlanReq, opts ...grpc.CallOption) (*PaymentCommonRes, error)
+	GetPlan(ctx context.Context, in *EmptyReq, opts ...grpc.CallOption) (*GetPlanRes, error)
+	DeletePlan(ctx context.Context, in *DeletePlanReq, opts ...grpc.CallOption) (*PaymentCommonRes, error)
 }
 
 type paymentServiceClient struct {
@@ -95,6 +99,26 @@ func (c *paymentServiceClient) CreatePlan(ctx context.Context, in *CreatePlanReq
 	return out, nil
 }
 
+func (c *paymentServiceClient) GetPlan(ctx context.Context, in *EmptyReq, opts ...grpc.CallOption) (*GetPlanRes, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetPlanRes)
+	err := c.cc.Invoke(ctx, PaymentService_GetPlan_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *paymentServiceClient) DeletePlan(ctx context.Context, in *DeletePlanReq, opts ...grpc.CallOption) (*PaymentCommonRes, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(PaymentCommonRes)
+	err := c.cc.Invoke(ctx, PaymentService_DeletePlan_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // PaymentServiceServer is the server API for PaymentService service.
 // All implementations must embed UnimplementedPaymentServiceServer
 // for forward compatibility.
@@ -104,6 +128,8 @@ type PaymentServiceServer interface {
 	RenewSubscription(context.Context, *RenewSubReq) (*PaymentCommonRes, error)
 	GetSubDetails(context.Context, *GetSubReq) (*GetSubRes, error)
 	CreatePlan(context.Context, *CreatePlanReq) (*PaymentCommonRes, error)
+	GetPlan(context.Context, *EmptyReq) (*GetPlanRes, error)
+	DeletePlan(context.Context, *DeletePlanReq) (*PaymentCommonRes, error)
 	mustEmbedUnimplementedPaymentServiceServer()
 }
 
@@ -128,6 +154,12 @@ func (UnimplementedPaymentServiceServer) GetSubDetails(context.Context, *GetSubR
 }
 func (UnimplementedPaymentServiceServer) CreatePlan(context.Context, *CreatePlanReq) (*PaymentCommonRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreatePlan not implemented")
+}
+func (UnimplementedPaymentServiceServer) GetPlan(context.Context, *EmptyReq) (*GetPlanRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetPlan not implemented")
+}
+func (UnimplementedPaymentServiceServer) DeletePlan(context.Context, *DeletePlanReq) (*PaymentCommonRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeletePlan not implemented")
 }
 func (UnimplementedPaymentServiceServer) mustEmbedUnimplementedPaymentServiceServer() {}
 func (UnimplementedPaymentServiceServer) testEmbeddedByValue()                        {}
@@ -240,6 +272,42 @@ func _PaymentService_CreatePlan_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PaymentService_GetPlan_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(EmptyReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PaymentServiceServer).GetPlan(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PaymentService_GetPlan_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PaymentServiceServer).GetPlan(ctx, req.(*EmptyReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PaymentService_DeletePlan_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeletePlanReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PaymentServiceServer).DeletePlan(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PaymentService_DeletePlan_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PaymentServiceServer).DeletePlan(ctx, req.(*DeletePlanReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // PaymentService_ServiceDesc is the grpc.ServiceDesc for PaymentService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -266,6 +334,14 @@ var PaymentService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreatePlan",
 			Handler:    _PaymentService_CreatePlan_Handler,
+		},
+		{
+			MethodName: "GetPlan",
+			Handler:    _PaymentService_GetPlan_Handler,
+		},
+		{
+			MethodName: "DeletePlan",
+			Handler:    _PaymentService_DeletePlan_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

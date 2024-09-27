@@ -10,8 +10,28 @@ service PaymentService {
     rpc RenewSubscription(RenewSubReq) returns (PaymentCommonRes);
     rpc GetSubDetails(GetSubReq) returns (GetSubRes);
     rpc CreatePlan(CreatePlanReq) returns (PaymentCommonRes);
+    rpc GetPlan(EmptyReq) returns (GetPlanRes);
+    rpc DeletePlan(DeletePlanReq) returns (PaymentCommonRes); 
 
 }
+
+message DeletePlanReq{
+    string plan_id=1;
+}
+
+message GetPlanRes{
+    repeated Plan Plans =1;
+}
+
+message Plan{
+    string plan_id =3;
+    string name = 1;
+    int64 amount = 2;
+    string period = 4;
+    int32 interval = 5;
+}
+
+message EmptyReq{}
 
 message CreatePlanReq{
     string name = 1;
