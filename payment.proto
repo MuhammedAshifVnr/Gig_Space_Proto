@@ -24,11 +24,10 @@ message GetPlanRes{
 }
 
 message Plan{
-    string plan_id =3;
+    string razorpay_plan_id  =3;
     string name = 1;
-    int64 amount = 2;
+    int64 price = 2;
     string period = 4;
-    int32 interval = 5;
 }
 
 message EmptyReq{}
