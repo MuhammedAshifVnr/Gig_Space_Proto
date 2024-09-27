@@ -15,11 +15,9 @@ service PaymentService {
 
 message CreatePlanReq{
     string name = 1;
-    double amount = 2;
-    string currency = 3;
+    int64 amount = 2;
     string period = 4;
     int32 interval = 5;
-    string description = 6;
 }
 
 message GetSubReq{
