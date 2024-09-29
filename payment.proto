@@ -12,7 +12,24 @@ service PaymentService {
     rpc CreatePlan(CreatePlanReq) returns (PaymentCommonRes);
     rpc GetPlan(EmptyReq) returns (GetPlanRes);
     rpc DeletePlan(DeletePlanReq) returns (PaymentCommonRes); 
+    rpc HandleWebhook (WebhookRequest) returns (WebhookResponse);
+}
 
+message WebhookRequest {
+    map<string, string> payload = 1;  
+}
+
+message WebhookResponse {
+    bool success = 1;
+    string message = 2;
+}
+
+message PaymentInfo {
+    uint32 user_id = 1;
+    string subscription_id = 2;
+    string status = 3;
+    int32 amount = 4;  
+    string transaction_id = 5;
 }
 
 message DeletePlanReq{

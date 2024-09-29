@@ -26,6 +26,7 @@ const (
 	PaymentService_CreatePlan_FullMethodName          = "/payment.PaymentService/CreatePlan"
 	PaymentService_GetPlan_FullMethodName             = "/payment.PaymentService/GetPlan"
 	PaymentService_DeletePlan_FullMethodName          = "/payment.PaymentService/DeletePlan"
+	PaymentService_HandleWebhook_FullMethodName       = "/payment.PaymentService/HandleWebhook"
 )
 
 // PaymentServiceClient is the client API for PaymentService service.
@@ -39,6 +40,7 @@ type PaymentServiceClient interface {
 	CreatePlan(ctx context.Context, in *CreatePlanReq, opts ...grpc.CallOption) (*PaymentCommonRes, error)
 	GetPlan(ctx context.Context, in *EmptyReq, opts ...grpc.CallOption) (*GetPlanRes, error)
 	DeletePlan(ctx context.Context, in *DeletePlanReq, opts ...grpc.CallOption) (*PaymentCommonRes, error)
+	HandleWebhook(ctx context.Context, in *WebhookRequest, opts ...grpc.CallOption) (*WebhookResponse, error)
 }
 
 type paymentServiceClient struct {
@@ -119,6 +121,16 @@ func (c *paymentServiceClient) DeletePlan(ctx context.Context, in *DeletePlanReq
 	return out, nil
 }
 
+func (c *paymentServiceClient) HandleWebhook(ctx context.Context, in *WebhookRequest, opts ...grpc.CallOption) (*WebhookResponse, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(WebhookResponse)
+	err := c.cc.Invoke(ctx, PaymentService_HandleWebhook_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // PaymentServiceServer is the server API for PaymentService service.
 // All implementations must embed UnimplementedPaymentServiceServer
 // for forward compatibility.
@@ -130,6 +142,7 @@ type PaymentServiceServer interface {
 	CreatePlan(context.Context, *CreatePlanReq) (*PaymentCommonRes, error)
 	GetPlan(context.Context, *EmptyReq) (*GetPlanRes, error)
 	DeletePlan(context.Context, *DeletePlanReq) (*PaymentCommonRes, error)
+	HandleWebhook(context.Context, *WebhookRequest) (*WebhookResponse, error)
 	mustEmbedUnimplementedPaymentServiceServer()
 }
 
@@ -160,6 +173,9 @@ func (UnimplementedPaymentServiceServer) GetPlan(context.Context, *EmptyReq) (*G
 }
 func (UnimplementedPaymentServiceServer) DeletePlan(context.Context, *DeletePlanReq) (*PaymentCommonRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method DeletePlan not implemented")
+}
+func (UnimplementedPaymentServiceServer) HandleWebhook(context.Context, *WebhookRequest) (*WebhookResponse, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method HandleWebhook not implemented")
 }
 func (UnimplementedPaymentServiceServer) mustEmbedUnimplementedPaymentServiceServer() {}
 func (UnimplementedPaymentServiceServer) testEmbeddedByValue()                        {}
@@ -308,6 +324,24 @@ func _PaymentService_DeletePlan_Handler(srv interface{}, ctx context.Context, de
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PaymentService_HandleWebhook_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(WebhookRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PaymentServiceServer).HandleWebhook(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PaymentService_HandleWebhook_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PaymentServiceServer).HandleWebhook(ctx, req.(*WebhookRequest))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // PaymentService_ServiceDesc is the grpc.ServiceDesc for PaymentService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -342,6 +376,10 @@ var PaymentService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "DeletePlan",
 			Handler:    _PaymentService_DeletePlan_Handler,
+		},
+		{
+			MethodName: "HandleWebhook",
+			Handler:    _PaymentService_HandleWebhook_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
