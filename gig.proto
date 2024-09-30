@@ -58,7 +58,7 @@ message Gig {
     uint64 id = 1;
     string title = 2;
     string description = 3;
-    uint32 category = 4;
+    string category = 4;
     uint64 freelancer_id = 5;
     float price = 6;
     int32 delivery_days = 7;
