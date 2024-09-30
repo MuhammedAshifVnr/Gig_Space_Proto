@@ -7,7 +7,12 @@ option go_package ="./proto";
 service SearchService{
     rpc IndexGig (IndexGigRequest) returns (SearchEmptyRes);
     rpc UpdateIndexGig (IndexGigRequest) returns (SearchEmptyRes);
+    rpc DeleteGig(DeleteDocumentReq) returns (SearchEmptyRes);
     rpc SearchGig (SearchGigReq) returns (SearchGigRes);
+}
+
+message DeleteDocumentReq{
+    uint32 id =1;
 }
 
 message SearchGigReq{

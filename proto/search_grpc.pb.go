@@ -21,6 +21,7 @@ const _ = grpc.SupportPackageIsVersion9
 const (
 	SearchService_IndexGig_FullMethodName       = "/search.SearchService/IndexGig"
 	SearchService_UpdateIndexGig_FullMethodName = "/search.SearchService/UpdateIndexGig"
+	SearchService_DeleteGig_FullMethodName      = "/search.SearchService/DeleteGig"
 	SearchService_SearchGig_FullMethodName      = "/search.SearchService/SearchGig"
 )
 
@@ -30,6 +31,7 @@ const (
 type SearchServiceClient interface {
 	IndexGig(ctx context.Context, in *IndexGigRequest, opts ...grpc.CallOption) (*SearchEmptyRes, error)
 	UpdateIndexGig(ctx context.Context, in *IndexGigRequest, opts ...grpc.CallOption) (*SearchEmptyRes, error)
+	DeleteGig(ctx context.Context, in *DeleteDocumentReq, opts ...grpc.CallOption) (*SearchEmptyRes, error)
 	SearchGig(ctx context.Context, in *SearchGigReq, opts ...grpc.CallOption) (*SearchGigRes, error)
 }
 
@@ -61,6 +63,16 @@ func (c *searchServiceClient) UpdateIndexGig(ctx context.Context, in *IndexGigRe
 	return out, nil
 }
 
+func (c *searchServiceClient) DeleteGig(ctx context.Context, in *DeleteDocumentReq, opts ...grpc.CallOption) (*SearchEmptyRes, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(SearchEmptyRes)
+	err := c.cc.Invoke(ctx, SearchService_DeleteGig_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 func (c *searchServiceClient) SearchGig(ctx context.Context, in *SearchGigReq, opts ...grpc.CallOption) (*SearchGigRes, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(SearchGigRes)
@@ -77,6 +89,7 @@ func (c *searchServiceClient) SearchGig(ctx context.Context, in *SearchGigReq, o
 type SearchServiceServer interface {
 	IndexGig(context.Context, *IndexGigRequest) (*SearchEmptyRes, error)
 	UpdateIndexGig(context.Context, *IndexGigRequest) (*SearchEmptyRes, error)
+	DeleteGig(context.Context, *DeleteDocumentReq) (*SearchEmptyRes, error)
 	SearchGig(context.Context, *SearchGigReq) (*SearchGigRes, error)
 	mustEmbedUnimplementedSearchServiceServer()
 }
@@ -93,6 +106,9 @@ func (UnimplementedSearchServiceServer) IndexGig(context.Context, *IndexGigReque
 }
 func (UnimplementedSearchServiceServer) UpdateIndexGig(context.Context, *IndexGigRequest) (*SearchEmptyRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateIndexGig not implemented")
+}
+func (UnimplementedSearchServiceServer) DeleteGig(context.Context, *DeleteDocumentReq) (*SearchEmptyRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method DeleteGig not implemented")
 }
 func (UnimplementedSearchServiceServer) SearchGig(context.Context, *SearchGigReq) (*SearchGigRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method SearchGig not implemented")
@@ -154,6 +170,24 @@ func _SearchService_UpdateIndexGig_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _SearchService_DeleteGig_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(DeleteDocumentReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(SearchServiceServer).DeleteGig(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: SearchService_DeleteGig_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(SearchServiceServer).DeleteGig(ctx, req.(*DeleteDocumentReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 func _SearchService_SearchGig_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(SearchGigReq)
 	if err := dec(in); err != nil {
@@ -186,6 +220,10 @@ var SearchService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateIndexGig",
 			Handler:    _SearchService_UpdateIndexGig_Handler,
+		},
+		{
+			MethodName: "DeleteGig",
+			Handler:    _SearchService_DeleteGig_Handler,
 		},
 		{
 			MethodName: "SearchGig",
