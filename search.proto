@@ -6,6 +6,7 @@ option go_package ="./proto";
 
 service SearchService{
     rpc IndexGig (IndexGigRequest) returns (SearchEmptyRes);
+    rpc UpdateIndexGig (IndexGigRequest) returns (SearchEmptyRes);
     rpc SearchGig (SearchGigReq) returns (SearchGigRes);
 }
 
