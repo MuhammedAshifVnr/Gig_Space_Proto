@@ -13,6 +13,12 @@ service PaymentService {
     rpc GetPlan(EmptyReq) returns (GetPlanRes);
     rpc DeletePlan(DeletePlanReq) returns (PaymentCommonRes); 
     rpc HandleWebhook (WebhookRequest) returns (WebhookResponse);
+    rpc CreateOrder(CreateOrderReq) returns (PaymentCommonRes);
+}
+
+message CreateOrderReq{
+    string order_id=1;
+    int64 amount=2;
 }
 
 message WebhookRequest {
