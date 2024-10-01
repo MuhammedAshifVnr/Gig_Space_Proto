@@ -9,7 +9,14 @@ service GigService {
     rpc GetGigsByFreelancerID(GetGigsByFreelancerIDRequest) returns (GetGigsByFreelancerIDResponse);
     rpc UpdateGigByID(UpdateGigRequest) returns (CommonGigRes);
     rpc DeleteGigByID (DeleteReq) returns (CommonGigRes);
+    rpc CreateOrder(CreateOrderReq) returns (CommonGigRes);
 }
+
+message CreateOrderReq{
+    uint32 clinet_id=1;
+    uint32 gig_id=2;
+}
+
 
 message DeleteReq{
     uint32 gig_id=1;
