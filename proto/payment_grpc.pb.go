@@ -28,6 +28,7 @@ const (
 	PaymentService_DeletePlan_FullMethodName          = "/payment.PaymentService/DeletePlan"
 	PaymentService_HandleWebhook_FullMethodName       = "/payment.PaymentService/HandleWebhook"
 	PaymentService_CreatePaymentOrder_FullMethodName  = "/payment.PaymentService/CreatePaymentOrder"
+	PaymentService_CreateWallet_FullMethodName        = "/payment.PaymentService/CreateWallet"
 )
 
 // PaymentServiceClient is the client API for PaymentService service.
@@ -43,6 +44,7 @@ type PaymentServiceClient interface {
 	DeletePlan(ctx context.Context, in *DeletePlanReq, opts ...grpc.CallOption) (*PaymentCommonRes, error)
 	HandleWebhook(ctx context.Context, in *WebhookRequest, opts ...grpc.CallOption) (*WebhookResponse, error)
 	CreatePaymentOrder(ctx context.Context, in *CreatePaymentOrderReq, opts ...grpc.CallOption) (*PaymentCommonRes, error)
+	CreateWallet(ctx context.Context, in *CreateWalletReq, opts ...grpc.CallOption) (*PaymentCommonRes, error)
 }
 
 type paymentServiceClient struct {
@@ -143,6 +145,16 @@ func (c *paymentServiceClient) CreatePaymentOrder(ctx context.Context, in *Creat
 	return out, nil
 }
 
+func (c *paymentServiceClient) CreateWallet(ctx context.Context, in *CreateWalletReq, opts ...grpc.CallOption) (*PaymentCommonRes, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(PaymentCommonRes)
+	err := c.cc.Invoke(ctx, PaymentService_CreateWallet_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // PaymentServiceServer is the server API for PaymentService service.
 // All implementations must embed UnimplementedPaymentServiceServer
 // for forward compatibility.
@@ -156,6 +168,7 @@ type PaymentServiceServer interface {
 	DeletePlan(context.Context, *DeletePlanReq) (*PaymentCommonRes, error)
 	HandleWebhook(context.Context, *WebhookRequest) (*WebhookResponse, error)
 	CreatePaymentOrder(context.Context, *CreatePaymentOrderReq) (*PaymentCommonRes, error)
+	CreateWallet(context.Context, *CreateWalletReq) (*PaymentCommonRes, error)
 	mustEmbedUnimplementedPaymentServiceServer()
 }
 
@@ -192,6 +205,9 @@ func (UnimplementedPaymentServiceServer) HandleWebhook(context.Context, *Webhook
 }
 func (UnimplementedPaymentServiceServer) CreatePaymentOrder(context.Context, *CreatePaymentOrderReq) (*PaymentCommonRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreatePaymentOrder not implemented")
+}
+func (UnimplementedPaymentServiceServer) CreateWallet(context.Context, *CreateWalletReq) (*PaymentCommonRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateWallet not implemented")
 }
 func (UnimplementedPaymentServiceServer) mustEmbedUnimplementedPaymentServiceServer() {}
 func (UnimplementedPaymentServiceServer) testEmbeddedByValue()                        {}
@@ -376,6 +392,24 @@ func _PaymentService_CreatePaymentOrder_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PaymentService_CreateWallet_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateWalletReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PaymentServiceServer).CreateWallet(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PaymentService_CreateWallet_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PaymentServiceServer).CreateWallet(ctx, req.(*CreateWalletReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // PaymentService_ServiceDesc is the grpc.ServiceDesc for PaymentService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -418,6 +452,10 @@ var PaymentService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreatePaymentOrder",
 			Handler:    _PaymentService_CreatePaymentOrder_Handler,
+		},
+		{
+			MethodName: "CreateWallet",
+			Handler:    _PaymentService_CreateWallet_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

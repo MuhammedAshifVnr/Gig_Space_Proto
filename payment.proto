@@ -14,6 +14,12 @@ service PaymentService {
     rpc DeletePlan(DeletePlanReq) returns (PaymentCommonRes); 
     rpc HandleWebhook (WebhookRequest) returns (WebhookResponse);
     rpc CreatePaymentOrder(CreatePaymentOrderReq) returns (PaymentCommonRes);
+    rpc CreateWallet(CreateWalletReq) returns (PaymentCommonRes);
+}
+
+message CreateWalletReq{
+    uint64 user_id=1;
+    string pin=2;
 }
 
 message CreatePaymentOrderReq{
