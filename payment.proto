@@ -16,6 +16,13 @@ service PaymentService {
     rpc CreatePaymentOrder(CreatePaymentOrderReq) returns (PaymentCommonRes);
     rpc CreateWallet(CreateWalletReq) returns (PaymentCommonRes);
     rpc GetWallet (GetwalletReq) returns (WalletRes);
+    rpc CreateBankAccount(CreaBankReq) returns (PaymentCommonRes);
+}
+
+message CreaBankReq{
+    string ifsc =1;
+    string account_number=2;
+    string name=3;
 }
 
 message GetwalletReq{

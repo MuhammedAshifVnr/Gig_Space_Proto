@@ -30,6 +30,7 @@ const (
 	PaymentService_CreatePaymentOrder_FullMethodName  = "/payment.PaymentService/CreatePaymentOrder"
 	PaymentService_CreateWallet_FullMethodName        = "/payment.PaymentService/CreateWallet"
 	PaymentService_GetWallet_FullMethodName           = "/payment.PaymentService/GetWallet"
+	PaymentService_CreateBankAccount_FullMethodName   = "/payment.PaymentService/CreateBankAccount"
 )
 
 // PaymentServiceClient is the client API for PaymentService service.
@@ -47,6 +48,7 @@ type PaymentServiceClient interface {
 	CreatePaymentOrder(ctx context.Context, in *CreatePaymentOrderReq, opts ...grpc.CallOption) (*PaymentCommonRes, error)
 	CreateWallet(ctx context.Context, in *CreateWalletReq, opts ...grpc.CallOption) (*PaymentCommonRes, error)
 	GetWallet(ctx context.Context, in *GetwalletReq, opts ...grpc.CallOption) (*WalletRes, error)
+	CreateBankAccount(ctx context.Context, in *CreaBankReq, opts ...grpc.CallOption) (*PaymentCommonRes, error)
 }
 
 type paymentServiceClient struct {
@@ -167,6 +169,16 @@ func (c *paymentServiceClient) GetWallet(ctx context.Context, in *GetwalletReq, 
 	return out, nil
 }
 
+func (c *paymentServiceClient) CreateBankAccount(ctx context.Context, in *CreaBankReq, opts ...grpc.CallOption) (*PaymentCommonRes, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(PaymentCommonRes)
+	err := c.cc.Invoke(ctx, PaymentService_CreateBankAccount_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // PaymentServiceServer is the server API for PaymentService service.
 // All implementations must embed UnimplementedPaymentServiceServer
 // for forward compatibility.
@@ -182,6 +194,7 @@ type PaymentServiceServer interface {
 	CreatePaymentOrder(context.Context, *CreatePaymentOrderReq) (*PaymentCommonRes, error)
 	CreateWallet(context.Context, *CreateWalletReq) (*PaymentCommonRes, error)
 	GetWallet(context.Context, *GetwalletReq) (*WalletRes, error)
+	CreateBankAccount(context.Context, *CreaBankReq) (*PaymentCommonRes, error)
 	mustEmbedUnimplementedPaymentServiceServer()
 }
 
@@ -224,6 +237,9 @@ func (UnimplementedPaymentServiceServer) CreateWallet(context.Context, *CreateWa
 }
 func (UnimplementedPaymentServiceServer) GetWallet(context.Context, *GetwalletReq) (*WalletRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetWallet not implemented")
+}
+func (UnimplementedPaymentServiceServer) CreateBankAccount(context.Context, *CreaBankReq) (*PaymentCommonRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateBankAccount not implemented")
 }
 func (UnimplementedPaymentServiceServer) mustEmbedUnimplementedPaymentServiceServer() {}
 func (UnimplementedPaymentServiceServer) testEmbeddedByValue()                        {}
@@ -444,6 +460,24 @@ func _PaymentService_GetWallet_Handler(srv interface{}, ctx context.Context, dec
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PaymentService_CreateBankAccount_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreaBankReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PaymentServiceServer).CreateBankAccount(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PaymentService_CreateBankAccount_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PaymentServiceServer).CreateBankAccount(ctx, req.(*CreaBankReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // PaymentService_ServiceDesc is the grpc.ServiceDesc for PaymentService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -494,6 +528,10 @@ var PaymentService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetWallet",
 			Handler:    _PaymentService_GetWallet_Handler,
+		},
+		{
+			MethodName: "CreateBankAccount",
+			Handler:    _PaymentService_CreateBankAccount_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
