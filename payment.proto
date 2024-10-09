@@ -15,6 +15,16 @@ service PaymentService {
     rpc HandleWebhook (WebhookRequest) returns (WebhookResponse);
     rpc CreatePaymentOrder(CreatePaymentOrderReq) returns (PaymentCommonRes);
     rpc CreateWallet(CreateWalletReq) returns (PaymentCommonRes);
+    rpc GetWallet (GetwalletReq) returns (WalletRes);
+}
+
+message GetwalletReq{
+    uint32 user_id = 1;
+    string pin =2;
+}
+
+message WalletRes{
+    float balance =1;
 }
 
 message CreateWalletReq{
