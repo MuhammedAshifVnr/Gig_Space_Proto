@@ -31,6 +31,7 @@ const (
 	PaymentService_CreateWallet_FullMethodName        = "/payment.PaymentService/CreateWallet"
 	PaymentService_GetWallet_FullMethodName           = "/payment.PaymentService/GetWallet"
 	PaymentService_CreateBankAccount_FullMethodName   = "/payment.PaymentService/CreateBankAccount"
+	PaymentService_Withdrawal_FullMethodName          = "/payment.PaymentService/Withdrawal"
 )
 
 // PaymentServiceClient is the client API for PaymentService service.
@@ -49,6 +50,7 @@ type PaymentServiceClient interface {
 	CreateWallet(ctx context.Context, in *CreateWalletReq, opts ...grpc.CallOption) (*PaymentCommonRes, error)
 	GetWallet(ctx context.Context, in *GetwalletReq, opts ...grpc.CallOption) (*WalletRes, error)
 	CreateBankAccount(ctx context.Context, in *CreaBankReq, opts ...grpc.CallOption) (*PaymentCommonRes, error)
+	Withdrawal(ctx context.Context, in *WithdrawalReq, opts ...grpc.CallOption) (*PaymentCommonRes, error)
 }
 
 type paymentServiceClient struct {
@@ -179,6 +181,16 @@ func (c *paymentServiceClient) CreateBankAccount(ctx context.Context, in *CreaBa
 	return out, nil
 }
 
+func (c *paymentServiceClient) Withdrawal(ctx context.Context, in *WithdrawalReq, opts ...grpc.CallOption) (*PaymentCommonRes, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(PaymentCommonRes)
+	err := c.cc.Invoke(ctx, PaymentService_Withdrawal_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // PaymentServiceServer is the server API for PaymentService service.
 // All implementations must embed UnimplementedPaymentServiceServer
 // for forward compatibility.
@@ -195,6 +207,7 @@ type PaymentServiceServer interface {
 	CreateWallet(context.Context, *CreateWalletReq) (*PaymentCommonRes, error)
 	GetWallet(context.Context, *GetwalletReq) (*WalletRes, error)
 	CreateBankAccount(context.Context, *CreaBankReq) (*PaymentCommonRes, error)
+	Withdrawal(context.Context, *WithdrawalReq) (*PaymentCommonRes, error)
 	mustEmbedUnimplementedPaymentServiceServer()
 }
 
@@ -240,6 +253,9 @@ func (UnimplementedPaymentServiceServer) GetWallet(context.Context, *GetwalletRe
 }
 func (UnimplementedPaymentServiceServer) CreateBankAccount(context.Context, *CreaBankReq) (*PaymentCommonRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateBankAccount not implemented")
+}
+func (UnimplementedPaymentServiceServer) Withdrawal(context.Context, *WithdrawalReq) (*PaymentCommonRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method Withdrawal not implemented")
 }
 func (UnimplementedPaymentServiceServer) mustEmbedUnimplementedPaymentServiceServer() {}
 func (UnimplementedPaymentServiceServer) testEmbeddedByValue()                        {}
@@ -478,6 +494,24 @@ func _PaymentService_CreateBankAccount_Handler(srv interface{}, ctx context.Cont
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PaymentService_Withdrawal_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(WithdrawalReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PaymentServiceServer).Withdrawal(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PaymentService_Withdrawal_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PaymentServiceServer).Withdrawal(ctx, req.(*WithdrawalReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // PaymentService_ServiceDesc is the grpc.ServiceDesc for PaymentService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -532,6 +566,10 @@ var PaymentService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "CreateBankAccount",
 			Handler:    _PaymentService_CreateBankAccount_Handler,
+		},
+		{
+			MethodName: "Withdrawal",
+			Handler:    _PaymentService_Withdrawal_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
