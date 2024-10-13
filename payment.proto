@@ -24,6 +24,7 @@ message WithdrawalReq{
     uint32 user_id =1;
     string Pin=3;
     float amount=2;
+    string remarks =4;
 }
 
 message CreaBankReq{
