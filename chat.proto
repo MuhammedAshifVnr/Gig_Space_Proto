@@ -1,0 +1,10 @@
+syntax = "proto3";
+
+package chat;
+
+option go_package ="./proto";
+
+service ChatService {
+
+}
+
