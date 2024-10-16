@@ -5,6 +5,22 @@ package chat;
 option go_package ="./proto";
 
 service ChatService {
+    rpc GetChat(GetChatReq)returns (GetChatRes);
+}
 
+message GetChatRes{
+    repeated Message Chat=1;
+}
+
+message GetChatReq{
+    uint32 sender_id =1;
+    uint32 recipient_id=2;
+}
+
+message Message{
+    uint32 sender_id =1;
+    uint32 recipient_id=2;
+    string text_message=3;
+    string time=4;
 }
 
