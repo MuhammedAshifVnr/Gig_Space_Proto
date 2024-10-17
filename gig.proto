@@ -10,6 +10,23 @@ service GigService {
     rpc UpdateGigByID(UpdateGigRequest) returns (CommonGigRes);
     rpc DeleteGigByID (DeleteReq) returns (CommonGigRes);
     rpc CreateOrder(CreateOrderReq) returns (CommonGigRes);
+    rpc GetGigs(GetGigsReq)returns (GetGigsRes);
+}
+
+message GetGigsRes{
+    repeated Order Gigs =1;
+}
+
+message Order{
+    string order_id =1;
+    uint32 gig_id=2;
+    uint32 freelancer_id=3;
+    string payment_id=4;
+    int64 amount=5;
+}
+
+message GetGigsReq{
+    uint32 user_id=1;
 }
 
 message CreateOrderReq{
