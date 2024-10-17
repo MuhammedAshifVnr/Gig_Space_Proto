@@ -36,7 +36,7 @@ type GigServiceClient interface {
 	UpdateGigByID(ctx context.Context, in *UpdateGigRequest, opts ...grpc.CallOption) (*CommonGigRes, error)
 	DeleteGigByID(ctx context.Context, in *DeleteReq, opts ...grpc.CallOption) (*CommonGigRes, error)
 	CreateOrder(ctx context.Context, in *CreateOrderReq, opts ...grpc.CallOption) (*CommonGigRes, error)
-	GetOrders(ctx context.Context, in *GetGigsReq, opts ...grpc.CallOption) (*GetGigsRes, error)
+	GetOrders(ctx context.Context, in *GetOrderReq, opts ...grpc.CallOption) (*GetOrderRes, error)
 }
 
 type gigServiceClient struct {
@@ -97,9 +97,9 @@ func (c *gigServiceClient) CreateOrder(ctx context.Context, in *CreateOrderReq, 
 	return out, nil
 }
 
-func (c *gigServiceClient) GetOrders(ctx context.Context, in *GetGigsReq, opts ...grpc.CallOption) (*GetGigsRes, error) {
+func (c *gigServiceClient) GetOrders(ctx context.Context, in *GetOrderReq, opts ...grpc.CallOption) (*GetOrderRes, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
-	out := new(GetGigsRes)
+	out := new(GetOrderRes)
 	err := c.cc.Invoke(ctx, GigService_GetOrders_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
@@ -116,7 +116,7 @@ type GigServiceServer interface {
 	UpdateGigByID(context.Context, *UpdateGigRequest) (*CommonGigRes, error)
 	DeleteGigByID(context.Context, *DeleteReq) (*CommonGigRes, error)
 	CreateOrder(context.Context, *CreateOrderReq) (*CommonGigRes, error)
-	GetOrders(context.Context, *GetGigsReq) (*GetGigsRes, error)
+	GetOrders(context.Context, *GetOrderReq) (*GetOrderRes, error)
 	mustEmbedUnimplementedGigServiceServer()
 }
 
@@ -142,7 +142,7 @@ func (UnimplementedGigServiceServer) DeleteGigByID(context.Context, *DeleteReq) 
 func (UnimplementedGigServiceServer) CreateOrder(context.Context, *CreateOrderReq) (*CommonGigRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateOrder not implemented")
 }
-func (UnimplementedGigServiceServer) GetOrders(context.Context, *GetGigsReq) (*GetGigsRes, error) {
+func (UnimplementedGigServiceServer) GetOrders(context.Context, *GetOrderReq) (*GetOrderRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOrders not implemented")
 }
 func (UnimplementedGigServiceServer) mustEmbedUnimplementedGigServiceServer() {}
@@ -257,7 +257,7 @@ func _GigService_CreateOrder_Handler(srv interface{}, ctx context.Context, dec f
 }
 
 func _GigService_GetOrders_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(GetGigsReq)
+	in := new(GetOrderReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -269,7 +269,7 @@ func _GigService_GetOrders_Handler(srv interface{}, ctx context.Context, dec fun
 		FullMethod: GigService_GetOrders_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GigServiceServer).GetOrders(ctx, req.(*GetGigsReq))
+		return srv.(GigServiceServer).GetOrders(ctx, req.(*GetOrderReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
