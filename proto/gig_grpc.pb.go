@@ -24,7 +24,7 @@ const (
 	GigService_UpdateGigByID_FullMethodName         = "/gig.GigService/UpdateGigByID"
 	GigService_DeleteGigByID_FullMethodName         = "/gig.GigService/DeleteGigByID"
 	GigService_CreateOrder_FullMethodName           = "/gig.GigService/CreateOrder"
-	GigService_GetGigs_FullMethodName               = "/gig.GigService/GetGigs"
+	GigService_GetOrders_FullMethodName             = "/gig.GigService/GetOrders"
 )
 
 // GigServiceClient is the client API for GigService service.
@@ -36,7 +36,7 @@ type GigServiceClient interface {
 	UpdateGigByID(ctx context.Context, in *UpdateGigRequest, opts ...grpc.CallOption) (*CommonGigRes, error)
 	DeleteGigByID(ctx context.Context, in *DeleteReq, opts ...grpc.CallOption) (*CommonGigRes, error)
 	CreateOrder(ctx context.Context, in *CreateOrderReq, opts ...grpc.CallOption) (*CommonGigRes, error)
-	GetGigs(ctx context.Context, in *GetGigsReq, opts ...grpc.CallOption) (*GetGigsRes, error)
+	GetOrders(ctx context.Context, in *GetGigsReq, opts ...grpc.CallOption) (*GetGigsRes, error)
 }
 
 type gigServiceClient struct {
@@ -97,10 +97,10 @@ func (c *gigServiceClient) CreateOrder(ctx context.Context, in *CreateOrderReq, 
 	return out, nil
 }
 
-func (c *gigServiceClient) GetGigs(ctx context.Context, in *GetGigsReq, opts ...grpc.CallOption) (*GetGigsRes, error) {
+func (c *gigServiceClient) GetOrders(ctx context.Context, in *GetGigsReq, opts ...grpc.CallOption) (*GetGigsRes, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(GetGigsRes)
-	err := c.cc.Invoke(ctx, GigService_GetGigs_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, GigService_GetOrders_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -116,7 +116,7 @@ type GigServiceServer interface {
 	UpdateGigByID(context.Context, *UpdateGigRequest) (*CommonGigRes, error)
 	DeleteGigByID(context.Context, *DeleteReq) (*CommonGigRes, error)
 	CreateOrder(context.Context, *CreateOrderReq) (*CommonGigRes, error)
-	GetGigs(context.Context, *GetGigsReq) (*GetGigsRes, error)
+	GetOrders(context.Context, *GetGigsReq) (*GetGigsRes, error)
 	mustEmbedUnimplementedGigServiceServer()
 }
 
@@ -142,8 +142,8 @@ func (UnimplementedGigServiceServer) DeleteGigByID(context.Context, *DeleteReq) 
 func (UnimplementedGigServiceServer) CreateOrder(context.Context, *CreateOrderReq) (*CommonGigRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method CreateOrder not implemented")
 }
-func (UnimplementedGigServiceServer) GetGigs(context.Context, *GetGigsReq) (*GetGigsRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method GetGigs not implemented")
+func (UnimplementedGigServiceServer) GetOrders(context.Context, *GetGigsReq) (*GetGigsRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetOrders not implemented")
 }
 func (UnimplementedGigServiceServer) mustEmbedUnimplementedGigServiceServer() {}
 func (UnimplementedGigServiceServer) testEmbeddedByValue()                    {}
@@ -256,20 +256,20 @@ func _GigService_CreateOrder_Handler(srv interface{}, ctx context.Context, dec f
 	return interceptor(ctx, in, info, handler)
 }
 
-func _GigService_GetGigs_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _GigService_GetOrders_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(GetGigsReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(GigServiceServer).GetGigs(ctx, in)
+		return srv.(GigServiceServer).GetOrders(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: GigService_GetGigs_FullMethodName,
+		FullMethod: GigService_GetOrders_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GigServiceServer).GetGigs(ctx, req.(*GetGigsReq))
+		return srv.(GigServiceServer).GetOrders(ctx, req.(*GetGigsReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -302,8 +302,8 @@ var GigService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _GigService_CreateOrder_Handler,
 		},
 		{
-			MethodName: "GetGigs",
-			Handler:    _GigService_GetGigs_Handler,
+			MethodName: "GetOrders",
+			Handler:    _GigService_GetOrders_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

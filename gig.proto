@@ -10,7 +10,7 @@ service GigService {
     rpc UpdateGigByID(UpdateGigRequest) returns (CommonGigRes);
     rpc DeleteGigByID (DeleteReq) returns (CommonGigRes);
     rpc CreateOrder(CreateOrderReq) returns (CommonGigRes);
-    rpc GetGigs(GetGigsReq)returns (GetGigsRes);
+    rpc GetOrders(GetGigsReq)returns (GetGigsRes);
 }
 
 message GetGigsRes{
