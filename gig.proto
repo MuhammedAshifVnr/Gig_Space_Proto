@@ -11,10 +11,19 @@ service GigService {
     rpc DeleteGigByID (DeleteReq) returns (CommonGigRes);
     rpc CreateOrder(CreateOrderReq) returns (CommonGigRes);
     rpc GetOrders(GetOrderReq)returns (GetOrderRes);
+    rpc RequestQuote(QuoteReq) returns (CommonGigRes);
+}
+
+message QuoteReq{
+    uint64 gig_id =1;
+    string describe =2;
+    double price = 3;
+    int64 delivery_days = 4;
+    repeated bytes images = 5;
 }
 
 message GetOrderRes{
-    repeated Order Gigs =1;
+    repeated Order Orders =1;
 }
 
 message Order{
