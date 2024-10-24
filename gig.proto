@@ -12,6 +12,15 @@ service GigService {
     rpc CreateOrder(CreateOrderReq) returns (CommonGigRes);
     rpc GetOrders(GetOrderReq)returns (GetOrderRes);
     rpc RequestQuote(QuoteReq) returns (CommonGigRes);
+    rpc GetAllQuotes(GetAllQuoteReq) returns (GetAllQuoteRes);
+}
+
+message GetAllQuoteReq{
+    uint32 user_id=1;
+}
+
+message GetAllQuoteRes{
+    repeated QuoteReq Quotes=1;
 }
 
 message QuoteReq{
