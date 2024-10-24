@@ -20,7 +20,17 @@ message GetAllQuoteReq{
 }
 
 message GetAllQuoteRes{
-    repeated QuoteReq Quotes=1;
+    repeated Quote Quotes=1;
+}
+
+message Quote{
+    uint64 gig_id =1;
+    uint64 client_id=6;
+    string describe =2;
+    double price = 3;
+    int64 delivery_days = 4;
+    uint64 freelancer_id =7;
+    repeated bytes images = 5;
 }
 
 message QuoteReq{
