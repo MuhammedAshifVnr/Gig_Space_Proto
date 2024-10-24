@@ -27,6 +27,7 @@ const (
 	GigService_GetOrders_FullMethodName             = "/gig.GigService/GetOrders"
 	GigService_RequestQuote_FullMethodName          = "/gig.GigService/RequestQuote"
 	GigService_GetAllQuotes_FullMethodName          = "/gig.GigService/GetAllQuotes"
+	GigService_CreateOffer_FullMethodName           = "/gig.GigService/CreateOffer"
 )
 
 // GigServiceClient is the client API for GigService service.
@@ -41,6 +42,7 @@ type GigServiceClient interface {
 	GetOrders(ctx context.Context, in *GetOrderReq, opts ...grpc.CallOption) (*GetOrderRes, error)
 	RequestQuote(ctx context.Context, in *QuoteReq, opts ...grpc.CallOption) (*CommonGigRes, error)
 	GetAllQuotes(ctx context.Context, in *GetAllQuoteReq, opts ...grpc.CallOption) (*GetAllQuoteRes, error)
+	CreateOffer(ctx context.Context, in *CreateOfferReq, opts ...grpc.CallOption) (*CommonGigRes, error)
 }
 
 type gigServiceClient struct {
@@ -131,6 +133,16 @@ func (c *gigServiceClient) GetAllQuotes(ctx context.Context, in *GetAllQuoteReq,
 	return out, nil
 }
 
+func (c *gigServiceClient) CreateOffer(ctx context.Context, in *CreateOfferReq, opts ...grpc.CallOption) (*CommonGigRes, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CommonGigRes)
+	err := c.cc.Invoke(ctx, GigService_CreateOffer_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // GigServiceServer is the server API for GigService service.
 // All implementations must embed UnimplementedGigServiceServer
 // for forward compatibility.
@@ -143,6 +155,7 @@ type GigServiceServer interface {
 	GetOrders(context.Context, *GetOrderReq) (*GetOrderRes, error)
 	RequestQuote(context.Context, *QuoteReq) (*CommonGigRes, error)
 	GetAllQuotes(context.Context, *GetAllQuoteReq) (*GetAllQuoteRes, error)
+	CreateOffer(context.Context, *CreateOfferReq) (*CommonGigRes, error)
 	mustEmbedUnimplementedGigServiceServer()
 }
 
@@ -176,6 +189,9 @@ func (UnimplementedGigServiceServer) RequestQuote(context.Context, *QuoteReq) (*
 }
 func (UnimplementedGigServiceServer) GetAllQuotes(context.Context, *GetAllQuoteReq) (*GetAllQuoteRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAllQuotes not implemented")
+}
+func (UnimplementedGigServiceServer) CreateOffer(context.Context, *CreateOfferReq) (*CommonGigRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CreateOffer not implemented")
 }
 func (UnimplementedGigServiceServer) mustEmbedUnimplementedGigServiceServer() {}
 func (UnimplementedGigServiceServer) testEmbeddedByValue()                    {}
@@ -342,6 +358,24 @@ func _GigService_GetAllQuotes_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
+func _GigService_CreateOffer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(CreateOfferReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GigServiceServer).CreateOffer(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: GigService_CreateOffer_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GigServiceServer).CreateOffer(ctx, req.(*CreateOfferReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // GigService_ServiceDesc is the grpc.ServiceDesc for GigService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -380,6 +414,10 @@ var GigService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetAllQuotes",
 			Handler:    _GigService_GetAllQuotes_Handler,
+		},
+		{
+			MethodName: "CreateOffer",
+			Handler:    _GigService_CreateOffer_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

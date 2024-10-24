@@ -13,6 +13,17 @@ service GigService {
     rpc GetOrders(GetOrderReq)returns (GetOrderRes);
     rpc RequestQuote(QuoteReq) returns (CommonGigRes);
     rpc GetAllQuotes(GetAllQuoteReq) returns (GetAllQuoteRes);
+    rpc CreateOffer(CreateOfferReq) returns (CommonGigRes);
+}
+
+message CreateOfferReq{
+    uint64 gig_request_id=1;
+    uint64 freelancer_id=2;
+    uint64 client_id=3;
+    string title =4;
+    string descripton=5;
+    float price=6;
+    int64 delivery_days=7;
 }
 
 message GetAllQuoteReq{
