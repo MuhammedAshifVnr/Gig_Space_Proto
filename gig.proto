@@ -16,6 +16,7 @@ service GigService {
 
 message QuoteReq{
     uint64 gig_id =1;
+    uint64 client_id=6;
     string describe =2;
     double price = 3;
     int64 delivery_days = 4;
