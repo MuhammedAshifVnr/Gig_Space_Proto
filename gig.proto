@@ -15,6 +15,7 @@ service GigService {
     rpc GetAllQuotes(GetAllQuoteReq) returns (GetAllQuoteRes);
     rpc CreateOffer(CreateOfferReq) returns (CommonGigRes);
     rpc GetAllOffers(GetAllOfferReq) returns (GetAllOfferRes);
+    rpc CreateOfferOrder(CreateOrderReq) returns(CommonGigRes);
 }
 
 message GetAllOfferReq{
