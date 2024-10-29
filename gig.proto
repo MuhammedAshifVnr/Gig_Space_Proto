@@ -16,6 +16,12 @@ service GigService {
     rpc CreateOffer(CreateOfferReq) returns (CommonGigRes);
     rpc GetAllOffers(GetAllOfferReq) returns (GetAllOfferRes);
     rpc CreateOfferOrder(CreateOrderReq) returns(CommonGigRes);
+    rpc UpdateOrderStatus (OrderStatusReq) returns (CommonGigRes);
+}
+
+message OrderStatusReq{
+    string order_id=1;
+    string status=2;
 }
 
 message GetAllOfferReq{
