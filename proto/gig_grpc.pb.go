@@ -31,6 +31,7 @@ const (
 	GigService_GetAllOffers_FullMethodName          = "/gig.GigService/GetAllOffers"
 	GigService_CreateOfferOrder_FullMethodName      = "/gig.GigService/CreateOfferOrder"
 	GigService_UpdateOrderStatus_FullMethodName     = "/gig.GigService/UpdateOrderStatus"
+	GigService_GetAllRequest_FullMethodName         = "/gig.GigService/GetAllRequest"
 )
 
 // GigServiceClient is the client API for GigService service.
@@ -49,6 +50,7 @@ type GigServiceClient interface {
 	GetAllOffers(ctx context.Context, in *GetAllOfferReq, opts ...grpc.CallOption) (*GetAllOfferRes, error)
 	CreateOfferOrder(ctx context.Context, in *CreateOrderReq, opts ...grpc.CallOption) (*CommonGigRes, error)
 	UpdateOrderStatus(ctx context.Context, in *OrderStatusReq, opts ...grpc.CallOption) (*CommonGigRes, error)
+	GetAllRequest(ctx context.Context, in *GetAllRequestReq, opts ...grpc.CallOption) (*GetAllRequestRes, error)
 }
 
 type gigServiceClient struct {
@@ -179,6 +181,16 @@ func (c *gigServiceClient) UpdateOrderStatus(ctx context.Context, in *OrderStatu
 	return out, nil
 }
 
+func (c *gigServiceClient) GetAllRequest(ctx context.Context, in *GetAllRequestReq, opts ...grpc.CallOption) (*GetAllRequestRes, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(GetAllRequestRes)
+	err := c.cc.Invoke(ctx, GigService_GetAllRequest_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // GigServiceServer is the server API for GigService service.
 // All implementations must embed UnimplementedGigServiceServer
 // for forward compatibility.
@@ -195,6 +207,7 @@ type GigServiceServer interface {
 	GetAllOffers(context.Context, *GetAllOfferReq) (*GetAllOfferRes, error)
 	CreateOfferOrder(context.Context, *CreateOrderReq) (*CommonGigRes, error)
 	UpdateOrderStatus(context.Context, *OrderStatusReq) (*CommonGigRes, error)
+	GetAllRequest(context.Context, *GetAllRequestReq) (*GetAllRequestRes, error)
 	mustEmbedUnimplementedGigServiceServer()
 }
 
@@ -240,6 +253,9 @@ func (UnimplementedGigServiceServer) CreateOfferOrder(context.Context, *CreateOr
 }
 func (UnimplementedGigServiceServer) UpdateOrderStatus(context.Context, *OrderStatusReq) (*CommonGigRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method UpdateOrderStatus not implemented")
+}
+func (UnimplementedGigServiceServer) GetAllRequest(context.Context, *GetAllRequestReq) (*GetAllRequestRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetAllRequest not implemented")
 }
 func (UnimplementedGigServiceServer) mustEmbedUnimplementedGigServiceServer() {}
 func (UnimplementedGigServiceServer) testEmbeddedByValue()                    {}
@@ -478,6 +494,24 @@ func _GigService_UpdateOrderStatus_Handler(srv interface{}, ctx context.Context,
 	return interceptor(ctx, in, info, handler)
 }
 
+func _GigService_GetAllRequest_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(GetAllRequestReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GigServiceServer).GetAllRequest(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: GigService_GetAllRequest_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GigServiceServer).GetAllRequest(ctx, req.(*GetAllRequestReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // GigService_ServiceDesc is the grpc.ServiceDesc for GigService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -532,6 +566,10 @@ var GigService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "UpdateOrderStatus",
 			Handler:    _GigService_UpdateOrderStatus_Handler,
+		},
+		{
+			MethodName: "GetAllRequest",
+			Handler:    _GigService_GetAllRequest_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -17,6 +17,23 @@ service GigService {
     rpc GetAllOffers(GetAllOfferReq) returns (GetAllOfferRes);
     rpc CreateOfferOrder(CreateOrderReq) returns(CommonGigRes);
     rpc UpdateOrderStatus (OrderStatusReq) returns (CommonGigRes);
+    rpc GetAllRequest(GetAllRequestReq) returns (GetAllRequestRes);
+}
+
+message GetAllRequestReq{
+    uint64 user_id=1;
+}
+
+message GetAllRequestRes{
+    repeated Request gigs=1;
+    repeated Request offer_gigs=2;
+}
+
+message Request{
+    string order_id=1;
+    uint64 gig_id=2;
+    uint64 clinet_id=3;
+    int64 amount=4;
 }
 
 message OrderStatusReq{
