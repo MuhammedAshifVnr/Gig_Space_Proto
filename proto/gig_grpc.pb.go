@@ -58,7 +58,7 @@ type GigServiceClient interface {
 	AcceptRequest(ctx context.Context, in *AcceptReq, opts ...grpc.CallOption) (*CommonGigRes, error)
 	RejectRequest(ctx context.Context, in *RejectReq, opts ...grpc.CallOption) (*CommonGigRes, error)
 	AdminOrderController(ctx context.Context, in *EmptyReq, opts ...grpc.CallOption) (*AdOrderController, error)
-	AdOrderRefund(ctx context.Context, in *RefundReq, opts ...grpc.CallOption) (*CommonGigRes, error)
+	AdOrderRefund(ctx context.Context, in *AdRefundReq, opts ...grpc.CallOption) (*CommonGigRes, error)
 }
 
 type gigServiceClient struct {
@@ -229,7 +229,7 @@ func (c *gigServiceClient) AdminOrderController(ctx context.Context, in *EmptyRe
 	return out, nil
 }
 
-func (c *gigServiceClient) AdOrderRefund(ctx context.Context, in *RefundReq, opts ...grpc.CallOption) (*CommonGigRes, error) {
+func (c *gigServiceClient) AdOrderRefund(ctx context.Context, in *AdRefundReq, opts ...grpc.CallOption) (*CommonGigRes, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(CommonGigRes)
 	err := c.cc.Invoke(ctx, GigService_AdOrderRefund_FullMethodName, in, out, cOpts...)
@@ -259,7 +259,7 @@ type GigServiceServer interface {
 	AcceptRequest(context.Context, *AcceptReq) (*CommonGigRes, error)
 	RejectRequest(context.Context, *RejectReq) (*CommonGigRes, error)
 	AdminOrderController(context.Context, *EmptyReq) (*AdOrderController, error)
-	AdOrderRefund(context.Context, *RefundReq) (*CommonGigRes, error)
+	AdOrderRefund(context.Context, *AdRefundReq) (*CommonGigRes, error)
 	mustEmbedUnimplementedGigServiceServer()
 }
 
@@ -318,7 +318,7 @@ func (UnimplementedGigServiceServer) RejectRequest(context.Context, *RejectReq) 
 func (UnimplementedGigServiceServer) AdminOrderController(context.Context, *EmptyReq) (*AdOrderController, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminOrderController not implemented")
 }
-func (UnimplementedGigServiceServer) AdOrderRefund(context.Context, *RefundReq) (*CommonGigRes, error) {
+func (UnimplementedGigServiceServer) AdOrderRefund(context.Context, *AdRefundReq) (*CommonGigRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdOrderRefund not implemented")
 }
 func (UnimplementedGigServiceServer) mustEmbedUnimplementedGigServiceServer() {}
@@ -631,7 +631,7 @@ func _GigService_AdminOrderController_Handler(srv interface{}, ctx context.Conte
 }
 
 func _GigService_AdOrderRefund_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(RefundReq)
+	in := new(AdRefundReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -643,7 +643,7 @@ func _GigService_AdOrderRefund_Handler(srv interface{}, ctx context.Context, dec
 		FullMethod: GigService_AdOrderRefund_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GigServiceServer).AdOrderRefund(ctx, req.(*RefundReq))
+		return srv.(GigServiceServer).AdOrderRefund(ctx, req.(*AdRefundReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }

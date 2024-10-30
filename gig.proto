@@ -21,12 +21,13 @@ service GigService {
     rpc AcceptRequest(AcceptReq) returns (CommonGigRes);
     rpc RejectRequest(RejectReq) returns (CommonGigRes);
     rpc AdminOrderController (EmptyReq) returns (AdOrderController);
-    rpc AdOrderRefund (RefundReq) returns (CommonGigRes);
+    rpc AdOrderRefund (AdRefundReq) returns (CommonGigRes);
 }
 
-message RefundReq{
+message AdRefundReq{
     string order_id=1;
     uint64 client_id=2;
+
 }
 
 message AdOrderController{
