@@ -20,6 +20,16 @@ service GigService {
     rpc GetAllRequest(GetAllRequestReq) returns (GetAllRequestRes);
     rpc AcceptRequest(AcceptReq) returns (CommonGigRes);
     rpc RejectRequest(RejectReq) returns (CommonGigRes);
+    rpc AdminOrderController (EmptyReq) returns (AdOrderController);
+}
+
+message AdOrderController{
+    repeated Request gigs=1;
+    repeated Request offer_gigs=2;
+}
+
+message EmptyReq{
+
 }
 
 message RejectReq{
@@ -43,6 +53,7 @@ message Request{
     string order_id=1;
     uint64 gig_id=2;
     uint64 clinet_id=3;
+    uint64 freelancer_id=5;
     int64 amount=4;
 }
 
