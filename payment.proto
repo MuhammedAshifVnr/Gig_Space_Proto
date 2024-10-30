@@ -18,6 +18,11 @@ service PaymentService {
     rpc GetWallet (GetwalletReq) returns (WalletRes);
     rpc CreateBankAccount(CreaBankReq) returns (PaymentCommonRes);
     rpc Withdrawal (WithdrawalReq) returns (PaymentCommonRes);
+    rpc AddWalletRefund (AddRefund) returns (PaymentCommonRes);
+}
+message AddRefund{
+    uint64 user_id=1;
+    int64 amount=2;
 }
 
 message WithdrawalReq{
