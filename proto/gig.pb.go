@@ -20,6 +20,96 @@ const (
 	_ = protoimpl.EnforceVersion(protoimpl.MaxVersion - 20)
 )
 
+type RejectReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	OrderId string `protobuf:"bytes,1,opt,name=order_id,json=orderId,proto3" json:"order_id,omitempty"`
+}
+
+func (x *RejectReq) Reset() {
+	*x = RejectReq{}
+	mi := &file_gig_proto_msgTypes[0]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *RejectReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*RejectReq) ProtoMessage() {}
+
+func (x *RejectReq) ProtoReflect() protoreflect.Message {
+	mi := &file_gig_proto_msgTypes[0]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use RejectReq.ProtoReflect.Descriptor instead.
+func (*RejectReq) Descriptor() ([]byte, []int) {
+	return file_gig_proto_rawDescGZIP(), []int{0}
+}
+
+func (x *RejectReq) GetOrderId() string {
+	if x != nil {
+		return x.OrderId
+	}
+	return ""
+}
+
+type AcceptReq struct {
+	state         protoimpl.MessageState
+	sizeCache     protoimpl.SizeCache
+	unknownFields protoimpl.UnknownFields
+
+	OrderId string `protobuf:"bytes,1,opt,name=order_id,json=orderId,proto3" json:"order_id,omitempty"`
+}
+
+func (x *AcceptReq) Reset() {
+	*x = AcceptReq{}
+	mi := &file_gig_proto_msgTypes[1]
+	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+	ms.StoreMessageInfo(mi)
+}
+
+func (x *AcceptReq) String() string {
+	return protoimpl.X.MessageStringOf(x)
+}
+
+func (*AcceptReq) ProtoMessage() {}
+
+func (x *AcceptReq) ProtoReflect() protoreflect.Message {
+	mi := &file_gig_proto_msgTypes[1]
+	if x != nil {
+		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
+		if ms.LoadMessageInfo() == nil {
+			ms.StoreMessageInfo(mi)
+		}
+		return ms
+	}
+	return mi.MessageOf(x)
+}
+
+// Deprecated: Use AcceptReq.ProtoReflect.Descriptor instead.
+func (*AcceptReq) Descriptor() ([]byte, []int) {
+	return file_gig_proto_rawDescGZIP(), []int{1}
+}
+
+func (x *AcceptReq) GetOrderId() string {
+	if x != nil {
+		return x.OrderId
+	}
+	return ""
+}
+
 type GetAllRequestReq struct {
 	state         protoimpl.MessageState
 	sizeCache     protoimpl.SizeCache
@@ -30,7 +120,7 @@ type GetAllRequestReq struct {
 
 func (x *GetAllRequestReq) Reset() {
 	*x = GetAllRequestReq{}
-	mi := &file_gig_proto_msgTypes[0]
+	mi := &file_gig_proto_msgTypes[2]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -42,7 +132,7 @@ func (x *GetAllRequestReq) String() string {
 func (*GetAllRequestReq) ProtoMessage() {}
 
 func (x *GetAllRequestReq) ProtoReflect() protoreflect.Message {
-	mi := &file_gig_proto_msgTypes[0]
+	mi := &file_gig_proto_msgTypes[2]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -55,7 +145,7 @@ func (x *GetAllRequestReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetAllRequestReq.ProtoReflect.Descriptor instead.
 func (*GetAllRequestReq) Descriptor() ([]byte, []int) {
-	return file_gig_proto_rawDescGZIP(), []int{0}
+	return file_gig_proto_rawDescGZIP(), []int{2}
 }
 
 func (x *GetAllRequestReq) GetUserId() uint64 {
@@ -76,7 +166,7 @@ type GetAllRequestRes struct {
 
 func (x *GetAllRequestRes) Reset() {
 	*x = GetAllRequestRes{}
-	mi := &file_gig_proto_msgTypes[1]
+	mi := &file_gig_proto_msgTypes[3]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -88,7 +178,7 @@ func (x *GetAllRequestRes) String() string {
 func (*GetAllRequestRes) ProtoMessage() {}
 
 func (x *GetAllRequestRes) ProtoReflect() protoreflect.Message {
-	mi := &file_gig_proto_msgTypes[1]
+	mi := &file_gig_proto_msgTypes[3]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -101,7 +191,7 @@ func (x *GetAllRequestRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetAllRequestRes.ProtoReflect.Descriptor instead.
 func (*GetAllRequestRes) Descriptor() ([]byte, []int) {
-	return file_gig_proto_rawDescGZIP(), []int{1}
+	return file_gig_proto_rawDescGZIP(), []int{3}
 }
 
 func (x *GetAllRequestRes) GetGigs() []*Request {
@@ -131,7 +221,7 @@ type Request struct {
 
 func (x *Request) Reset() {
 	*x = Request{}
-	mi := &file_gig_proto_msgTypes[2]
+	mi := &file_gig_proto_msgTypes[4]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -143,7 +233,7 @@ func (x *Request) String() string {
 func (*Request) ProtoMessage() {}
 
 func (x *Request) ProtoReflect() protoreflect.Message {
-	mi := &file_gig_proto_msgTypes[2]
+	mi := &file_gig_proto_msgTypes[4]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -156,7 +246,7 @@ func (x *Request) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Request.ProtoReflect.Descriptor instead.
 func (*Request) Descriptor() ([]byte, []int) {
-	return file_gig_proto_rawDescGZIP(), []int{2}
+	return file_gig_proto_rawDescGZIP(), []int{4}
 }
 
 func (x *Request) GetOrderId() string {
@@ -198,7 +288,7 @@ type OrderStatusReq struct {
 
 func (x *OrderStatusReq) Reset() {
 	*x = OrderStatusReq{}
-	mi := &file_gig_proto_msgTypes[3]
+	mi := &file_gig_proto_msgTypes[5]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -210,7 +300,7 @@ func (x *OrderStatusReq) String() string {
 func (*OrderStatusReq) ProtoMessage() {}
 
 func (x *OrderStatusReq) ProtoReflect() protoreflect.Message {
-	mi := &file_gig_proto_msgTypes[3]
+	mi := &file_gig_proto_msgTypes[5]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -223,7 +313,7 @@ func (x *OrderStatusReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use OrderStatusReq.ProtoReflect.Descriptor instead.
 func (*OrderStatusReq) Descriptor() ([]byte, []int) {
-	return file_gig_proto_rawDescGZIP(), []int{3}
+	return file_gig_proto_rawDescGZIP(), []int{5}
 }
 
 func (x *OrderStatusReq) GetOrderId() string {
@@ -250,7 +340,7 @@ type GetAllOfferReq struct {
 
 func (x *GetAllOfferReq) Reset() {
 	*x = GetAllOfferReq{}
-	mi := &file_gig_proto_msgTypes[4]
+	mi := &file_gig_proto_msgTypes[6]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -262,7 +352,7 @@ func (x *GetAllOfferReq) String() string {
 func (*GetAllOfferReq) ProtoMessage() {}
 
 func (x *GetAllOfferReq) ProtoReflect() protoreflect.Message {
-	mi := &file_gig_proto_msgTypes[4]
+	mi := &file_gig_proto_msgTypes[6]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -275,7 +365,7 @@ func (x *GetAllOfferReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetAllOfferReq.ProtoReflect.Descriptor instead.
 func (*GetAllOfferReq) Descriptor() ([]byte, []int) {
-	return file_gig_proto_rawDescGZIP(), []int{4}
+	return file_gig_proto_rawDescGZIP(), []int{6}
 }
 
 func (x *GetAllOfferReq) GetClientId() uint64 {
@@ -295,7 +385,7 @@ type GetAllOfferRes struct {
 
 func (x *GetAllOfferRes) Reset() {
 	*x = GetAllOfferRes{}
-	mi := &file_gig_proto_msgTypes[5]
+	mi := &file_gig_proto_msgTypes[7]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -307,7 +397,7 @@ func (x *GetAllOfferRes) String() string {
 func (*GetAllOfferRes) ProtoMessage() {}
 
 func (x *GetAllOfferRes) ProtoReflect() protoreflect.Message {
-	mi := &file_gig_proto_msgTypes[5]
+	mi := &file_gig_proto_msgTypes[7]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -320,7 +410,7 @@ func (x *GetAllOfferRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetAllOfferRes.ProtoReflect.Descriptor instead.
 func (*GetAllOfferRes) Descriptor() ([]byte, []int) {
-	return file_gig_proto_rawDescGZIP(), []int{5}
+	return file_gig_proto_rawDescGZIP(), []int{7}
 }
 
 func (x *GetAllOfferRes) GetOffers() []*CreateOfferReq {
@@ -346,7 +436,7 @@ type CreateOfferReq struct {
 
 func (x *CreateOfferReq) Reset() {
 	*x = CreateOfferReq{}
-	mi := &file_gig_proto_msgTypes[6]
+	mi := &file_gig_proto_msgTypes[8]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -358,7 +448,7 @@ func (x *CreateOfferReq) String() string {
 func (*CreateOfferReq) ProtoMessage() {}
 
 func (x *CreateOfferReq) ProtoReflect() protoreflect.Message {
-	mi := &file_gig_proto_msgTypes[6]
+	mi := &file_gig_proto_msgTypes[8]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -371,7 +461,7 @@ func (x *CreateOfferReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateOfferReq.ProtoReflect.Descriptor instead.
 func (*CreateOfferReq) Descriptor() ([]byte, []int) {
-	return file_gig_proto_rawDescGZIP(), []int{6}
+	return file_gig_proto_rawDescGZIP(), []int{8}
 }
 
 func (x *CreateOfferReq) GetGigRequestId() uint64 {
@@ -433,7 +523,7 @@ type GetAllQuoteReq struct {
 
 func (x *GetAllQuoteReq) Reset() {
 	*x = GetAllQuoteReq{}
-	mi := &file_gig_proto_msgTypes[7]
+	mi := &file_gig_proto_msgTypes[9]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -445,7 +535,7 @@ func (x *GetAllQuoteReq) String() string {
 func (*GetAllQuoteReq) ProtoMessage() {}
 
 func (x *GetAllQuoteReq) ProtoReflect() protoreflect.Message {
-	mi := &file_gig_proto_msgTypes[7]
+	mi := &file_gig_proto_msgTypes[9]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -458,7 +548,7 @@ func (x *GetAllQuoteReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetAllQuoteReq.ProtoReflect.Descriptor instead.
 func (*GetAllQuoteReq) Descriptor() ([]byte, []int) {
-	return file_gig_proto_rawDescGZIP(), []int{7}
+	return file_gig_proto_rawDescGZIP(), []int{9}
 }
 
 func (x *GetAllQuoteReq) GetUserId() uint32 {
@@ -478,7 +568,7 @@ type GetAllQuoteRes struct {
 
 func (x *GetAllQuoteRes) Reset() {
 	*x = GetAllQuoteRes{}
-	mi := &file_gig_proto_msgTypes[8]
+	mi := &file_gig_proto_msgTypes[10]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -490,7 +580,7 @@ func (x *GetAllQuoteRes) String() string {
 func (*GetAllQuoteRes) ProtoMessage() {}
 
 func (x *GetAllQuoteRes) ProtoReflect() protoreflect.Message {
-	mi := &file_gig_proto_msgTypes[8]
+	mi := &file_gig_proto_msgTypes[10]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -503,7 +593,7 @@ func (x *GetAllQuoteRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetAllQuoteRes.ProtoReflect.Descriptor instead.
 func (*GetAllQuoteRes) Descriptor() ([]byte, []int) {
-	return file_gig_proto_rawDescGZIP(), []int{8}
+	return file_gig_proto_rawDescGZIP(), []int{10}
 }
 
 func (x *GetAllQuoteRes) GetQuotes() []*Quote {
@@ -529,7 +619,7 @@ type Quote struct {
 
 func (x *Quote) Reset() {
 	*x = Quote{}
-	mi := &file_gig_proto_msgTypes[9]
+	mi := &file_gig_proto_msgTypes[11]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -541,7 +631,7 @@ func (x *Quote) String() string {
 func (*Quote) ProtoMessage() {}
 
 func (x *Quote) ProtoReflect() protoreflect.Message {
-	mi := &file_gig_proto_msgTypes[9]
+	mi := &file_gig_proto_msgTypes[11]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -554,7 +644,7 @@ func (x *Quote) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Quote.ProtoReflect.Descriptor instead.
 func (*Quote) Descriptor() ([]byte, []int) {
-	return file_gig_proto_rawDescGZIP(), []int{9}
+	return file_gig_proto_rawDescGZIP(), []int{11}
 }
 
 func (x *Quote) GetGigId() uint64 {
@@ -621,7 +711,7 @@ type QuoteReq struct {
 
 func (x *QuoteReq) Reset() {
 	*x = QuoteReq{}
-	mi := &file_gig_proto_msgTypes[10]
+	mi := &file_gig_proto_msgTypes[12]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -633,7 +723,7 @@ func (x *QuoteReq) String() string {
 func (*QuoteReq) ProtoMessage() {}
 
 func (x *QuoteReq) ProtoReflect() protoreflect.Message {
-	mi := &file_gig_proto_msgTypes[10]
+	mi := &file_gig_proto_msgTypes[12]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -646,7 +736,7 @@ func (x *QuoteReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use QuoteReq.ProtoReflect.Descriptor instead.
 func (*QuoteReq) Descriptor() ([]byte, []int) {
-	return file_gig_proto_rawDescGZIP(), []int{10}
+	return file_gig_proto_rawDescGZIP(), []int{12}
 }
 
 func (x *QuoteReq) GetGigId() uint64 {
@@ -701,7 +791,7 @@ type GetOrderRes struct {
 
 func (x *GetOrderRes) Reset() {
 	*x = GetOrderRes{}
-	mi := &file_gig_proto_msgTypes[11]
+	mi := &file_gig_proto_msgTypes[13]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -713,7 +803,7 @@ func (x *GetOrderRes) String() string {
 func (*GetOrderRes) ProtoMessage() {}
 
 func (x *GetOrderRes) ProtoReflect() protoreflect.Message {
-	mi := &file_gig_proto_msgTypes[11]
+	mi := &file_gig_proto_msgTypes[13]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -726,7 +816,7 @@ func (x *GetOrderRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetOrderRes.ProtoReflect.Descriptor instead.
 func (*GetOrderRes) Descriptor() ([]byte, []int) {
-	return file_gig_proto_rawDescGZIP(), []int{11}
+	return file_gig_proto_rawDescGZIP(), []int{13}
 }
 
 func (x *GetOrderRes) GetOrders() []*Order {
@@ -750,7 +840,7 @@ type Order struct {
 
 func (x *Order) Reset() {
 	*x = Order{}
-	mi := &file_gig_proto_msgTypes[12]
+	mi := &file_gig_proto_msgTypes[14]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -762,7 +852,7 @@ func (x *Order) String() string {
 func (*Order) ProtoMessage() {}
 
 func (x *Order) ProtoReflect() protoreflect.Message {
-	mi := &file_gig_proto_msgTypes[12]
+	mi := &file_gig_proto_msgTypes[14]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -775,7 +865,7 @@ func (x *Order) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Order.ProtoReflect.Descriptor instead.
 func (*Order) Descriptor() ([]byte, []int) {
-	return file_gig_proto_rawDescGZIP(), []int{12}
+	return file_gig_proto_rawDescGZIP(), []int{14}
 }
 
 func (x *Order) GetOrderId() string {
@@ -823,7 +913,7 @@ type GetOrderReq struct {
 
 func (x *GetOrderReq) Reset() {
 	*x = GetOrderReq{}
-	mi := &file_gig_proto_msgTypes[13]
+	mi := &file_gig_proto_msgTypes[15]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -835,7 +925,7 @@ func (x *GetOrderReq) String() string {
 func (*GetOrderReq) ProtoMessage() {}
 
 func (x *GetOrderReq) ProtoReflect() protoreflect.Message {
-	mi := &file_gig_proto_msgTypes[13]
+	mi := &file_gig_proto_msgTypes[15]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -848,7 +938,7 @@ func (x *GetOrderReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetOrderReq.ProtoReflect.Descriptor instead.
 func (*GetOrderReq) Descriptor() ([]byte, []int) {
-	return file_gig_proto_rawDescGZIP(), []int{13}
+	return file_gig_proto_rawDescGZIP(), []int{15}
 }
 
 func (x *GetOrderReq) GetUserId() uint32 {
@@ -869,7 +959,7 @@ type CreateOrderReq struct {
 
 func (x *CreateOrderReq) Reset() {
 	*x = CreateOrderReq{}
-	mi := &file_gig_proto_msgTypes[14]
+	mi := &file_gig_proto_msgTypes[16]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -881,7 +971,7 @@ func (x *CreateOrderReq) String() string {
 func (*CreateOrderReq) ProtoMessage() {}
 
 func (x *CreateOrderReq) ProtoReflect() protoreflect.Message {
-	mi := &file_gig_proto_msgTypes[14]
+	mi := &file_gig_proto_msgTypes[16]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -894,7 +984,7 @@ func (x *CreateOrderReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateOrderReq.ProtoReflect.Descriptor instead.
 func (*CreateOrderReq) Descriptor() ([]byte, []int) {
-	return file_gig_proto_rawDescGZIP(), []int{14}
+	return file_gig_proto_rawDescGZIP(), []int{16}
 }
 
 func (x *CreateOrderReq) GetClinetId() uint32 {
@@ -922,7 +1012,7 @@ type DeleteReq struct {
 
 func (x *DeleteReq) Reset() {
 	*x = DeleteReq{}
-	mi := &file_gig_proto_msgTypes[15]
+	mi := &file_gig_proto_msgTypes[17]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -934,7 +1024,7 @@ func (x *DeleteReq) String() string {
 func (*DeleteReq) ProtoMessage() {}
 
 func (x *DeleteReq) ProtoReflect() protoreflect.Message {
-	mi := &file_gig_proto_msgTypes[15]
+	mi := &file_gig_proto_msgTypes[17]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -947,7 +1037,7 @@ func (x *DeleteReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use DeleteReq.ProtoReflect.Descriptor instead.
 func (*DeleteReq) Descriptor() ([]byte, []int) {
-	return file_gig_proto_rawDescGZIP(), []int{15}
+	return file_gig_proto_rawDescGZIP(), []int{17}
 }
 
 func (x *DeleteReq) GetGigId() uint32 {
@@ -977,7 +1067,7 @@ type CommonGigRes struct {
 
 func (x *CommonGigRes) Reset() {
 	*x = CommonGigRes{}
-	mi := &file_gig_proto_msgTypes[16]
+	mi := &file_gig_proto_msgTypes[18]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -989,7 +1079,7 @@ func (x *CommonGigRes) String() string {
 func (*CommonGigRes) ProtoMessage() {}
 
 func (x *CommonGigRes) ProtoReflect() protoreflect.Message {
-	mi := &file_gig_proto_msgTypes[16]
+	mi := &file_gig_proto_msgTypes[18]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1002,7 +1092,7 @@ func (x *CommonGigRes) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CommonGigRes.ProtoReflect.Descriptor instead.
 func (*CommonGigRes) Descriptor() ([]byte, []int) {
-	return file_gig_proto_rawDescGZIP(), []int{16}
+	return file_gig_proto_rawDescGZIP(), []int{18}
 }
 
 func (x *CommonGigRes) GetMessage() string {
@@ -1049,7 +1139,7 @@ type AnyValues struct {
 
 func (x *AnyValues) Reset() {
 	*x = AnyValues{}
-	mi := &file_gig_proto_msgTypes[17]
+	mi := &file_gig_proto_msgTypes[19]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1061,7 +1151,7 @@ func (x *AnyValues) String() string {
 func (*AnyValues) ProtoMessage() {}
 
 func (x *AnyValues) ProtoReflect() protoreflect.Message {
-	mi := &file_gig_proto_msgTypes[17]
+	mi := &file_gig_proto_msgTypes[19]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1074,7 +1164,7 @@ func (x *AnyValues) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use AnyValues.ProtoReflect.Descriptor instead.
 func (*AnyValues) Descriptor() ([]byte, []int) {
-	return file_gig_proto_rawDescGZIP(), []int{17}
+	return file_gig_proto_rawDescGZIP(), []int{19}
 }
 
 func (m *AnyValues) GetValue() isAnyValues_Value {
@@ -1159,7 +1249,7 @@ type UpdateGigRequest struct {
 
 func (x *UpdateGigRequest) Reset() {
 	*x = UpdateGigRequest{}
-	mi := &file_gig_proto_msgTypes[18]
+	mi := &file_gig_proto_msgTypes[20]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1171,7 +1261,7 @@ func (x *UpdateGigRequest) String() string {
 func (*UpdateGigRequest) ProtoMessage() {}
 
 func (x *UpdateGigRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_gig_proto_msgTypes[18]
+	mi := &file_gig_proto_msgTypes[20]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1184,7 +1274,7 @@ func (x *UpdateGigRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use UpdateGigRequest.ProtoReflect.Descriptor instead.
 func (*UpdateGigRequest) Descriptor() ([]byte, []int) {
-	return file_gig_proto_rawDescGZIP(), []int{18}
+	return file_gig_proto_rawDescGZIP(), []int{20}
 }
 
 func (x *UpdateGigRequest) GetId() uint64 {
@@ -1267,7 +1357,7 @@ type GetGigsByFreelancerIDRequest struct {
 
 func (x *GetGigsByFreelancerIDRequest) Reset() {
 	*x = GetGigsByFreelancerIDRequest{}
-	mi := &file_gig_proto_msgTypes[19]
+	mi := &file_gig_proto_msgTypes[21]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1279,7 +1369,7 @@ func (x *GetGigsByFreelancerIDRequest) String() string {
 func (*GetGigsByFreelancerIDRequest) ProtoMessage() {}
 
 func (x *GetGigsByFreelancerIDRequest) ProtoReflect() protoreflect.Message {
-	mi := &file_gig_proto_msgTypes[19]
+	mi := &file_gig_proto_msgTypes[21]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1292,7 +1382,7 @@ func (x *GetGigsByFreelancerIDRequest) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetGigsByFreelancerIDRequest.ProtoReflect.Descriptor instead.
 func (*GetGigsByFreelancerIDRequest) Descriptor() ([]byte, []int) {
-	return file_gig_proto_rawDescGZIP(), []int{19}
+	return file_gig_proto_rawDescGZIP(), []int{21}
 }
 
 func (x *GetGigsByFreelancerIDRequest) GetFreelancerId() uint64 {
@@ -1312,7 +1402,7 @@ type GetGigsByFreelancerIDResponse struct {
 
 func (x *GetGigsByFreelancerIDResponse) Reset() {
 	*x = GetGigsByFreelancerIDResponse{}
-	mi := &file_gig_proto_msgTypes[20]
+	mi := &file_gig_proto_msgTypes[22]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1324,7 +1414,7 @@ func (x *GetGigsByFreelancerIDResponse) String() string {
 func (*GetGigsByFreelancerIDResponse) ProtoMessage() {}
 
 func (x *GetGigsByFreelancerIDResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_gig_proto_msgTypes[20]
+	mi := &file_gig_proto_msgTypes[22]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1337,7 +1427,7 @@ func (x *GetGigsByFreelancerIDResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use GetGigsByFreelancerIDResponse.ProtoReflect.Descriptor instead.
 func (*GetGigsByFreelancerIDResponse) Descriptor() ([]byte, []int) {
-	return file_gig_proto_rawDescGZIP(), []int{20}
+	return file_gig_proto_rawDescGZIP(), []int{22}
 }
 
 func (x *GetGigsByFreelancerIDResponse) GetGigs() []*Gig {
@@ -1365,7 +1455,7 @@ type Gig struct {
 
 func (x *Gig) Reset() {
 	*x = Gig{}
-	mi := &file_gig_proto_msgTypes[21]
+	mi := &file_gig_proto_msgTypes[23]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1377,7 +1467,7 @@ func (x *Gig) String() string {
 func (*Gig) ProtoMessage() {}
 
 func (x *Gig) ProtoReflect() protoreflect.Message {
-	mi := &file_gig_proto_msgTypes[21]
+	mi := &file_gig_proto_msgTypes[23]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1390,7 +1480,7 @@ func (x *Gig) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Gig.ProtoReflect.Descriptor instead.
 func (*Gig) Descriptor() ([]byte, []int) {
-	return file_gig_proto_rawDescGZIP(), []int{21}
+	return file_gig_proto_rawDescGZIP(), []int{23}
 }
 
 func (x *Gig) GetId() uint64 {
@@ -1474,7 +1564,7 @@ type CreateGigReq struct {
 
 func (x *CreateGigReq) Reset() {
 	*x = CreateGigReq{}
-	mi := &file_gig_proto_msgTypes[22]
+	mi := &file_gig_proto_msgTypes[24]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1486,7 +1576,7 @@ func (x *CreateGigReq) String() string {
 func (*CreateGigReq) ProtoMessage() {}
 
 func (x *CreateGigReq) ProtoReflect() protoreflect.Message {
-	mi := &file_gig_proto_msgTypes[22]
+	mi := &file_gig_proto_msgTypes[24]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1499,7 +1589,7 @@ func (x *CreateGigReq) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use CreateGigReq.ProtoReflect.Descriptor instead.
 func (*CreateGigReq) Descriptor() ([]byte, []int) {
-	return file_gig_proto_rawDescGZIP(), []int{22}
+	return file_gig_proto_rawDescGZIP(), []int{24}
 }
 
 func (x *CreateGigReq) GetTitle() string {
@@ -1575,7 +1665,7 @@ type Image struct {
 
 func (x *Image) Reset() {
 	*x = Image{}
-	mi := &file_gig_proto_msgTypes[23]
+	mi := &file_gig_proto_msgTypes[25]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1587,7 +1677,7 @@ func (x *Image) String() string {
 func (*Image) ProtoMessage() {}
 
 func (x *Image) ProtoReflect() protoreflect.Message {
-	mi := &file_gig_proto_msgTypes[23]
+	mi := &file_gig_proto_msgTypes[25]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1600,7 +1690,7 @@ func (x *Image) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use Image.ProtoReflect.Descriptor instead.
 func (*Image) Descriptor() ([]byte, []int) {
-	return file_gig_proto_rawDescGZIP(), []int{23}
+	return file_gig_proto_rawDescGZIP(), []int{25}
 }
 
 func (x *Image) GetUrl() string {
@@ -1618,7 +1708,7 @@ type EmptyResponse struct {
 
 func (x *EmptyResponse) Reset() {
 	*x = EmptyResponse{}
-	mi := &file_gig_proto_msgTypes[24]
+	mi := &file_gig_proto_msgTypes[26]
 	ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 	ms.StoreMessageInfo(mi)
 }
@@ -1630,7 +1720,7 @@ func (x *EmptyResponse) String() string {
 func (*EmptyResponse) ProtoMessage() {}
 
 func (x *EmptyResponse) ProtoReflect() protoreflect.Message {
-	mi := &file_gig_proto_msgTypes[24]
+	mi := &file_gig_proto_msgTypes[26]
 	if x != nil {
 		ms := protoimpl.X.MessageStateOf(protoimpl.Pointer(x))
 		if ms.LoadMessageInfo() == nil {
@@ -1643,13 +1733,18 @@ func (x *EmptyResponse) ProtoReflect() protoreflect.Message {
 
 // Deprecated: Use EmptyResponse.ProtoReflect.Descriptor instead.
 func (*EmptyResponse) Descriptor() ([]byte, []int) {
-	return file_gig_proto_rawDescGZIP(), []int{24}
+	return file_gig_proto_rawDescGZIP(), []int{26}
 }
 
 var File_gig_proto protoreflect.FileDescriptor
 
 var file_gig_proto_rawDesc = []byte{
 	0x0a, 0x09, 0x67, 0x69, 0x67, 0x2e, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x12, 0x03, 0x67, 0x69, 0x67,
+	0x22, 0x26, 0x0a, 0x09, 0x52, 0x65, 0x6a, 0x65, 0x63, 0x74, 0x52, 0x65, 0x71, 0x12, 0x19, 0x0a,
+	0x08, 0x6f, 0x72, 0x64, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52,
+	0x07, 0x6f, 0x72, 0x64, 0x65, 0x72, 0x49, 0x64, 0x22, 0x26, 0x0a, 0x09, 0x41, 0x63, 0x63, 0x65,
+	0x70, 0x74, 0x52, 0x65, 0x71, 0x12, 0x19, 0x0a, 0x08, 0x6f, 0x72, 0x64, 0x65, 0x72, 0x5f, 0x69,
+	0x64, 0x18, 0x01, 0x20, 0x01, 0x28, 0x09, 0x52, 0x07, 0x6f, 0x72, 0x64, 0x65, 0x72, 0x49, 0x64,
 	0x22, 0x2b, 0x0a, 0x10, 0x47, 0x65, 0x74, 0x41, 0x6c, 0x6c, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73,
 	0x74, 0x52, 0x65, 0x71, 0x12, 0x17, 0x0a, 0x07, 0x75, 0x73, 0x65, 0x72, 0x5f, 0x69, 0x64, 0x18,
 	0x01, 0x20, 0x01, 0x28, 0x04, 0x52, 0x06, 0x75, 0x73, 0x65, 0x72, 0x49, 0x64, 0x22, 0x61, 0x0a,
@@ -1832,7 +1927,7 @@ var file_gig_proto_rawDesc = []byte{
 	0x20, 0x03, 0x28, 0x0c, 0x52, 0x06, 0x69, 0x6d, 0x61, 0x67, 0x65, 0x73, 0x22, 0x19, 0x0a, 0x05,
 	0x49, 0x6d, 0x61, 0x67, 0x65, 0x12, 0x10, 0x0a, 0x03, 0x75, 0x72, 0x6c, 0x18, 0x01, 0x20, 0x01,
 	0x28, 0x09, 0x52, 0x03, 0x75, 0x72, 0x6c, 0x22, 0x0f, 0x0a, 0x0d, 0x45, 0x6d, 0x70, 0x74, 0x79,
-	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x32, 0x8c, 0x06, 0x0a, 0x0a, 0x47, 0x69, 0x67,
+	0x52, 0x65, 0x73, 0x70, 0x6f, 0x6e, 0x73, 0x65, 0x32, 0xf4, 0x06, 0x0a, 0x0a, 0x47, 0x69, 0x67,
 	0x53, 0x65, 0x72, 0x76, 0x69, 0x63, 0x65, 0x12, 0x32, 0x0a, 0x09, 0x43, 0x72, 0x65, 0x61, 0x74,
 	0x65, 0x47, 0x69, 0x67, 0x12, 0x11, 0x2e, 0x67, 0x69, 0x67, 0x2e, 0x43, 0x72, 0x65, 0x61, 0x74,
 	0x65, 0x47, 0x69, 0x67, 0x52, 0x65, 0x71, 0x1a, 0x12, 0x2e, 0x67, 0x69, 0x67, 0x2e, 0x45, 0x6d,
@@ -1881,8 +1976,15 @@ var file_gig_proto_rawDesc = []byte{
 	0x6c, 0x6c, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x15, 0x2e, 0x67, 0x69, 0x67, 0x2e,
 	0x47, 0x65, 0x74, 0x41, 0x6c, 0x6c, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x52, 0x65, 0x71,
 	0x1a, 0x15, 0x2e, 0x67, 0x69, 0x67, 0x2e, 0x47, 0x65, 0x74, 0x41, 0x6c, 0x6c, 0x52, 0x65, 0x71,
-	0x75, 0x65, 0x73, 0x74, 0x52, 0x65, 0x73, 0x42, 0x09, 0x5a, 0x07, 0x2e, 0x2f, 0x70, 0x72, 0x6f,
-	0x74, 0x6f, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x33,
+	0x75, 0x65, 0x73, 0x74, 0x52, 0x65, 0x73, 0x12, 0x32, 0x0a, 0x0d, 0x41, 0x63, 0x63, 0x65, 0x70,
+	0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x2e, 0x67, 0x69, 0x67, 0x2e, 0x41,
+	0x63, 0x63, 0x65, 0x70, 0x74, 0x52, 0x65, 0x71, 0x1a, 0x11, 0x2e, 0x67, 0x69, 0x67, 0x2e, 0x43,
+	0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x47, 0x69, 0x67, 0x52, 0x65, 0x73, 0x12, 0x32, 0x0a, 0x0d, 0x52,
+	0x65, 0x6a, 0x65, 0x63, 0x74, 0x52, 0x65, 0x71, 0x75, 0x65, 0x73, 0x74, 0x12, 0x0e, 0x2e, 0x67,
+	0x69, 0x67, 0x2e, 0x52, 0x65, 0x6a, 0x65, 0x63, 0x74, 0x52, 0x65, 0x71, 0x1a, 0x11, 0x2e, 0x67,
+	0x69, 0x67, 0x2e, 0x43, 0x6f, 0x6d, 0x6d, 0x6f, 0x6e, 0x47, 0x69, 0x67, 0x52, 0x65, 0x73, 0x42,
+	0x09, 0x5a, 0x07, 0x2e, 0x2f, 0x70, 0x72, 0x6f, 0x74, 0x6f, 0x62, 0x06, 0x70, 0x72, 0x6f, 0x74,
+	0x6f, 0x33,
 }
 
 var (
@@ -1897,73 +1999,79 @@ func file_gig_proto_rawDescGZIP() []byte {
 	return file_gig_proto_rawDescData
 }
 
-var file_gig_proto_msgTypes = make([]protoimpl.MessageInfo, 26)
+var file_gig_proto_msgTypes = make([]protoimpl.MessageInfo, 28)
 var file_gig_proto_goTypes = []any{
-	(*GetAllRequestReq)(nil),              // 0: gig.GetAllRequestReq
-	(*GetAllRequestRes)(nil),              // 1: gig.GetAllRequestRes
-	(*Request)(nil),                       // 2: gig.Request
-	(*OrderStatusReq)(nil),                // 3: gig.OrderStatusReq
-	(*GetAllOfferReq)(nil),                // 4: gig.GetAllOfferReq
-	(*GetAllOfferRes)(nil),                // 5: gig.GetAllOfferRes
-	(*CreateOfferReq)(nil),                // 6: gig.CreateOfferReq
-	(*GetAllQuoteReq)(nil),                // 7: gig.GetAllQuoteReq
-	(*GetAllQuoteRes)(nil),                // 8: gig.GetAllQuoteRes
-	(*Quote)(nil),                         // 9: gig.Quote
-	(*QuoteReq)(nil),                      // 10: gig.QuoteReq
-	(*GetOrderRes)(nil),                   // 11: gig.GetOrderRes
-	(*Order)(nil),                         // 12: gig.Order
-	(*GetOrderReq)(nil),                   // 13: gig.GetOrderReq
-	(*CreateOrderReq)(nil),                // 14: gig.CreateOrderReq
-	(*DeleteReq)(nil),                     // 15: gig.DeleteReq
-	(*CommonGigRes)(nil),                  // 16: gig.CommonGigRes
-	(*AnyValues)(nil),                     // 17: gig.AnyValues
-	(*UpdateGigRequest)(nil),              // 18: gig.UpdateGigRequest
-	(*GetGigsByFreelancerIDRequest)(nil),  // 19: gig.GetGigsByFreelancerIDRequest
-	(*GetGigsByFreelancerIDResponse)(nil), // 20: gig.GetGigsByFreelancerIDResponse
-	(*Gig)(nil),                           // 21: gig.Gig
-	(*CreateGigReq)(nil),                  // 22: gig.CreateGigReq
-	(*Image)(nil),                         // 23: gig.Image
-	(*EmptyResponse)(nil),                 // 24: gig.EmptyResponse
-	nil,                                   // 25: gig.CommonGigRes.DataEntry
+	(*RejectReq)(nil),                     // 0: gig.RejectReq
+	(*AcceptReq)(nil),                     // 1: gig.AcceptReq
+	(*GetAllRequestReq)(nil),              // 2: gig.GetAllRequestReq
+	(*GetAllRequestRes)(nil),              // 3: gig.GetAllRequestRes
+	(*Request)(nil),                       // 4: gig.Request
+	(*OrderStatusReq)(nil),                // 5: gig.OrderStatusReq
+	(*GetAllOfferReq)(nil),                // 6: gig.GetAllOfferReq
+	(*GetAllOfferRes)(nil),                // 7: gig.GetAllOfferRes
+	(*CreateOfferReq)(nil),                // 8: gig.CreateOfferReq
+	(*GetAllQuoteReq)(nil),                // 9: gig.GetAllQuoteReq
+	(*GetAllQuoteRes)(nil),                // 10: gig.GetAllQuoteRes
+	(*Quote)(nil),                         // 11: gig.Quote
+	(*QuoteReq)(nil),                      // 12: gig.QuoteReq
+	(*GetOrderRes)(nil),                   // 13: gig.GetOrderRes
+	(*Order)(nil),                         // 14: gig.Order
+	(*GetOrderReq)(nil),                   // 15: gig.GetOrderReq
+	(*CreateOrderReq)(nil),                // 16: gig.CreateOrderReq
+	(*DeleteReq)(nil),                     // 17: gig.DeleteReq
+	(*CommonGigRes)(nil),                  // 18: gig.CommonGigRes
+	(*AnyValues)(nil),                     // 19: gig.AnyValues
+	(*UpdateGigRequest)(nil),              // 20: gig.UpdateGigRequest
+	(*GetGigsByFreelancerIDRequest)(nil),  // 21: gig.GetGigsByFreelancerIDRequest
+	(*GetGigsByFreelancerIDResponse)(nil), // 22: gig.GetGigsByFreelancerIDResponse
+	(*Gig)(nil),                           // 23: gig.Gig
+	(*CreateGigReq)(nil),                  // 24: gig.CreateGigReq
+	(*Image)(nil),                         // 25: gig.Image
+	(*EmptyResponse)(nil),                 // 26: gig.EmptyResponse
+	nil,                                   // 27: gig.CommonGigRes.DataEntry
 }
 var file_gig_proto_depIdxs = []int32{
-	2,  // 0: gig.GetAllRequestRes.gigs:type_name -> gig.Request
-	2,  // 1: gig.GetAllRequestRes.offer_gigs:type_name -> gig.Request
-	6,  // 2: gig.GetAllOfferRes.offers:type_name -> gig.CreateOfferReq
-	9,  // 3: gig.GetAllQuoteRes.Quotes:type_name -> gig.Quote
-	12, // 4: gig.GetOrderRes.Orders:type_name -> gig.Order
-	25, // 5: gig.CommonGigRes.data:type_name -> gig.CommonGigRes.DataEntry
-	21, // 6: gig.GetGigsByFreelancerIDResponse.gigs:type_name -> gig.Gig
-	23, // 7: gig.Gig.image:type_name -> gig.Image
-	17, // 8: gig.CommonGigRes.DataEntry.value:type_name -> gig.AnyValues
-	22, // 9: gig.GigService.CreateGig:input_type -> gig.CreateGigReq
-	19, // 10: gig.GigService.GetGigsByFreelancerID:input_type -> gig.GetGigsByFreelancerIDRequest
-	18, // 11: gig.GigService.UpdateGigByID:input_type -> gig.UpdateGigRequest
-	15, // 12: gig.GigService.DeleteGigByID:input_type -> gig.DeleteReq
-	14, // 13: gig.GigService.CreateOrder:input_type -> gig.CreateOrderReq
-	13, // 14: gig.GigService.GetOrders:input_type -> gig.GetOrderReq
-	10, // 15: gig.GigService.RequestQuote:input_type -> gig.QuoteReq
-	7,  // 16: gig.GigService.GetAllQuotes:input_type -> gig.GetAllQuoteReq
-	6,  // 17: gig.GigService.CreateOffer:input_type -> gig.CreateOfferReq
-	4,  // 18: gig.GigService.GetAllOffers:input_type -> gig.GetAllOfferReq
-	14, // 19: gig.GigService.CreateOfferOrder:input_type -> gig.CreateOrderReq
-	3,  // 20: gig.GigService.UpdateOrderStatus:input_type -> gig.OrderStatusReq
-	0,  // 21: gig.GigService.GetAllRequest:input_type -> gig.GetAllRequestReq
-	24, // 22: gig.GigService.CreateGig:output_type -> gig.EmptyResponse
-	20, // 23: gig.GigService.GetGigsByFreelancerID:output_type -> gig.GetGigsByFreelancerIDResponse
-	16, // 24: gig.GigService.UpdateGigByID:output_type -> gig.CommonGigRes
-	16, // 25: gig.GigService.DeleteGigByID:output_type -> gig.CommonGigRes
-	16, // 26: gig.GigService.CreateOrder:output_type -> gig.CommonGigRes
-	11, // 27: gig.GigService.GetOrders:output_type -> gig.GetOrderRes
-	16, // 28: gig.GigService.RequestQuote:output_type -> gig.CommonGigRes
-	8,  // 29: gig.GigService.GetAllQuotes:output_type -> gig.GetAllQuoteRes
-	16, // 30: gig.GigService.CreateOffer:output_type -> gig.CommonGigRes
-	5,  // 31: gig.GigService.GetAllOffers:output_type -> gig.GetAllOfferRes
-	16, // 32: gig.GigService.CreateOfferOrder:output_type -> gig.CommonGigRes
-	16, // 33: gig.GigService.UpdateOrderStatus:output_type -> gig.CommonGigRes
-	1,  // 34: gig.GigService.GetAllRequest:output_type -> gig.GetAllRequestRes
-	22, // [22:35] is the sub-list for method output_type
-	9,  // [9:22] is the sub-list for method input_type
+	4,  // 0: gig.GetAllRequestRes.gigs:type_name -> gig.Request
+	4,  // 1: gig.GetAllRequestRes.offer_gigs:type_name -> gig.Request
+	8,  // 2: gig.GetAllOfferRes.offers:type_name -> gig.CreateOfferReq
+	11, // 3: gig.GetAllQuoteRes.Quotes:type_name -> gig.Quote
+	14, // 4: gig.GetOrderRes.Orders:type_name -> gig.Order
+	27, // 5: gig.CommonGigRes.data:type_name -> gig.CommonGigRes.DataEntry
+	23, // 6: gig.GetGigsByFreelancerIDResponse.gigs:type_name -> gig.Gig
+	25, // 7: gig.Gig.image:type_name -> gig.Image
+	19, // 8: gig.CommonGigRes.DataEntry.value:type_name -> gig.AnyValues
+	24, // 9: gig.GigService.CreateGig:input_type -> gig.CreateGigReq
+	21, // 10: gig.GigService.GetGigsByFreelancerID:input_type -> gig.GetGigsByFreelancerIDRequest
+	20, // 11: gig.GigService.UpdateGigByID:input_type -> gig.UpdateGigRequest
+	17, // 12: gig.GigService.DeleteGigByID:input_type -> gig.DeleteReq
+	16, // 13: gig.GigService.CreateOrder:input_type -> gig.CreateOrderReq
+	15, // 14: gig.GigService.GetOrders:input_type -> gig.GetOrderReq
+	12, // 15: gig.GigService.RequestQuote:input_type -> gig.QuoteReq
+	9,  // 16: gig.GigService.GetAllQuotes:input_type -> gig.GetAllQuoteReq
+	8,  // 17: gig.GigService.CreateOffer:input_type -> gig.CreateOfferReq
+	6,  // 18: gig.GigService.GetAllOffers:input_type -> gig.GetAllOfferReq
+	16, // 19: gig.GigService.CreateOfferOrder:input_type -> gig.CreateOrderReq
+	5,  // 20: gig.GigService.UpdateOrderStatus:input_type -> gig.OrderStatusReq
+	2,  // 21: gig.GigService.GetAllRequest:input_type -> gig.GetAllRequestReq
+	1,  // 22: gig.GigService.AcceptRequest:input_type -> gig.AcceptReq
+	0,  // 23: gig.GigService.RejectRequest:input_type -> gig.RejectReq
+	26, // 24: gig.GigService.CreateGig:output_type -> gig.EmptyResponse
+	22, // 25: gig.GigService.GetGigsByFreelancerID:output_type -> gig.GetGigsByFreelancerIDResponse
+	18, // 26: gig.GigService.UpdateGigByID:output_type -> gig.CommonGigRes
+	18, // 27: gig.GigService.DeleteGigByID:output_type -> gig.CommonGigRes
+	18, // 28: gig.GigService.CreateOrder:output_type -> gig.CommonGigRes
+	13, // 29: gig.GigService.GetOrders:output_type -> gig.GetOrderRes
+	18, // 30: gig.GigService.RequestQuote:output_type -> gig.CommonGigRes
+	10, // 31: gig.GigService.GetAllQuotes:output_type -> gig.GetAllQuoteRes
+	18, // 32: gig.GigService.CreateOffer:output_type -> gig.CommonGigRes
+	7,  // 33: gig.GigService.GetAllOffers:output_type -> gig.GetAllOfferRes
+	18, // 34: gig.GigService.CreateOfferOrder:output_type -> gig.CommonGigRes
+	18, // 35: gig.GigService.UpdateOrderStatus:output_type -> gig.CommonGigRes
+	3,  // 36: gig.GigService.GetAllRequest:output_type -> gig.GetAllRequestRes
+	18, // 37: gig.GigService.AcceptRequest:output_type -> gig.CommonGigRes
+	18, // 38: gig.GigService.RejectRequest:output_type -> gig.CommonGigRes
+	24, // [24:39] is the sub-list for method output_type
+	9,  // [9:24] is the sub-list for method input_type
 	9,  // [9:9] is the sub-list for extension type_name
 	9,  // [9:9] is the sub-list for extension extendee
 	0,  // [0:9] is the sub-list for field type_name
@@ -1974,7 +2082,7 @@ func file_gig_proto_init() {
 	if File_gig_proto != nil {
 		return
 	}
-	file_gig_proto_msgTypes[17].OneofWrappers = []any{
+	file_gig_proto_msgTypes[19].OneofWrappers = []any{
 		(*AnyValues_StringValue)(nil),
 		(*AnyValues_IntValue)(nil),
 		(*AnyValues_BoolValue)(nil),
@@ -1986,7 +2094,7 @@ func file_gig_proto_init() {
 			GoPackagePath: reflect.TypeOf(x{}).PkgPath(),
 			RawDescriptor: file_gig_proto_rawDesc,
 			NumEnums:      0,
-			NumMessages:   26,
+			NumMessages:   28,
 			NumExtensions: 0,
 			NumServices:   1,
 		},
