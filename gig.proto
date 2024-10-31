@@ -20,7 +20,7 @@ service GigService {
     rpc GetAllRequest(GetAllRequestReq) returns (GetAllRequestRes);
     rpc AcceptRequest(AcceptReq) returns (CommonGigRes);
     rpc RejectRequest(RejectReq) returns (CommonGigRes);
-    rpc AdminOrderController (EmptyReq) returns (AdOrderController);
+    rpc AdminOrderController (EmptyGigReq) returns (AdOrderController);
     rpc AdOrderRefund (AdRefundReq) returns (CommonGigRes);
 }
 
@@ -35,7 +35,7 @@ message AdOrderController{
     repeated Request offer_gigs=2;
 }
 
-message EmptyReq{
+message EmptyGigReq{
 
 }
 

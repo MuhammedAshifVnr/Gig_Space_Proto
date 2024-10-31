@@ -57,7 +57,7 @@ type GigServiceClient interface {
 	GetAllRequest(ctx context.Context, in *GetAllRequestReq, opts ...grpc.CallOption) (*GetAllRequestRes, error)
 	AcceptRequest(ctx context.Context, in *AcceptReq, opts ...grpc.CallOption) (*CommonGigRes, error)
 	RejectRequest(ctx context.Context, in *RejectReq, opts ...grpc.CallOption) (*CommonGigRes, error)
-	AdminOrderController(ctx context.Context, in *EmptyReq, opts ...grpc.CallOption) (*AdOrderController, error)
+	AdminOrderController(ctx context.Context, in *EmptyGigReq, opts ...grpc.CallOption) (*AdOrderController, error)
 	AdOrderRefund(ctx context.Context, in *AdRefundReq, opts ...grpc.CallOption) (*CommonGigRes, error)
 }
 
@@ -219,7 +219,7 @@ func (c *gigServiceClient) RejectRequest(ctx context.Context, in *RejectReq, opt
 	return out, nil
 }
 
-func (c *gigServiceClient) AdminOrderController(ctx context.Context, in *EmptyReq, opts ...grpc.CallOption) (*AdOrderController, error) {
+func (c *gigServiceClient) AdminOrderController(ctx context.Context, in *EmptyGigReq, opts ...grpc.CallOption) (*AdOrderController, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(AdOrderController)
 	err := c.cc.Invoke(ctx, GigService_AdminOrderController_FullMethodName, in, out, cOpts...)
@@ -258,7 +258,7 @@ type GigServiceServer interface {
 	GetAllRequest(context.Context, *GetAllRequestReq) (*GetAllRequestRes, error)
 	AcceptRequest(context.Context, *AcceptReq) (*CommonGigRes, error)
 	RejectRequest(context.Context, *RejectReq) (*CommonGigRes, error)
-	AdminOrderController(context.Context, *EmptyReq) (*AdOrderController, error)
+	AdminOrderController(context.Context, *EmptyGigReq) (*AdOrderController, error)
 	AdOrderRefund(context.Context, *AdRefundReq) (*CommonGigRes, error)
 	mustEmbedUnimplementedGigServiceServer()
 }
@@ -315,7 +315,7 @@ func (UnimplementedGigServiceServer) AcceptRequest(context.Context, *AcceptReq) 
 func (UnimplementedGigServiceServer) RejectRequest(context.Context, *RejectReq) (*CommonGigRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method RejectRequest not implemented")
 }
-func (UnimplementedGigServiceServer) AdminOrderController(context.Context, *EmptyReq) (*AdOrderController, error) {
+func (UnimplementedGigServiceServer) AdminOrderController(context.Context, *EmptyGigReq) (*AdOrderController, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method AdminOrderController not implemented")
 }
 func (UnimplementedGigServiceServer) AdOrderRefund(context.Context, *AdRefundReq) (*CommonGigRes, error) {
@@ -613,7 +613,7 @@ func _GigService_RejectRequest_Handler(srv interface{}, ctx context.Context, dec
 }
 
 func _GigService_AdminOrderController_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(EmptyReq)
+	in := new(EmptyGigReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -625,7 +625,7 @@ func _GigService_AdminOrderController_Handler(srv interface{}, ctx context.Conte
 		FullMethod: GigService_AdminOrderController_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GigServiceServer).AdminOrderController(ctx, req.(*EmptyReq))
+		return srv.(GigServiceServer).AdminOrderController(ctx, req.(*EmptyGigReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
