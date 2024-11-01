@@ -24,6 +24,12 @@ service GigService {
     rpc AdOrderRefund (AdRefundReq) returns (CommonGigRes);
     rpc GetAllOrders (AllOrdersReq) returns (AllOrdersRes);
     rpc GetOrderByID (OrderByIDReq) returns (OrderDetail);
+    rpc ClientStatutUpdate (OrderIDReq) returns (CommonGigRes);
+}
+
+message OrderIDReq{
+    string order_id=1;
+    uint64 client_id=2;
 }
 
 message OrderDetail{
