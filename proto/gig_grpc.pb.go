@@ -19,28 +19,29 @@ import (
 const _ = grpc.SupportPackageIsVersion9
 
 const (
-	GigService_CreateGig_FullMethodName             = "/gig.GigService/CreateGig"
-	GigService_GetGigsByFreelancerID_FullMethodName = "/gig.GigService/GetGigsByFreelancerID"
-	GigService_UpdateGigByID_FullMethodName         = "/gig.GigService/UpdateGigByID"
-	GigService_DeleteGigByID_FullMethodName         = "/gig.GigService/DeleteGigByID"
-	GigService_CreateOrder_FullMethodName           = "/gig.GigService/CreateOrder"
-	GigService_GetOrders_FullMethodName             = "/gig.GigService/GetOrders"
-	GigService_RequestQuote_FullMethodName          = "/gig.GigService/RequestQuote"
-	GigService_GetAllQuotes_FullMethodName          = "/gig.GigService/GetAllQuotes"
-	GigService_CreateOffer_FullMethodName           = "/gig.GigService/CreateOffer"
-	GigService_GetAllOffers_FullMethodName          = "/gig.GigService/GetAllOffers"
-	GigService_CreateOfferOrder_FullMethodName      = "/gig.GigService/CreateOfferOrder"
-	GigService_UpdateOrderStatus_FullMethodName     = "/gig.GigService/UpdateOrderStatus"
-	GigService_GetAllRequest_FullMethodName         = "/gig.GigService/GetAllRequest"
-	GigService_AcceptRequest_FullMethodName         = "/gig.GigService/AcceptRequest"
-	GigService_RejectRequest_FullMethodName         = "/gig.GigService/RejectRequest"
-	GigService_AdminOrderController_FullMethodName  = "/gig.GigService/AdminOrderController"
-	GigService_AdOrderRefund_FullMethodName         = "/gig.GigService/AdOrderRefund"
-	GigService_GetAllOrders_FullMethodName          = "/gig.GigService/GetAllOrders"
-	GigService_GetOrderByID_FullMethodName          = "/gig.GigService/GetOrderByID"
-	GigService_ClientStatutUpdate_FullMethodName    = "/gig.GigService/ClientStatutUpdate"
-	GigService_GetAllGig_FullMethodName             = "/gig.GigService/GetAllGig"
-	GigService_GetGigByID_FullMethodName            = "/gig.GigService/GetGigByID"
+	GigService_CreateGig_FullMethodName                 = "/gig.GigService/CreateGig"
+	GigService_GetGigsByFreelancerID_FullMethodName     = "/gig.GigService/GetGigsByFreelancerID"
+	GigService_UpdateGigByID_FullMethodName             = "/gig.GigService/UpdateGigByID"
+	GigService_DeleteGigByID_FullMethodName             = "/gig.GigService/DeleteGigByID"
+	GigService_CreateOrder_FullMethodName               = "/gig.GigService/CreateOrder"
+	GigService_GetOrders_FullMethodName                 = "/gig.GigService/GetOrders"
+	GigService_RequestQuote_FullMethodName              = "/gig.GigService/RequestQuote"
+	GigService_GetAllQuotes_FullMethodName              = "/gig.GigService/GetAllQuotes"
+	GigService_CreateOffer_FullMethodName               = "/gig.GigService/CreateOffer"
+	GigService_GetAllOffers_FullMethodName              = "/gig.GigService/GetAllOffers"
+	GigService_CreateOfferOrder_FullMethodName          = "/gig.GigService/CreateOfferOrder"
+	GigService_UpdateOrderStatus_FullMethodName         = "/gig.GigService/UpdateOrderStatus"
+	GigService_GetAllRequest_FullMethodName             = "/gig.GigService/GetAllRequest"
+	GigService_AcceptRequest_FullMethodName             = "/gig.GigService/AcceptRequest"
+	GigService_RejectRequest_FullMethodName             = "/gig.GigService/RejectRequest"
+	GigService_AdminOrderController_FullMethodName      = "/gig.GigService/AdminOrderController"
+	GigService_AdOrderRefund_FullMethodName             = "/gig.GigService/AdOrderRefund"
+	GigService_GetAllOrders_FullMethodName              = "/gig.GigService/GetAllOrders"
+	GigService_GetOrderByID_FullMethodName              = "/gig.GigService/GetOrderByID"
+	GigService_CleentUpdatePendingStatus_FullMethodName = "/gig.GigService/CleentUpdatePendingStatus"
+	GigService_ClientUpdateDoneStatus_FullMethodName    = "/gig.GigService/ClientUpdateDoneStatus"
+	GigService_GetAllGig_FullMethodName                 = "/gig.GigService/GetAllGig"
+	GigService_GetGigByID_FullMethodName                = "/gig.GigService/GetGigByID"
 )
 
 // GigServiceClient is the client API for GigService service.
@@ -66,7 +67,8 @@ type GigServiceClient interface {
 	AdOrderRefund(ctx context.Context, in *AdRefundReq, opts ...grpc.CallOption) (*CommonGigRes, error)
 	GetAllOrders(ctx context.Context, in *AllOrdersReq, opts ...grpc.CallOption) (*AllOrdersRes, error)
 	GetOrderByID(ctx context.Context, in *OrderByIDReq, opts ...grpc.CallOption) (*OrderDetail, error)
-	ClientStatutUpdate(ctx context.Context, in *OrderIDReq, opts ...grpc.CallOption) (*CommonGigRes, error)
+	CleentUpdatePendingStatus(ctx context.Context, in *OrderByIDReq, opts ...grpc.CallOption) (*CommonGigRes, error)
+	ClientUpdateDoneStatus(ctx context.Context, in *OrderIDReq, opts ...grpc.CallOption) (*CommonGigRes, error)
 	GetAllGig(ctx context.Context, in *GigReq, opts ...grpc.CallOption) (*GetAllGigRes, error)
 	GetGigByID(ctx context.Context, in *GigIDreq, opts ...grpc.CallOption) (*GetGigRes, error)
 }
@@ -269,10 +271,20 @@ func (c *gigServiceClient) GetOrderByID(ctx context.Context, in *OrderByIDReq, o
 	return out, nil
 }
 
-func (c *gigServiceClient) ClientStatutUpdate(ctx context.Context, in *OrderIDReq, opts ...grpc.CallOption) (*CommonGigRes, error) {
+func (c *gigServiceClient) CleentUpdatePendingStatus(ctx context.Context, in *OrderByIDReq, opts ...grpc.CallOption) (*CommonGigRes, error) {
 	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
 	out := new(CommonGigRes)
-	err := c.cc.Invoke(ctx, GigService_ClientStatutUpdate_FullMethodName, in, out, cOpts...)
+	err := c.cc.Invoke(ctx, GigService_CleentUpdatePendingStatus_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *gigServiceClient) ClientUpdateDoneStatus(ctx context.Context, in *OrderIDReq, opts ...grpc.CallOption) (*CommonGigRes, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CommonGigRes)
+	err := c.cc.Invoke(ctx, GigService_ClientUpdateDoneStatus_FullMethodName, in, out, cOpts...)
 	if err != nil {
 		return nil, err
 	}
@@ -322,7 +334,8 @@ type GigServiceServer interface {
 	AdOrderRefund(context.Context, *AdRefundReq) (*CommonGigRes, error)
 	GetAllOrders(context.Context, *AllOrdersReq) (*AllOrdersRes, error)
 	GetOrderByID(context.Context, *OrderByIDReq) (*OrderDetail, error)
-	ClientStatutUpdate(context.Context, *OrderIDReq) (*CommonGigRes, error)
+	CleentUpdatePendingStatus(context.Context, *OrderByIDReq) (*CommonGigRes, error)
+	ClientUpdateDoneStatus(context.Context, *OrderIDReq) (*CommonGigRes, error)
 	GetAllGig(context.Context, *GigReq) (*GetAllGigRes, error)
 	GetGigByID(context.Context, *GigIDreq) (*GetGigRes, error)
 	mustEmbedUnimplementedGigServiceServer()
@@ -392,8 +405,11 @@ func (UnimplementedGigServiceServer) GetAllOrders(context.Context, *AllOrdersReq
 func (UnimplementedGigServiceServer) GetOrderByID(context.Context, *OrderByIDReq) (*OrderDetail, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetOrderByID not implemented")
 }
-func (UnimplementedGigServiceServer) ClientStatutUpdate(context.Context, *OrderIDReq) (*CommonGigRes, error) {
-	return nil, status.Errorf(codes.Unimplemented, "method ClientStatutUpdate not implemented")
+func (UnimplementedGigServiceServer) CleentUpdatePendingStatus(context.Context, *OrderByIDReq) (*CommonGigRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method CleentUpdatePendingStatus not implemented")
+}
+func (UnimplementedGigServiceServer) ClientUpdateDoneStatus(context.Context, *OrderIDReq) (*CommonGigRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ClientUpdateDoneStatus not implemented")
 }
 func (UnimplementedGigServiceServer) GetAllGig(context.Context, *GigReq) (*GetAllGigRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetAllGig not implemented")
@@ -764,20 +780,38 @@ func _GigService_GetOrderByID_Handler(srv interface{}, ctx context.Context, dec 
 	return interceptor(ctx, in, info, handler)
 }
 
-func _GigService_ClientStatutUpdate_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+func _GigService_CleentUpdatePendingStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(OrderByIDReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GigServiceServer).CleentUpdatePendingStatus(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: GigService_CleentUpdatePendingStatus_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GigServiceServer).CleentUpdatePendingStatus(ctx, req.(*OrderByIDReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _GigService_ClientUpdateDoneStatus_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
 	in := new(OrderIDReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
 	if interceptor == nil {
-		return srv.(GigServiceServer).ClientStatutUpdate(ctx, in)
+		return srv.(GigServiceServer).ClientUpdateDoneStatus(ctx, in)
 	}
 	info := &grpc.UnaryServerInfo{
 		Server:     srv,
-		FullMethod: GigService_ClientStatutUpdate_FullMethodName,
+		FullMethod: GigService_ClientUpdateDoneStatus_FullMethodName,
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(GigServiceServer).ClientStatutUpdate(ctx, req.(*OrderIDReq))
+		return srv.(GigServiceServer).ClientUpdateDoneStatus(ctx, req.(*OrderIDReq))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -902,8 +936,12 @@ var GigService_ServiceDesc = grpc.ServiceDesc{
 			Handler:    _GigService_GetOrderByID_Handler,
 		},
 		{
-			MethodName: "ClientStatutUpdate",
-			Handler:    _GigService_ClientStatutUpdate_Handler,
+			MethodName: "CleentUpdatePendingStatus",
+			Handler:    _GigService_CleentUpdatePendingStatus_Handler,
+		},
+		{
+			MethodName: "ClientUpdateDoneStatus",
+			Handler:    _GigService_ClientUpdateDoneStatus_Handler,
 		},
 		{
 			MethodName: "GetAllGig",
