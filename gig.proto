@@ -34,7 +34,7 @@ message GigIDreq{
 }
 
 message GetGigRes{
-    repeated Gig gigs = 1;
+  Gig gigs = 1;
 }
 
 message GetAllGigRes{
