@@ -25,6 +25,31 @@ service GigService {
     rpc GetAllOrders (AllOrdersReq) returns (AllOrdersRes);
     rpc GetOrderByID (OrderByIDReq) returns (OrderDetail);
     rpc ClientStatutUpdate (OrderIDReq) returns (CommonGigRes);
+    rpc GetAllGig (GigReq) returns (GetAllGigRes);
+    rpc GetGigByID (GigIDreq)returns(GetGigRes);
+}
+
+message GigIDreq{
+    uint64 gig_id=1;
+}
+
+message GetGigRes{
+    repeated Gig gigs = 1;
+}
+
+message GetAllGigRes{
+    repeated GigCatlog gigs=1;
+}
+
+message GigCatlog{
+    uint64 gig_id=1;
+    string title=4;
+    string image=2;
+    int64 amount =3;
+}
+
+message GigReq{
+    uint64 user_id=1;
 }
 
 message OrderIDReq{
