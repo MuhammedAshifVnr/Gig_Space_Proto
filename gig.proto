@@ -28,6 +28,11 @@ service GigService {
     rpc ClientUpdateDoneStatus (OrderIDReq) returns (CommonGigRes);
     rpc GetAllGig (GigReq) returns (GetAllGigRes);
     rpc GetGigByID (GigIDreq)returns(GetGigRes);
+    rpc GetFreelancerIDByOrder(OrderByIDReq) returns (UserIDRes);
+}
+
+message UserIDRes{
+    uint64 user_id=1;
 }
 
 message GigIDreq{

@@ -42,6 +42,7 @@ const (
 	GigService_ClientUpdateDoneStatus_FullMethodName    = "/gig.GigService/ClientUpdateDoneStatus"
 	GigService_GetAllGig_FullMethodName                 = "/gig.GigService/GetAllGig"
 	GigService_GetGigByID_FullMethodName                = "/gig.GigService/GetGigByID"
+	GigService_GetFreelancerIDByOrder_FullMethodName    = "/gig.GigService/GetFreelancerIDByOrder"
 )
 
 // GigServiceClient is the client API for GigService service.
@@ -71,6 +72,7 @@ type GigServiceClient interface {
 	ClientUpdateDoneStatus(ctx context.Context, in *OrderIDReq, opts ...grpc.CallOption) (*CommonGigRes, error)
 	GetAllGig(ctx context.Context, in *GigReq, opts ...grpc.CallOption) (*GetAllGigRes, error)
 	GetGigByID(ctx context.Context, in *GigIDreq, opts ...grpc.CallOption) (*GetGigRes, error)
+	GetFreelancerIDByOrder(ctx context.Context, in *OrderByIDReq, opts ...grpc.CallOption) (*UserIDRes, error)
 }
 
 type gigServiceClient struct {
@@ -311,6 +313,16 @@ func (c *gigServiceClient) GetGigByID(ctx context.Context, in *GigIDreq, opts ..
 	return out, nil
 }
 
+func (c *gigServiceClient) GetFreelancerIDByOrder(ctx context.Context, in *OrderByIDReq, opts ...grpc.CallOption) (*UserIDRes, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(UserIDRes)
+	err := c.cc.Invoke(ctx, GigService_GetFreelancerIDByOrder_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // GigServiceServer is the server API for GigService service.
 // All implementations must embed UnimplementedGigServiceServer
 // for forward compatibility.
@@ -338,6 +350,7 @@ type GigServiceServer interface {
 	ClientUpdateDoneStatus(context.Context, *OrderIDReq) (*CommonGigRes, error)
 	GetAllGig(context.Context, *GigReq) (*GetAllGigRes, error)
 	GetGigByID(context.Context, *GigIDreq) (*GetGigRes, error)
+	GetFreelancerIDByOrder(context.Context, *OrderByIDReq) (*UserIDRes, error)
 	mustEmbedUnimplementedGigServiceServer()
 }
 
@@ -416,6 +429,9 @@ func (UnimplementedGigServiceServer) GetAllGig(context.Context, *GigReq) (*GetAl
 }
 func (UnimplementedGigServiceServer) GetGigByID(context.Context, *GigIDreq) (*GetGigRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetGigByID not implemented")
+}
+func (UnimplementedGigServiceServer) GetFreelancerIDByOrder(context.Context, *OrderByIDReq) (*UserIDRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method GetFreelancerIDByOrder not implemented")
 }
 func (UnimplementedGigServiceServer) mustEmbedUnimplementedGigServiceServer() {}
 func (UnimplementedGigServiceServer) testEmbeddedByValue()                    {}
@@ -852,6 +868,24 @@ func _GigService_GetGigByID_Handler(srv interface{}, ctx context.Context, dec fu
 	return interceptor(ctx, in, info, handler)
 }
 
+func _GigService_GetFreelancerIDByOrder_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(OrderByIDReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GigServiceServer).GetFreelancerIDByOrder(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: GigService_GetFreelancerIDByOrder_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GigServiceServer).GetFreelancerIDByOrder(ctx, req.(*OrderByIDReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // GigService_ServiceDesc is the grpc.ServiceDesc for GigService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -950,6 +984,10 @@ var GigService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetGigByID",
 			Handler:    _GigService_GetGigByID_Handler,
+		},
+		{
+			MethodName: "GetFreelancerIDByOrder",
+			Handler:    _GigService_GetFreelancerIDByOrder_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
