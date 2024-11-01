@@ -22,6 +22,38 @@ service GigService {
     rpc RejectRequest(RejectReq) returns (CommonGigRes);
     rpc AdminOrderController (EmptyGigReq) returns (AdOrderController);
     rpc AdOrderRefund (AdRefundReq) returns (CommonGigRes);
+    rpc GetAllOrders (AllOrdersReq) returns (AllOrdersRes);
+    rpc GetOrderByID (OrderByIDReq) returns (OrderDetail);
+}
+
+message OrderDetail{
+    string order_id=1;
+    uint64 gig_id=2;
+    string status=3;
+    uint64 client_id=4;
+    uint64 frelancer_id=5;
+    int64 amount=6;
+    string last_updated=7;
+    string order_created=8;
+}
+
+message OrderByIDReq{
+    string order_id=1;
+}
+
+message AllOrdersRes{
+    repeated OrderCatlog orders=1;
+    repeated OrderCatlog c_orders=2;
+}
+
+message OrderCatlog{
+    string order_id=1;
+    uint64 gig_id=2;
+    string status=3;
+}
+
+message AllOrdersReq{
+    uint64 user_id =1;
 }
 
 message AdRefundReq{
