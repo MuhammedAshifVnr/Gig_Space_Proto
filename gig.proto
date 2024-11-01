@@ -29,6 +29,13 @@ service GigService {
     rpc GetAllGig (GigReq) returns (GetAllGigRes);
     rpc GetGigByID (GigIDreq)returns(GetGigRes);
     rpc GetFreelancerIDByOrder(OrderByIDReq) returns (UserIDRes);
+    rpc AdOrderCheck (EmptyGigReq) returns (AdOrderController);
+    rpc AdPaymentTransfer(PaymentTransferReq) returns (CommonGigRes);
+}
+
+message PaymentTransferReq{
+    string order_id=1;
+    uint64 freelancer_id=2;
 }
 
 message UserIDRes{

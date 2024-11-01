@@ -43,6 +43,8 @@ const (
 	GigService_GetAllGig_FullMethodName                 = "/gig.GigService/GetAllGig"
 	GigService_GetGigByID_FullMethodName                = "/gig.GigService/GetGigByID"
 	GigService_GetFreelancerIDByOrder_FullMethodName    = "/gig.GigService/GetFreelancerIDByOrder"
+	GigService_AdOrderCheck_FullMethodName              = "/gig.GigService/AdOrderCheck"
+	GigService_AdPaymentTransfer_FullMethodName         = "/gig.GigService/AdPaymentTransfer"
 )
 
 // GigServiceClient is the client API for GigService service.
@@ -73,6 +75,8 @@ type GigServiceClient interface {
 	GetAllGig(ctx context.Context, in *GigReq, opts ...grpc.CallOption) (*GetAllGigRes, error)
 	GetGigByID(ctx context.Context, in *GigIDreq, opts ...grpc.CallOption) (*GetGigRes, error)
 	GetFreelancerIDByOrder(ctx context.Context, in *OrderByIDReq, opts ...grpc.CallOption) (*UserIDRes, error)
+	AdOrderCheck(ctx context.Context, in *EmptyGigReq, opts ...grpc.CallOption) (*AdOrderController, error)
+	AdPaymentTransfer(ctx context.Context, in *PaymentTransferReq, opts ...grpc.CallOption) (*CommonGigRes, error)
 }
 
 type gigServiceClient struct {
@@ -323,6 +327,26 @@ func (c *gigServiceClient) GetFreelancerIDByOrder(ctx context.Context, in *Order
 	return out, nil
 }
 
+func (c *gigServiceClient) AdOrderCheck(ctx context.Context, in *EmptyGigReq, opts ...grpc.CallOption) (*AdOrderController, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(AdOrderController)
+	err := c.cc.Invoke(ctx, GigService_AdOrderCheck_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *gigServiceClient) AdPaymentTransfer(ctx context.Context, in *PaymentTransferReq, opts ...grpc.CallOption) (*CommonGigRes, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(CommonGigRes)
+	err := c.cc.Invoke(ctx, GigService_AdPaymentTransfer_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // GigServiceServer is the server API for GigService service.
 // All implementations must embed UnimplementedGigServiceServer
 // for forward compatibility.
@@ -351,6 +375,8 @@ type GigServiceServer interface {
 	GetAllGig(context.Context, *GigReq) (*GetAllGigRes, error)
 	GetGigByID(context.Context, *GigIDreq) (*GetGigRes, error)
 	GetFreelancerIDByOrder(context.Context, *OrderByIDReq) (*UserIDRes, error)
+	AdOrderCheck(context.Context, *EmptyGigReq) (*AdOrderController, error)
+	AdPaymentTransfer(context.Context, *PaymentTransferReq) (*CommonGigRes, error)
 	mustEmbedUnimplementedGigServiceServer()
 }
 
@@ -432,6 +458,12 @@ func (UnimplementedGigServiceServer) GetGigByID(context.Context, *GigIDreq) (*Ge
 }
 func (UnimplementedGigServiceServer) GetFreelancerIDByOrder(context.Context, *OrderByIDReq) (*UserIDRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetFreelancerIDByOrder not implemented")
+}
+func (UnimplementedGigServiceServer) AdOrderCheck(context.Context, *EmptyGigReq) (*AdOrderController, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AdOrderCheck not implemented")
+}
+func (UnimplementedGigServiceServer) AdPaymentTransfer(context.Context, *PaymentTransferReq) (*CommonGigRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method AdPaymentTransfer not implemented")
 }
 func (UnimplementedGigServiceServer) mustEmbedUnimplementedGigServiceServer() {}
 func (UnimplementedGigServiceServer) testEmbeddedByValue()                    {}
@@ -886,6 +918,42 @@ func _GigService_GetFreelancerIDByOrder_Handler(srv interface{}, ctx context.Con
 	return interceptor(ctx, in, info, handler)
 }
 
+func _GigService_AdOrderCheck_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(EmptyGigReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GigServiceServer).AdOrderCheck(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: GigService_AdOrderCheck_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GigServiceServer).AdOrderCheck(ctx, req.(*EmptyGigReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _GigService_AdPaymentTransfer_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PaymentTransferReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(GigServiceServer).AdPaymentTransfer(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: GigService_AdPaymentTransfer_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(GigServiceServer).AdPaymentTransfer(ctx, req.(*PaymentTransferReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // GigService_ServiceDesc is the grpc.ServiceDesc for GigService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -988,6 +1056,14 @@ var GigService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetFreelancerIDByOrder",
 			Handler:    _GigService_GetFreelancerIDByOrder_Handler,
+		},
+		{
+			MethodName: "AdOrderCheck",
+			Handler:    _GigService_AdOrderCheck_Handler,
+		},
+		{
+			MethodName: "AdPaymentTransfer",
+			Handler:    _GigService_AdPaymentTransfer_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},
