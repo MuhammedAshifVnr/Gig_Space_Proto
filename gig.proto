@@ -24,7 +24,7 @@ service GigService {
     rpc AdOrderRefund (AdRefundReq) returns (CommonGigRes);
     rpc GetAllOrders (AllOrdersReq) returns (AllOrdersRes);
     rpc GetOrderByID (OrderByIDReq) returns (OrderDetail);
-    rpc CleentUpdatePendingStatus(OrderByIDReq) returns(CommonGigRes);
+    rpc ClientUpdatePendingStatus(OrderIDReq) returns(CommonGigRes);
     rpc ClientUpdateDoneStatus (OrderIDReq) returns (CommonGigRes);
     rpc GetAllGig (GigReq) returns (GetAllGigRes);
     rpc GetGigByID (GigIDreq)returns(GetGigRes);
