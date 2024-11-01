@@ -30,6 +30,7 @@ service GigService {
 message OrderIDReq{
     string order_id=1;
     uint64 client_id=2;
+    string status=3;
 }
 
 message OrderDetail{
