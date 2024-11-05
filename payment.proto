@@ -19,7 +19,15 @@ service PaymentService {
     rpc CreateBankAccount(CreaBankReq) returns (PaymentCommonRes);
     rpc Withdrawal (WithdrawalReq) returns (PaymentCommonRes);
     rpc AddWalletRefund (AddRefund) returns (PaymentCommonRes);
+    rpc ChangeWalletPin (ChangePinReq) returns (PaymentCommonRes);
 }
+
+message ChangePinReq{
+    uint64 user_id=1;
+    string current_pin=2;
+    string new_pin=3;
+}
+
 message AddRefund{
     uint64 user_id=1;
     int64 amount=2;
