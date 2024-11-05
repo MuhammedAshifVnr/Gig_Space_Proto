@@ -34,6 +34,8 @@ const (
 	PaymentService_Withdrawal_FullMethodName          = "/payment.PaymentService/Withdrawal"
 	PaymentService_AddWalletRefund_FullMethodName     = "/payment.PaymentService/AddWalletRefund"
 	PaymentService_ChangeWalletPin_FullMethodName     = "/payment.PaymentService/ChangeWalletPin"
+	PaymentService_ForgotWalletPin_FullMethodName     = "/payment.PaymentService/ForgotWalletPin"
+	PaymentService_ResetWalletPin_FullMethodName      = "/payment.PaymentService/ResetWalletPin"
 )
 
 // PaymentServiceClient is the client API for PaymentService service.
@@ -55,6 +57,8 @@ type PaymentServiceClient interface {
 	Withdrawal(ctx context.Context, in *WithdrawalReq, opts ...grpc.CallOption) (*PaymentCommonRes, error)
 	AddWalletRefund(ctx context.Context, in *AddRefund, opts ...grpc.CallOption) (*PaymentCommonRes, error)
 	ChangeWalletPin(ctx context.Context, in *ChangePinReq, opts ...grpc.CallOption) (*PaymentCommonRes, error)
+	ForgotWalletPin(ctx context.Context, in *ForgotPinReq, opts ...grpc.CallOption) (*PaymentCommonRes, error)
+	ResetWalletPin(ctx context.Context, in *PinResetReq, opts ...grpc.CallOption) (*PaymentCommonRes, error)
 }
 
 type paymentServiceClient struct {
@@ -215,6 +219,26 @@ func (c *paymentServiceClient) ChangeWalletPin(ctx context.Context, in *ChangePi
 	return out, nil
 }
 
+func (c *paymentServiceClient) ForgotWalletPin(ctx context.Context, in *ForgotPinReq, opts ...grpc.CallOption) (*PaymentCommonRes, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(PaymentCommonRes)
+	err := c.cc.Invoke(ctx, PaymentService_ForgotWalletPin_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *paymentServiceClient) ResetWalletPin(ctx context.Context, in *PinResetReq, opts ...grpc.CallOption) (*PaymentCommonRes, error) {
+	cOpts := append([]grpc.CallOption{grpc.StaticMethod()}, opts...)
+	out := new(PaymentCommonRes)
+	err := c.cc.Invoke(ctx, PaymentService_ResetWalletPin_FullMethodName, in, out, cOpts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
 // PaymentServiceServer is the server API for PaymentService service.
 // All implementations must embed UnimplementedPaymentServiceServer
 // for forward compatibility.
@@ -234,6 +258,8 @@ type PaymentServiceServer interface {
 	Withdrawal(context.Context, *WithdrawalReq) (*PaymentCommonRes, error)
 	AddWalletRefund(context.Context, *AddRefund) (*PaymentCommonRes, error)
 	ChangeWalletPin(context.Context, *ChangePinReq) (*PaymentCommonRes, error)
+	ForgotWalletPin(context.Context, *ForgotPinReq) (*PaymentCommonRes, error)
+	ResetWalletPin(context.Context, *PinResetReq) (*PaymentCommonRes, error)
 	mustEmbedUnimplementedPaymentServiceServer()
 }
 
@@ -288,6 +314,12 @@ func (UnimplementedPaymentServiceServer) AddWalletRefund(context.Context, *AddRe
 }
 func (UnimplementedPaymentServiceServer) ChangeWalletPin(context.Context, *ChangePinReq) (*PaymentCommonRes, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method ChangeWalletPin not implemented")
+}
+func (UnimplementedPaymentServiceServer) ForgotWalletPin(context.Context, *ForgotPinReq) (*PaymentCommonRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ForgotWalletPin not implemented")
+}
+func (UnimplementedPaymentServiceServer) ResetWalletPin(context.Context, *PinResetReq) (*PaymentCommonRes, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method ResetWalletPin not implemented")
 }
 func (UnimplementedPaymentServiceServer) mustEmbedUnimplementedPaymentServiceServer() {}
 func (UnimplementedPaymentServiceServer) testEmbeddedByValue()                        {}
@@ -580,6 +612,42 @@ func _PaymentService_ChangeWalletPin_Handler(srv interface{}, ctx context.Contex
 	return interceptor(ctx, in, info, handler)
 }
 
+func _PaymentService_ForgotWalletPin_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(ForgotPinReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PaymentServiceServer).ForgotWalletPin(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PaymentService_ForgotWalletPin_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PaymentServiceServer).ForgotWalletPin(ctx, req.(*ForgotPinReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _PaymentService_ResetWalletPin_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(PinResetReq)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(PaymentServiceServer).ResetWalletPin(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: PaymentService_ResetWalletPin_FullMethodName,
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(PaymentServiceServer).ResetWalletPin(ctx, req.(*PinResetReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
 // PaymentService_ServiceDesc is the grpc.ServiceDesc for PaymentService service.
 // It's only intended for direct use with grpc.RegisterService,
 // and not to be introspected or modified (even as a copy)
@@ -646,6 +714,14 @@ var PaymentService_ServiceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "ChangeWalletPin",
 			Handler:    _PaymentService_ChangeWalletPin_Handler,
+		},
+		{
+			MethodName: "ForgotWalletPin",
+			Handler:    _PaymentService_ForgotWalletPin_Handler,
+		},
+		{
+			MethodName: "ResetWalletPin",
+			Handler:    _PaymentService_ResetWalletPin_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

@@ -20,6 +20,17 @@ service PaymentService {
     rpc Withdrawal (WithdrawalReq) returns (PaymentCommonRes);
     rpc AddWalletRefund (AddRefund) returns (PaymentCommonRes);
     rpc ChangeWalletPin (ChangePinReq) returns (PaymentCommonRes);
+    rpc ForgotWalletPin (ForgotPinReq) returns (PaymentCommonRes);
+    rpc ResetWalletPin (PinResetReq) returns (PaymentCommonRes);
+}
+
+message ForgotPinReq{
+    uint64 user_id=1;
+}
+
+message PinResetReq{
+    string otp=1;
+    string pin=2;
 }
 
 message ChangePinReq{
