@@ -6,6 +6,18 @@ option go_package ="./proto";
 
 service ChatService {
     rpc GetChat(GetChatReq)returns (GetChatRes);
+    rpc SendOflineNotification (NotifiyReq) returns (ChatCommonRes);
+}
+
+message NotifiyReq{
+    uint32 sender_id =1;
+    uint32 recipient_id=2;
+}
+
+message ChatCommonRes{
+    string message=1;
+    int64 status =2;
+    string error =3;
 }
 
 message GetChatRes{
